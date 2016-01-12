@@ -1,7 +1,3 @@
-/**
- * Created by PIZn on 16/1/12.
- */
-
 import storage from './localStorage';
 
 const authorization = {

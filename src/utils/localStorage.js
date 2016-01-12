@@ -1,7 +1,3 @@
-/**
- * Created by PIZn on 16/1/11.
- */
-
 const storageFactory = (storage) => {
   return {
     get: (value) => {
