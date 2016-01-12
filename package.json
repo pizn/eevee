@@ -84,5 +84,9 @@
     "test": "npm run base-test && npm run lint",
     "base-test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony --reporter spec ./test/test-*.js",
     "validate": "npm ls"
+  },
+  "theme": {
+    "primary-color": "#7c94ff",
+    "link-color": "#7c94ff"
   }
 }
