@@ -60,6 +60,7 @@
     "nodemon": "~1.4.1",
     "null-loader": "~0.1.1",
     "object-assign": "~2.0.0",
+    "rc-form": "~0.7.3",
     "react": "~0.14.3",
     "react-dom": "~0.14.3",
     "react-hot-loader": "~1.2.9",
