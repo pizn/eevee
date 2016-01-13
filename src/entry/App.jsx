@@ -23,7 +23,6 @@ const store = configureStore();
 function requireAuth(nextState, replace) {
   if (!authorization.loggedIn()) {
     replace({ nextPathname: nextState.location.pathname }, '/login', nextState.location.query);
-  } else {
   }
 }
 
