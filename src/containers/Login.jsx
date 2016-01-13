@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import * as actions from '../actions/LarkActions';
+import * as actions from '../actions/LeafActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Form from '../components/Login/Form';
 
 @connect(state => ({
-  auth: state.larkAuth,
+  auth: state.auth
 }))
 
 class Login extends Component {
@@ -17,21 +17,26 @@ class Login extends Component {
     history: PropTypes.object,
   }
 
-  login(auth) {
-    const { dispatch, history } = this.props;
+  constructor(props, context) {
+    super(props, context);
+  }
+
+  handleSubmit(data) {
+    const { dispatch, history, auth } = this.props;
     dispatch(actions.login({
-      email: auth.email,
-      pass: auth.pass,
-    }));
-    history.pushState(null, '/');
+      email: data.email,
+      pass: data.pass,
+    })).then(() => {
+      console.log(this.context)
+    })
   }
 
   render() {
-    const { dispatch } = this.props;
+    const { dispatch, auth } = this.props;
     const Actions = bindActionCreators(actions, dispatch);
     return (
       <div actions={Actions}>
-        <Form onSubmit={this.login.bind(this)} />
+        <Form onSubmit={this.handleSubmit.bind(this)} auth={auth}/>
       </div>
     );
   }

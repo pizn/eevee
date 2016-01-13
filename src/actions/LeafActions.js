@@ -1,9 +1,9 @@
-import * as types from '../constants/LarkActionTypes';
+import * as types from '../constants/LeafActionTypes';
 import authorization from '../utils/authorization';
 
 export function login(auth) {
   return {
-    type: types.AUTH_LOGIN,
+    types: [types.AUTH_LOGIN, types.AUTH_LOGIN_SUCCESS, types.AUTH_LOGIN_FAIL],
     promise: authorization.login(auth),
     auth,
   };

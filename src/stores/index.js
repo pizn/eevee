@@ -1,7 +1,10 @@
-import { createStore, combineReducers, compose } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import promiseMiddleware from '../middleware/promiseMiddleware';
 import * as reducers from '../reducers/index';
-
-const finalCreateStore = compose(createStore);
+import thunk from 'redux-thunk';
+const finalCreateStore = compose(
+  applyMiddleware(thunk, promiseMiddleware)
+)(createStore);
 
 const larkReducer = combineReducers(reducers);
 

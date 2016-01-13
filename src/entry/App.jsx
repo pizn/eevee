@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Router, Route, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute, Redirect } from 'react-router';
 import createHistory from 'history/lib/createHashHistory';
 
 import configureStore from '../stores';
@@ -29,11 +29,9 @@ function requireAuth(nextState, replace) {
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={Leaf}>
-        <IndexRoute component={Desktop} onEnter={requireAuth} />
-        <Route path="desktop" component={Desktop} onEnter={requireAuth} />
-        <Route path="login" component={Login} />
-      </Route>
+      <Redirect from="/" to="desktop" />
+      <Route path="desktop" component={Desktop} onEnter={requireAuth} />
+      <Route path="login" component={Login} />
     </Router>
   </Provider>,
   document.getElementById('leaf')

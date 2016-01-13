@@ -1,1 +1,1 @@
-export { default as larkAuth } from './larkAuth';
+export { default as auth } from './Auth';

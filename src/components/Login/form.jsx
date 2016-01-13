@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Col, Form, Button, Input } from 'antd';
+import { Row, Col, Form, Button, Input, Icon, message } from 'antd';
 import { createForm } from 'rc-form';
 
 const FormItem = Form.Item;
@@ -20,13 +20,13 @@ class loginForm extends Component {
     const { onSubmit } = this.props;
     this.props.form.validateFields((error, values) => {
       if (!error) {
-        onSubmit(values);
+        onSubmit(values)
       }
     });
   }
 
   render() {
-    const { form } = this.props;
+    const { form, auth } = this.props;
     const { getFieldProps, getFieldError } = form;
 
     return (
@@ -61,7 +61,9 @@ class loginForm extends Component {
         </FormItem>
         <Row>
           <Col span="16" offset="8">
-            <Button type="primary" htmlType="submit" onClick={this.onSubmit.bind(this)}>确定</Button>
+            <Button type="primary" onClick={this.onSubmit.bind(this)} loading={!!auth.loading}>
+              登 录
+            </Button>
           </Col>
         </Row>
       </Form>

@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import * as actions from '../actions/LarkActions';
+import * as actions from '../actions/LeafActions';
 import { connect } from 'react-redux';
 import Github from 'github-api';
 
 import Head from '../components/Desktop/Head';
 
 @connect(state => ({
-  auth: state.larkAuth,
+  auth: state.auth,
 }))
 
 class Desktop extends Component {

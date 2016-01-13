@@ -6,6 +6,10 @@ class Leaf extends Component {
     children: PropTypes.object,
   }
 
+  constructor(props, context) {
+    super(props, context);
+  }
+
   render() {
     return (
       <div>{this.props.children}</div>
