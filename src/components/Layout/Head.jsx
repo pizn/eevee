@@ -10,10 +10,10 @@ class Head extends Component {
   render() {
     const { logout } = this.props;
     return (
-      <div className="lark-head">
-        <Row className="lark-head-wrap">
+      <div className="leaf-head">
+        <Row className="leaf-head-wrap">
           <Col span="8">
-            <div className="logo">云雀</div>
+            <div className="logo">叶精灵</div>
           </Col>
           <Col span="16">
             <a onClick={logout}>登出</a>

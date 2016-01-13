@@ -22,7 +22,7 @@ class Lark extends Component {
 
   render() {
     return (
-      <div className="lark">
+      <div className="leaf">
         <Head
           {...this.props}
           logout={this.logout.bind(this)}
