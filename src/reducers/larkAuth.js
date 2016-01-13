@@ -1,9 +1,12 @@
 import { AUTH_LOGIN, AUTH_LOGOUT } from '../constants/LarkActionTypes';
+import storage from '../utils/localStorage';
+
+const _leafAdmin = storage.get('_leafAdmin');
 
 const initialState = {
-  username: '',
-  password: '',
-  loggedIn: false,
+  email: _leafAdmin && _leafAdmin.email,
+  pass: _leafAdmin && _leafAdmin.pass,
+  loggedIn: _leafAdmin && _leafAdmin.loggedIn,
 };
 
 export default function larkAuth(state = initialState, action) {

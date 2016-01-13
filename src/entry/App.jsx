@@ -7,7 +7,7 @@ import createHistory from 'history/lib/createHashHistory';
 import configureStore from '../stores';
 import { Provider } from 'react-redux';
 
-import Lark from './Lark';
+import Leaf from './Leaf';
 import Desktop from '../containers/Desktop';
 import Login from '../containers/Login';
 
@@ -23,13 +23,14 @@ const store = configureStore();
 function requireAuth(nextState, replace) {
   if (!authorization.loggedIn()) {
     replace({ nextPathname: nextState.location.pathname }, '/login', nextState.location.query);
+  } else {
   }
 }
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={Lark}>
+      <Route path="/" component={Leaf}>
         <IndexRoute component={Desktop} onEnter={requireAuth} />
         <Route path="desktop" component={Desktop} onEnter={requireAuth} />
         <Route path="login" component={Login} />
