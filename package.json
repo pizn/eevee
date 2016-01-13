@@ -55,6 +55,7 @@
     "less": "~2.5.0",
     "less-loader": "~2.2.0",
     "lodash": "~3.10.1",
+    "mocha": "~2.3.4",
     "moment": "~2.10.6",
     "nodemon": "~1.4.1",
     "null-loader": "~0.1.1",
