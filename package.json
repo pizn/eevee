@@ -1,6 +1,19 @@
 {
-  "name": "antd-demo",
-  "version": "1.0.0",
+  "name": "leafeon",
+  "version": "0.0.1",
+  "description": "基于 Github Page 的博客在线编辑平台",
+  "keywords": [
+    "page",
+    "jekyll"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pizn/leafeon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pizn/leafeon.git/issues"
+  },
+  "license": "MIT",
   "entry": {
     "index": "./src/entry/App.jsx"
   },

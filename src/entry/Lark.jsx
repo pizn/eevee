@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import * as actions from '../actions/LarkActions';
 import { connect } from 'react-redux';
 
+import Head from '../components/Layout/Head';
+
 @connect(state => ({
   auth: state.larkAuth,
 }))
@@ -21,7 +23,10 @@ class Lark extends Component {
   render() {
     return (
       <div className="lark">
-        <a onClick={this.logout.bind(this)} >登出</a>
+        <Head
+          {...this.props}
+          logout={this.logout.bind(this)}
+        />
         {this.props.children}
       </div>
     );
