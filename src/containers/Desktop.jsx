@@ -31,11 +31,11 @@ class Desktop extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(actions.updateUserInfo());
-
-    
-
+    const { dispatch, user } = this.props;
+    console.log(user);
+    if (!user.loaded) {
+      dispatch(actions.updateUserInfo());
+    }
     const ops = {
       type: 'owner',
       sort: 'updated',

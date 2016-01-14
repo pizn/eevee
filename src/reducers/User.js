@@ -1,4 +1,4 @@
-import { LOAD_USER_INFO, LOAD_USER_INFO_SUCCESS, LOAD_USER_INFO_FAIL } from '../constants/LeafActionTypes';
+import { LOAD_USER_INFO, LOAD_USER_INFO_SUCCESS, LOAD_USER_INFO_FAIL, UPDATE_USER_INFO } from '../constants/LeafActionTypes';
 
 const initialState = {
   loaded: false,
@@ -27,6 +27,14 @@ export default function user(state = initialState, action) {
         loading: false,
         loaded: false,
         error: action.error,
+      };
+    case UPDATE_USER_INFO:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        data: action.data,
+        error: null,
       };
     default:
       return state;

@@ -17,9 +17,16 @@ export function logout() {
   };
 }
 
-export function updateUserInfo() {
-  return {
-    types: [types.LOAD_USER_INFO, types.LOAD_USER_INFO_SUCCESS, types.LOAD_USER_INFO_FAIL],
-    promise: user.getInfo(),
+export function updateUserInfo(data) {
+  if (data) {
+    return {
+      type: types.UPDATE_USER_INFO,
+      data,
+    }
+  } else {
+    return {
+      types: [types.LOAD_USER_INFO, types.LOAD_USER_INFO_SUCCESS, types.LOAD_USER_INFO_FAIL],
+      promise: user.getInfo(),
+    }
   }
 }
