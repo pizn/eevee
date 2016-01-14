@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 
 class Head extends Component {
 
@@ -8,7 +8,7 @@ class Head extends Component {
   }
 
   render() {
-    const { logout } = this.props;
+    const { logout, auth, user } = this.props;
     return (
       <div className="leaf-head">
         <Row className="leaf-head-wrap">
@@ -16,7 +16,7 @@ class Head extends Component {
             <div className="logo">叶精灵</div>
           </Col>
           <Col span="16">
-            <a onClick={logout}>登出</a>
+            <Button onClick={logout} >{user.data.login}</Button>
           </Col>
         </Row>
       </div>

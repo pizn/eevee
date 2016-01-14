@@ -11,7 +11,7 @@ import Leaf from './Leaf';
 import Desktop from '../containers/Desktop';
 import Login from '../containers/Login';
 
-import authorization from '../utils/authorization';
+import auth from '../services/auth';
 import '../common/lib';
 
 const history = createHistory({
@@ -21,7 +21,7 @@ const history = createHistory({
 const store = configureStore();
 
 function requireAuth(nextState, replace) {
-  if (!authorization.loggedIn()) {
+  if (!auth.loggedIn()) {
     replace({ nextPathname: nextState.location.pathname }, '/login', nextState.location.query);
   }
 }

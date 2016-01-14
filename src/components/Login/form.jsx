@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Col, Form, Button, Input, Icon, message } from 'antd';
+import { Row, Col, Form, Button, Input, Icon, Alert } from 'antd';
 import { createForm } from 'rc-form';
 
 const FormItem = Form.Item;
@@ -31,6 +31,9 @@ class loginForm extends Component {
 
     return (
       <Form horizontal>
+        {auth.error &&
+          <Alert message="错误提示的文案" type="error" showIcon />
+        }
         <FormItem
           label="账号："
           labelCol={{span: 8}}

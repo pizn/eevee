@@ -1,4 +1,4 @@
-import storage from './localStorage';
+import storage from '../utils/localStorage';
 import Github from 'github-api';
 
 const authorization = {
@@ -27,7 +27,11 @@ const authorization = {
   },
 
   logout() {
-    storage.remove('_leafAdmin');
+    console.log('logout');
+    return new Promise((resolve, reject) => {
+      storage.remove('_leafAdmin');
+      resolve();
+    });
   },
 
   loggedIn() {

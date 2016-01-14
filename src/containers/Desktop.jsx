@@ -3,10 +3,13 @@ import * as actions from '../actions/LeafActions';
 import { connect } from 'react-redux';
 import Github from 'github-api';
 
+import { Icon } from 'antd';
+
 import Head from '../components/Desktop/Head';
 
 @connect(state => ({
   auth: state.auth,
+  user: state.user,
 }))
 
 class Desktop extends Component {
@@ -28,11 +31,16 @@ class Desktop extends Component {
   }
 
   componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(actions.updateUserInfo());
+
+    
+
     const ops = {
-       type: 'owner',
-       sort: 'updated',
-       per_page: 100,
-       page: 1
+      type: 'owner',
+      sort: 'updated',
+      per_page: 100,
+      page: 1
     };
 
     this.user.repos(ops, (err, repos) => {
@@ -40,27 +48,39 @@ class Desktop extends Component {
         console.log(item.name);
       })
     });
-
-    this.user.show(null, (err, user) => {
-      console.log(user);
-    });
-
   }
 
   logout() {
     const { dispatch, history } = this.props;
-    dispatch(actions.logout());
-    history.pushState(null, '/login');
+
+    dispatch(actions.logout())
+    .then(() => {
+      history.pushState(null, '/login');
+    });
   }
 
   render() {
+    const { user } = this.props;
+    console.log(user);
     return (
       <div className="leaf">
         <Head
           {...this.props}
+          user={user}
           logout={this.logout.bind(this)}
         />
-        <div>1231313</div>
+        <div>
+          { user.loading &&
+            <Icon type="loading" />
+          }
+          { !user.loading &&
+            <div>
+              <img src={user.data.avatar_url} />
+              <span>{user.data.login}</span>
+              <span>{user.data.email}</span>
+            </div>
+          }
+        </div>
       </div>
     );
   }

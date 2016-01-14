@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import Form from '../components/Login/Form';
 
 @connect(state => ({
-  auth: state.auth
+  auth: state.auth,
+  user: state.user,
 }))
 
 class Login extends Component {
@@ -22,13 +23,20 @@ class Login extends Component {
   }
 
   handleSubmit(data) {
-    const { dispatch, history, auth } = this.props;
+    const { dispatch, history } = this.props;
     dispatch(actions.login({
       email: data.email,
       pass: data.pass,
     })).then(() => {
-      console.log(this.context)
-    })
+      const { auth } = this.props;
+      if (auth.loggedIn) {
+        dispatch(actions.updateUserInfo(auth.user));
+      } else {
+        return false;
+      }
+    }).then(() => {
+      history.pushState(null, '/')
+    });
   }
 
   render() {
