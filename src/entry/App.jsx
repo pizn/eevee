@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 
 import Leaf from './Leaf';
 import Desktop from '../containers/Desktop';
+import Post from '../containers/Post';
 import Login from '../containers/Login';
 
 import auth from '../services/auth';
@@ -31,6 +32,7 @@ ReactDOM.render(
     <Router history={history}>
       <Redirect from="/" to="desktop" />
       <Route path="desktop" component={Desktop} onEnter={requireAuth} />
+      <Route path="_posts/:name" component={Post} onEnter={requireAuth} />
       <Route path="login" component={Login} />
     </Router>
   </Provider>,

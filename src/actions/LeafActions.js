@@ -46,4 +46,16 @@ export function loadRepoTree(data) {
   }
 }
 
+export function readRepoTree(data) {
+  return {
+    types: [types.READ_REPO_TREE, types.READ_REPO_TREE_SUCCESS, types.READ_REPO_TREE_FAIL],
+    promise: repo.readTree(data.username, data.reponame, data.path),
+  }
+}
 
+export function readRepoBlob(data) {
+  return {
+    types: [types.READ_REPO_BLOB, types.READ_REPO_BLOB_SUCCESS, types.READ_REPO_BLOB_FAIL],
+    promise: repo.readBlob(data.username, data.reponame, data.path),
+  }
+}
