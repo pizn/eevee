@@ -6,10 +6,12 @@ import Github from 'github-api';
 import { Icon } from 'antd';
 
 import Head from '../components/Desktop/Head';
+import Aside from '../components/Desktop/Aside';
 
 @connect(state => ({
   auth: state.auth,
   user: state.user,
+  repoInfo: state.repoInfo,
 }))
 
 class Desktop extends Component {
@@ -32,7 +34,6 @@ class Desktop extends Component {
 
   componentDidMount() {
     const { dispatch, user } = this.props;
-    console.log(user);
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())
       .then(() => {
@@ -41,14 +42,8 @@ class Desktop extends Component {
           reponame: this.props.user.data.login + '.github.com',
         }
         dispatch(actions.loadRepoInfo(repo));
-      })
-      .then(() => {
-        const repo = {
-          username: this.props.user.data.login,
-          reponame: this.props.user.data.login + '.github.com',
-        }
         dispatch(actions.loadRepoTree(repo));
-      });
+      })
     }
   }
 
@@ -62,26 +57,23 @@ class Desktop extends Component {
   }
 
   render() {
-    const { user } = this.props;
-    console.log(user);
+    const { user, repoInfo } = this.props;
+    console.log(repoInfo);
     return (
       <div className="leaf">
-        <Head
-          {...this.props}
-          user={user}
-          logout={this.logout.bind(this)}
-        />
-        <div>
-          { user.loading &&
-            <Icon type="loading" />
-          }
-          { !user.loading &&
-            <div>
-              <img src={user.data.avatar_url} />
-              <span>{user.data.login}</span>
-              <span>{user.data.email}</span>
+        <div lassName="leaf-desktop">
+          <Aside
+            user={user}
+          />
+          <div className="leaf-desktop-main">
+            <div className="leaf-desktop-main-wrap">
+              <Head
+                logout={this.logout.bind(this)}
+                user={user}
+                repoInfo={repoInfo}
+              />
             </div>
-          }
+          </div>
         </div>
       </div>
     );

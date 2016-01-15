@@ -2,7 +2,7 @@
   width: 100%;
   height: auto;
   min-height: ~"calc(100vh)";
-  background: #dce1e6;
+  background: #f6f8fa;
 
   &-login {
     position: relative;
@@ -21,8 +21,23 @@
       &-head {
         border-radius: 10px 10px 0 0;
         padding: 16px 16px;
-        height: 150px;
-        background: @primary-color;
+        height: auto;
+
+        .head-logo {
+          margin: 0 auto;
+          background: url(https://t.alipayobjects.com/images/rmsweb/T14AVkXeJlXXXXXXXX.png) no-repeat 0 0;
+          width: 64px;
+          height: 64px;
+          background-size: 64px 64px;
+        }
+
+        .head-title {
+          font-size: 12px;
+          line-height: 32px;
+          color: #444;
+          text-align: center;
+          font-family: "Courier New", Courier, monospace;
+        }
       }
 
       &-form {
@@ -38,9 +53,113 @@
         }
       }
     }
+  }
+
+  &-desktop {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+
+    &-aside {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 300px;
+      background: #fff;
+      height: 100%;
+      box-shadow: 3px 0 8px rgba(0, 0, 0, 0.12);
+
+      .head {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 32px 0;
+
+        &-logo {
+          margin: 0 auto;
+          background: url(https://t.alipayobjects.com/images/rmsweb/T14AVkXeJlXXXXXXXX.png) no-repeat 0 0;
+          width: 64px;
+          height: 64px;
+          background-size: 64px 64px;
+        }
+
+        &-title {
+          font-size: 12px;
+          line-height: 32px;
+          color: #444;
+          text-align: center;
+          font-family: "Courier New", Courier, monospace;
+        }
+      }
+
+      .body {
+
+      }
+
+      .foot {
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        width: 100%;
 
 
+        .foot-user {
+          padding: 16px 24px;
+          cursor: pointer;
 
+          &-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 32px;
+            display: inline-block;
+          }
+
+          &-info {
+            display: inline-block;
+
+            .name {
+              font-size: 14px;
+              line-height: 20px;
+
+              .anticon {
+                font-size: 12px;
+                color: #999;
+              }
+            }
+            .email {
+              font-size: 12px;
+              line-height: 16px;
+              color: #999;
+            }
+          }
+
+          &:hover {
+            background: #f8f8f8;
+          }
+        }
+      }
+    }
+
+
+    &-main {
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      padding-left: 300px;
+
+      &-wrap {
+        padding: 0 48px;
+      }
+    }
+
+    &-head {
+      width: 100%;
+      padding: 32px 0;
+      border-bottom: 1px solid #e9e9e9;
+    }
 
   }
+
 }

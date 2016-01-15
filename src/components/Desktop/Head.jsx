@@ -8,14 +8,14 @@ class Head extends Component {
   }
 
   render() {
-    const { logout, auth, user } = this.props;
+    const { logout, user, repoInfo } = this.props;
     return (
-      <div className="leaf-head">
+      <div className="leaf-desktop-head">
         <Row className="leaf-head-wrap">
-          <Col span="8">
-            <div className="logo">叶精灵</div>
-          </Col>
           <Col span="16">
+            {repoInfo.data.name}
+          </Col>
+          <Col span="8">
             <Button onClick={logout} >{user.data.login}</Button>
           </Col>
         </Row>

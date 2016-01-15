@@ -103,7 +103,7 @@
     "validate": "npm ls"
   },
   "theme": {
-    "primary-color": "#7c94ff",
-    "link-color": "#7c94ff"
+    "primary-color": "#a1a9b2",
+    "link-color": "#a1a9b2"
   }
 }

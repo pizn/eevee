@@ -12,7 +12,7 @@ class Leaf extends Component {
 
   render() {
     return (
-      <div>{this.props.children}</div>
+      <div className="leaf">{this.props.children}</div>
     );
   }
 }
