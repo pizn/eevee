@@ -13,7 +13,6 @@ export default function user(state = initialState, action) {
         loading: true,
       };
     case LOAD_USER_INFO_SUCCESS:
-      console.log(action.result);
       return {
         ...state,
         loading: false,

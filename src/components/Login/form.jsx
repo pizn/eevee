@@ -3,6 +3,7 @@ import { Row, Col, Form, Button, Input, Icon, Alert } from 'antd';
 import { createForm } from 'rc-form';
 
 const FormItem = Form.Item;
+const InputGroup = Input.Group;
 
 class loginForm extends Component {
 
@@ -35,37 +36,43 @@ class loginForm extends Component {
           <Alert message="错误提示的文案" type="error" showIcon />
         }
         <FormItem
-          label="账号："
-          labelCol={{span: 8}}
-          wrapperCol={{span: 8}}
-          validateStatus={ getFieldError('email') ? 'error' : 'success' }
+          label=""
+          labelCol={{span: 0}}
+          wrapperCol={{span: 24}}
+          validateStatus={ getFieldError('email') ? 'error' : '' }
           required
           >
-          <Input type="text" name="email"
-            {...getFieldProps('email', { rules: [{ required: true }] })}
-          />
-          <Col span="24">
+          <div className="ant-input-group">
+            <div className="ant-input-group-addon"><Icon type="mail" /> 账号</div>
+            <input className="ant-input" type="text" size="large" name="email" autoComplete="off"
+              {...getFieldProps('email', { rules: [{ required: true }] })}
+            />
+          </div>
+          <Col span="19">
             <p className="ant-form-explain">{ getFieldError('email') ? getFieldError('email') + '' : '' }</p>
           </Col>
         </FormItem>
         <FormItem
-          label="密码："
-          labelCol={{span: 8}}
-          wrapperCol={{span: 8}}
-          validateStatus={ getFieldError('pass') ? 'error' : 'success' }
+          label=""
+          labelCol={{span: 0}}
+          wrapperCol={{span: 24}}
+          validateStatus={ getFieldError('pass') ? 'error' : '' }
           required
           >
-          <Input type="password" name="pass"
-            {...getFieldProps('pass', { rules: [{ required: true }] })}
-          />
+          <div className="ant-input-group">
+            <div className="ant-input-group-addon"><Icon type="lock" /> 密码</div>
+            <input className="ant-input" size="large" type="password" name="pass"
+              {...getFieldProps('pass', { rules: [{ required: true }] })}
+            />
+          </div>
           <Col span="24">
             <p className="ant-form-explain">{ getFieldError('pass') ? getFieldError('pass') + '' : '' }</p>
           </Col>
         </FormItem>
         <Row>
-          <Col span="16" offset="8">
-            <Button type="primary" onClick={this.onSubmit.bind(this)} loading={!!auth.loading}>
-              登 录
+          <Col span="24">
+            <Button type="primary" size="large" htmlType="submit" onClick={this.onSubmit.bind(this)} loading={!!auth.loading}>
+              <Icon type="github" /> 登 录
             </Button>
           </Col>
         </Row>

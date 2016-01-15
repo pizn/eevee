@@ -34,20 +34,22 @@ class Desktop extends Component {
     const { dispatch, user } = this.props;
     console.log(user);
     if (!user.loaded) {
-      dispatch(actions.updateUserInfo());
-    }
-    const ops = {
-      type: 'owner',
-      sort: 'updated',
-      per_page: 100,
-      page: 1
-    };
-
-    this.user.repos(ops, (err, repos) => {
-      repos.map(item => {
-        console.log(item.name);
+      dispatch(actions.updateUserInfo())
+      .then(() => {
+        const repo = {
+          username: this.props.user.data.login,
+          reponame: this.props.user.data.login + '.github.com',
+        }
+        dispatch(actions.loadRepoInfo(repo));
       })
-    });
+      .then(() => {
+        const repo = {
+          username: this.props.user.data.login,
+          reponame: this.props.user.data.login + '.github.com',
+        }
+        dispatch(actions.loadRepoTree(repo));
+      });
+    }
   }
 
   logout() {

@@ -1,6 +1,7 @@
 import * as types from '../constants/LeafActionTypes';
 import auth from '../services/auth';
 import user from '../services/user';
+import repo from '../services/repo';
 
 export function login(data) {
   return {
@@ -30,3 +31,19 @@ export function updateUserInfo(data) {
     }
   }
 }
+
+export function loadRepoInfo(data) {
+  return {
+    types: [types.LOAD_REPO_INFO, types.LOAD_REPO_INFO_SUCCESS, types.LOAD_REPO_INFO_FAIL],
+    promise: repo.getInfo(data.username, data.reponame),
+  }
+}
+
+export function loadRepoTree(data) {
+  return {
+    types: [types.LOAD_REPO_TREE, types.LOAD_REPO_TREE_SUCCESS, types.LOAD_REPO_TREE_FAIL],
+    promise: repo.getTree(data.username, data.reponame),
+  }
+}
+
+

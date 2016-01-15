@@ -40,11 +40,22 @@ class Login extends Component {
   }
 
   render() {
-    const { dispatch, auth } = this.props;
-    const Actions = bindActionCreators(actions, dispatch);
+    const { auth } = this.props;
     return (
-      <div actions={Actions}>
-        <Form onSubmit={this.handleSubmit.bind(this)} auth={auth}/>
+      <div className="leaf">
+        <div className="leaf-login">
+          <div className="leaf-login-contain">
+            <div className="leaf-login-contain-head">
+              <div className="logo"></div>
+            </div>
+            <div className="leaf-login-contain-form">
+              <Form
+                onSubmit={this.handleSubmit.bind(this)}
+                auth={auth}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
