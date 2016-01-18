@@ -47,7 +47,6 @@ class Login extends Component {
           <div className="leaf-login-contain">
             <div className="leaf-login-contain-head">
               <div className="head-logo"></div>
-              <h1 className="head-title">Leafeon • Writing</h1>
             </div>
             <div className="leaf-login-contain-form">
               <Form

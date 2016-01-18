@@ -109,6 +109,9 @@
   },
   "theme": {
     "primary-color": "#738bd7",
-    "link-color": "#738bd7"
+    "link-color": "#738bd7",
+    "border-color-base": "#e2e7ec",
+    "btn-border-radius-base": "0px",
+    "border-radius-base": "0px"
   }
 }

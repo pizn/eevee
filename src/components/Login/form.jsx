@@ -33,7 +33,7 @@ class loginForm extends Component {
     return (
       <Form horizontal>
         {auth.error &&
-          <Alert message="错误提示的文案" type="error" showIcon />
+          <Alert message="账号或密码错误" type="error" showIcon />
         }
         <FormItem
           label=""
@@ -43,7 +43,7 @@ class loginForm extends Component {
           required
           >
           <div className="ant-input-group">
-            <div className="ant-input-group-addon"><Icon type="mail" /> 账号</div>
+            <div className="ant-input-group-addon"><Icon type="mail" /></div>
             <input className="ant-input" type="text" size="large" name="email" autoComplete="off"
               {...getFieldProps('email', { rules: [{ required: true }] })}
             />
@@ -60,7 +60,7 @@ class loginForm extends Component {
           required
           >
           <div className="ant-input-group">
-            <div className="ant-input-group-addon"><Icon type="lock" /> 密码</div>
+            <div className="ant-input-group-addon"><Icon type="lock" /></div>
             <input className="ant-input" size="large" type="password" name="pass"
               {...getFieldProps('pass', { rules: [{ required: true }] })}
             />

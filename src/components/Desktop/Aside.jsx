@@ -36,19 +36,21 @@ class Aside extends Component {
                 </Row>
               </Link>
             </li>
-            <li className="body-menu-item">
-              <Link to={`_drafts`} className="link" activeClassName="link-active">
-                <Row>
-                  <Col span="4">
-                    <Icon type="folder" />
-                    <Icon type="folder-open" />
-                  </Col>
-                  <Col span="20">
-                     草稿
-                  </Col>
-                </Row>
-              </Link>
-            </li>
+            {/*
+              <li className="body-menu-item">
+                <Link to={`_drafts`} className="link" activeClassName="link-active">
+                  <Row>
+                    <Col span="4">
+                      <Icon type="folder" />
+                      <Icon type="folder-open" />
+                    </Col>
+                    <Col span="20">
+                       草稿
+                    </Col>
+                  </Row>
+                </Link>
+              </li>
+            */}
           </ul>
         </div>
 
