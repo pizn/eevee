@@ -1,15 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import { Row, Col, Icon } from 'antd';
 import { Link } from 'react-router';
+import classNames from 'classnames';
 
 class Aside extends Component {
   render() {
-    const { user, repoInfo } = this.props;
+    const { user, repoInfo, tree } = this.props;
     const yearNow = new Date().getFullYear();
+    const logoCls = classNames({
+      'head-logo': true,
+      'head-logo-loading': user.loading | repoInfo.loading | tree.loading,
+    });
+
     return (
       <div className="leaf-desktop-aside">
         <div className="head">
-          <div className="head-logo"></div>
+          <div className={logoCls}></div>
         </div>
         <div className="body">
           <div className="body-project">

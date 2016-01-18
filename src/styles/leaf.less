@@ -1,6 +1,18 @@
 @border-color: #e2e7ec;
 @font-color: #cabed3;
 
+@keyframes loadingCircle {
+  0% {
+    transform-origin: 50% 50%;
+    transform: rotate(0deg);
+  }
+  100% {
+    transform-origin: 50% 50%;
+    transform: rotate(360deg);
+  }
+}
+
+
 #leaf { height: 100%; }
 .leaf {
   width: 100%;
@@ -86,6 +98,11 @@
           background-size: 48px 48px;
         }
 
+        &-logo-loading {
+          -webkit-animation: loadingCircle .5s infinite linear;
+          animation: loadingCircle .5s infinite linear;
+        }
+
         &-title {
           font-size: 12px;
           line-height: 32px;
@@ -93,6 +110,7 @@
           text-align: center;
           font-family: "Courier New", Courier, monospace;
         }
+
       }
 
       .body {
@@ -113,6 +131,8 @@
               background: lighten(@primary-color, 34%);
             }
           }
+
+
         }
 
         &-menu {
@@ -215,6 +235,8 @@
         padding: 0 48px;
         overflow-x: hidden;
         overflow-y: auto;
+
+
       }
     }
 
@@ -226,6 +248,13 @@
 
       .title {
         line-height: 48px;
+      }
+
+      .action {
+        padding: 8px 8px;
+        .ant-btn {
+          float: right;
+        }
       }
     }
 
@@ -250,7 +279,7 @@
           margin-right: 16px;
           color: #666;
           border: 1px solid transparent;
-          transition: all .3s ease-in-out;
+          transition: background .3s ease-in-out, border .3s ease-in-out;
 
           &-card {
             width: 100%;
@@ -272,6 +301,9 @@
               color: #666;
               text-align: center;
               min-height: 42px;
+              max-height: 63px;
+
+              overflow: hidden;
             }
           }
 
@@ -290,11 +322,13 @@
     height: 100%;
 
     &-head {
+      position: relative;
       width: 100%;
       height: 48px;
       padding: 0 50px;
       background: #fff;
       border-bottom: 1px solid @border-color;
+      z-index: 1002;
 
       .back {
         display: inline-block;
@@ -308,6 +342,57 @@
         color: #666;
         line-height: 48px;
         text-align: center;
+      }
+
+      .action-list {
+        position: relative;
+        float: right;
+
+        &-toggle {
+          width: 48px;
+          height: 48px;
+          display: inline-block;
+          text-align: center;
+          line-height: 48px;
+          cursor: pointer;
+        }
+
+        &-dropdown {
+          position: absolute;
+          top: 40px;
+          right: 0;
+          width: 120px;
+          height: auto;
+          padding: 8px 0;
+          background: #fff;
+          border: 1px solid @border-color;
+          border-radius: 3px 3px;
+          box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+          opacity: 0;
+          visibility: hidden;
+
+          .item {
+            line-height: 32px;
+
+            a {
+              line-height: 32px;
+              padding: 0 16px;
+              color: #666;
+              display: block;
+
+              .anticon {
+                color: #999;
+                padding-right: 8px;
+              }
+
+              &:hover {
+                color: #444;
+                background: lighten(@primary-color, 34%);
+              }
+            }
+          }
+        }
+
       }
     }
 

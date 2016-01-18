@@ -67,6 +67,13 @@ export function readRepoBlobCommit(data) {
   }
 }
 
+export function addRepoBlob(data) {
+  return {
+    types: [types.ADD_REPO_BLOB, types.ADD_REPO_BLOB_SUCCESS, types.ADD_REPO_BLOB_FAIL],
+    promise: repo.addBlob(data),
+  }
+}
+
 export function updateRepoBlob(data) {
   return {
     types: [types.UPDATE_REPO_BLOB, types.UPDATE_REPO_BLOB_SUCCESS, types.UPDATE_REPO_BLOB_FAIL],

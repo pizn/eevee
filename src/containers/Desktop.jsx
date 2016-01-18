@@ -4,11 +4,12 @@ import * as actions from '../actions/LeafActions';
 import { connect } from 'react-redux';
 import Github from 'github-api';
 
-import { Icon } from 'antd';
+import { Icon, message } from 'antd';
 
 import Head from '../components/Desktop/Head';
 import Aside from '../components/Desktop/Aside';
 import List from '../components/Desktop/List';
+import ModalAddFile from '../components/Desktop/AddFile';
 
 @connect(state => ({
   auth: state.auth,
@@ -23,12 +24,9 @@ class Desktop extends Component {
   constructor(props) {
     super(props);
     const { auth } = props;
-    this.github = new Github({
-      username: auth.email,
-      password: auth.pass,
-      auth: 'basic',
-    });
-    this.user = this.github.getUser();
+    this.state = {
+      addFile: false
+    }
   }
 
   static propTypes = {
@@ -68,6 +66,39 @@ class Desktop extends Component {
     });
   }
 
+  handleAddFile(file) {
+    event.preventDefault();
+    const { dispatch, user } = this.props;
+    const repo = {
+      username: user.data.login,
+      email: user.data.email,
+      reponame: user.data.login + '.github.com',
+      path: '_posts/' + file.name,
+      content: '',
+    }
+    this.setState({
+      addFile: false
+    });
+    const msg = message.loading('正在保存...', 0);
+    dispatch(actions.addRepoBlob(repo))
+    .then(() => {
+      msg();
+    });
+
+  }
+
+  handleShowAddModal() {
+    this.setState({
+      addFile: true
+    });
+  }
+
+  handleHideAddModal() {
+    this.setState({
+      addFile: false,
+    })
+  }
+
   render() {
     const { user, repoInfo, tree } = this.props;
 
@@ -77,16 +108,21 @@ class Desktop extends Component {
           <Aside
             user={user}
             repoInfo={repoInfo}
+            tree={tree}
           />
           <div className="leaf-desktop-main">
             <div className="leaf-desktop-main-wrap">
               <Head
                 logout={this.logout.bind(this)}
-                user={user}
-                repoInfo={repoInfo}
+                addFile={this.handleShowAddModal.bind(this)}
               />
               <List
                 tree={tree}
+              />
+              <ModalAddFile
+                modalVisible={this.state.addFile}
+                modalHandleOk={this.handleAddFile.bind(this)}
+                modalHandleCancel={this.handleHideAddModal.bind(this)}
               />
             </div>
           </div>

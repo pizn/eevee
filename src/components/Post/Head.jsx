@@ -8,6 +8,10 @@ class Head extends Component {
     logout: PropTypes.func,
   }
 
+  remove(e) {
+    e.preventDefault();
+  }
+
   render() {
     const { blob, params } = this.props;
     return (
@@ -24,6 +28,14 @@ class Head extends Component {
             </h1>
           </Col>
           <Col span="7" className="action">
+            <div className="action-list">
+              <div className="action-list-toggle">
+                <Icon type="ellipsis" />
+              </div>
+              <ul className="action-list-dropdown">
+                <li className="item"><a onClick={this.remove.bind(this)}><Icon type="delete" /> 删除</a></li>
+              </ul>
+            </div>
           </Col>
         </Row>
       </div>

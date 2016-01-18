@@ -12,7 +12,7 @@ class List extends Component {
         fileName = fileName[4] || item.name;
 
         return (
-          <li key={item.sha} className="file">
+          <li key={item.path} className="file">
             <Link to={`/${item.path}`} className="file-card">
               <div className="file-card-type">
               </div>
