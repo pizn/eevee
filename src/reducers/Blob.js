@@ -1,4 +1,4 @@
-import { READ_REPO_BLOB, READ_REPO_BLOB_SUCCESS, READ_REPO_BLOB_FAIL, CLEAR_REPO_BLOB, UPDATE_REPO_BLOB, UPDATE_REPO_BLOB_SUCCESS, UPDATE_REPO_BLOB_FAIL, REMOVE_REPO_BLOB, REMOVE_REPO_BLOB_SUCCESS, REMOVE_REPO_BLOB_FAIL, ADD_REPO_BLOB, ADD_REPO_BLOB_SUCCESS, ADD_REPO_BLOB_FAIL } from '../constants/LeafActionTypes';
+import { READ_REPO_BLOB, READ_REPO_BLOB_SUCCESS, READ_REPO_BLOB_FAIL, CLEAR_REPO_BLOB, UPDATE_REPO_BLOB, UPDATE_REPO_BLOB_SUCCESS, UPDATE_REPO_BLOB_FAIL, REMOVE_REPO_BLOB, REMOVE_REPO_BLOB_SUCCESS, REMOVE_REPO_BLOB_FAIL, ADD_REPO_BLOB, ADD_REPO_BLOB_SUCCESS, ADD_REPO_BLOB_FAIL, AUTH_LOGOUT } from '../constants/LeafActionTypes';
 import assign from 'object-assign';
 
 const initialState = {
@@ -93,6 +93,11 @@ export default function blob(state = initialState, action) {
         adding: false,
         added: false,
         error: action.error
+      }
+    case AUTH_LOGOUT:
+      return {
+        loaded: false,
+        data: {},
       }
     default:
       return state;

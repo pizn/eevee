@@ -1,5 +1,6 @@
 import storage from '../utils/localStorage';
 import Github from 'github-api';
+import assign from 'object-assign';
 
 const authorization = {
 
@@ -18,12 +19,20 @@ const authorization = {
           storage.set('_leafAdmin', {
             email: auth.email,
             pass: auth.pass,
-            loggedIn: true,
+            loggedIn: false,
           });
           resolve(user);
         }
       });
     });
+  },
+
+  loginDone() {
+    let _leafAdmin = storage.get('_leafAdmin');
+    _leafAdmin = assign({}, _leafAdmin, {
+      loggedIn: true,
+    });
+    storage.set('_leafAdmin', _leafAdmin);
   },
 
   logout() {

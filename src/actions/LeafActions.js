@@ -11,6 +11,14 @@ export function login(data) {
   };
 }
 
+export function loginDone() {
+  // login Done
+  auth.loginDone();
+  return {
+    type: types.AUTH_LOGIN_DONE,
+  }
+}
+
 export function logout() {
   return {
     types: [types.AUTH_LOGOUT, types.AUTH_LOGOUT_SUCCESS, types.AUTH_LOGOUT_FAIL],

@@ -19,7 +19,7 @@ const confirm = Modal.confirm;
 class Post extends Component {
 
   componentDidMount() {
-    const { params, dispatch, user } = this.props;
+    const { params, dispatch, user, repoInfo } = this.props;
 
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())

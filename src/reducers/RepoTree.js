@@ -1,4 +1,4 @@
-import { LOAD_REPO_TREE, LOAD_REPO_TREE_SUCCESS, LOAD_REPO_TREE_FAIL } from '../constants/LeafActionTypes';
+import { LOAD_REPO_TREE, LOAD_REPO_TREE_SUCCESS, LOAD_REPO_TREE_FAIL, AUTH_LOGOUT } from '../constants/LeafActionTypes';
 
 const initialState = {
   loaded: false,
@@ -27,6 +27,11 @@ export default function repoTree(state = initialState, action) {
         loading: false,
         loaded: false,
         error: action.error,
+      }
+    case AUTH_LOGOUT:
+      return {
+        loaded: false,
+        data: {},
       }
     default:
       return state;

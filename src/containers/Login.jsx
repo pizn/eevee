@@ -27,7 +27,6 @@ class Login extends Component {
 
   handleSubmit(data) {
     const { dispatch, history } = this.props;
-
     dispatch(actions.login({
       email: data.email,
       pass: data.pass,
@@ -35,22 +34,18 @@ class Login extends Component {
       const { auth } = this.props;
       if (auth.loggedIn) {
         dispatch(actions.updateUserInfo(auth.user));
-      } else {
-        return false;
-      }
-    }).then(() => {
-      const { user } = this.props;
-      if (user.loaded) {
-        userAPI.checkRepo(user.data.login)
-        .then((data) => {
-          dispatch(actions.updateRepoInfo(data));
-          history.pushState(null, '/')
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      } else {
-        return false;
+        const { user } = this.props;
+        if (user.loaded) {
+          dispatch(actions.loadRepoInfo({username: user.data.login}))
+          .then(() => {
+            if (this.props.repoInfo.loaded) {
+              dispatch(actions.loginDone());
+              history.pushState(null, '/');
+            } else {
+
+            }
+          });
+        }
       }
     });
   }

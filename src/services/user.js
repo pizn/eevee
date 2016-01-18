@@ -51,7 +51,7 @@ const User = {
           if (status) {
             resolve(result);
           } else {
-            reject({ error: '404', message: 'Not found'});
+            reject({ error: 404, message: 'Not found'});
           }
         }
       });
