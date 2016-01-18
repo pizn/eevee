@@ -7,7 +7,6 @@ import createHistory from 'history/lib/createHashHistory';
 import configureStore from '../stores';
 import { Provider } from 'react-redux';
 
-import Leaf from './Leaf';
 import Desktop from '../containers/Desktop';
 import Post from '../containers/Post';
 import Login from '../containers/Login';
