@@ -152,6 +152,25 @@ const Repo = {
         }
       });
     });
+  },
+
+  removeBlob(data) {
+    const _leafAdmin = storage.get('_leafAdmin');
+    const github = new Github({
+      username: _leafAdmin.email,
+      password: _leafAdmin.pass,
+      auth: 'basic'
+    });
+    const repo = github.getRepo(data.username, data.reponame);
+    return new Promise((resolve, reject) => {
+      repo.remove('master', data.path, (err, file) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(file);
+        }
+      });
+    });
   }
 
 }

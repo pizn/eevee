@@ -1,4 +1,4 @@
-import { READ_REPO_BLOB, READ_REPO_BLOB_SUCCESS, READ_REPO_BLOB_FAIL, CLEAR_REPO_BLOB, UPDATE_REPO_BLOB, UPDATE_REPO_BLOB_SUCCESS, UPDATE_REPO_BLOB_FAIL } from '../constants/LeafActionTypes';
+import { READ_REPO_BLOB, READ_REPO_BLOB_SUCCESS, READ_REPO_BLOB_FAIL, CLEAR_REPO_BLOB, UPDATE_REPO_BLOB, UPDATE_REPO_BLOB_SUCCESS, UPDATE_REPO_BLOB_FAIL, REMOVE_REPO_BLOB, REMOVE_REPO_BLOB_SUCCESS, REMOVE_REPO_BLOB_FAIL, ADD_REPO_BLOB, ADD_REPO_BLOB_SUCCESS, ADD_REPO_BLOB_FAIL } from '../constants/LeafActionTypes';
 import assign from 'object-assign';
 
 const initialState = {
@@ -55,6 +55,44 @@ export default function blob(state = initialState, action) {
         ...state,
         updating: false,
         updated: false,
+      }
+    case REMOVE_REPO_BLOB:
+      return {
+        ...state,
+        removing: true,
+      }
+    case REMOVE_REPO_BLOB_SUCCESS:
+      return {
+        ...state,
+        removing: false,
+        removed: true,
+        data: {},
+      }
+    case REMOVE_REPO_BLOB_FAIL:
+      return {
+        ...state,
+        removing: false,
+        removed: false,
+      }
+    case ADD_REPO_BLOB:
+      return {
+        ...state,
+        adding: true,
+      }
+    case ADD_REPO_BLOB_SUCCESS:
+      return {
+        ...state,
+        adding: false,
+        added: true,
+        data: action.result.content,
+        error: action.error,
+      }
+    case ADD_REPO_BLOB_FAIL:
+      return {
+        ...state,
+        adding: false,
+        added: false,
+        error: action.error
       }
     default:
       return state;

@@ -29,19 +29,21 @@ class Aside extends Component {
             }
           </div>
           <ul className="body-menu">
-            <li className="body-menu-item">
-              <Link to={`_posts`} className="link" activeClassName="link-active">
-                <Row>
-                  <Col span="4">
-                    <Icon type="folder"/>
-                    <Icon type="folder-open" />
-                  </Col>
-                  <Col span="20">
-                     文章
-                  </Col>
-                </Row>
-              </Link>
-            </li>
+            { tree.loaded &&
+              <li className="body-menu-item">
+                <Link to={`_posts`} className="link" activeClassName="link-active">
+                  <Row>
+                    <Col span="4">
+                      <Icon type="folder"/>
+                      <Icon type="folder-open" />
+                    </Col>
+                    <Col span="20">
+                       文章
+                    </Col>
+                  </Row>
+                </Link>
+              </li>
+            }
             {/*
               <li className="body-menu-item">
                 <Link to={`_drafts`} className="link" activeClassName="link-active">

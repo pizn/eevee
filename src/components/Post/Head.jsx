@@ -10,6 +10,8 @@ class Head extends Component {
 
   remove(e) {
     e.preventDefault();
+    const { handleRemove } = this.props;
+    handleRemove();
   }
 
   render() {

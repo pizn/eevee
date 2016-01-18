@@ -328,7 +328,7 @@
       padding: 0 50px;
       background: #fff;
       border-bottom: 1px solid @border-color;
-      z-index: 1002;
+      z-index: 102;
 
       .back {
         display: inline-block;
@@ -348,15 +348,6 @@
         position: relative;
         float: right;
 
-        &-toggle {
-          width: 48px;
-          height: 48px;
-          display: inline-block;
-          text-align: center;
-          line-height: 48px;
-          cursor: pointer;
-        }
-
         &-dropdown {
           position: absolute;
           top: 40px;
@@ -370,6 +361,8 @@
           box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
           opacity: 0;
           visibility: hidden;
+          transition: all .3s ease-in-out;
+          transform: translateY(-10px);
 
           .item {
             line-height: 32px;
@@ -390,6 +383,23 @@
                 background: lighten(@primary-color, 34%);
               }
             }
+          }
+        }
+
+        &-toggle {
+          width: 48px;
+          height: 48px;
+          display: inline-block;
+          text-align: center;
+          line-height: 48px;
+          cursor: pointer;
+        }
+
+        &:hover {
+          .action-list-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0px);
           }
         }
 
@@ -463,6 +473,7 @@
 
       &-active {
         border-bottom: 1px solid @border-color;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       }
 
     }

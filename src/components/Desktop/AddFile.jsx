@@ -22,7 +22,7 @@ class CreateFileForm extends Component {
       ]}>
         <Form horizontal>
           <FormItem
-            label="英文名称："
+            label="文件名称："
             labelCol={{span: 6}}
             wrapperCol={{span: 14}}
             validateStatus={getFieldError('name') ? 'error' : 'success'}

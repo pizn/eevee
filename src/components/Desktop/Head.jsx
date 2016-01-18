@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Col, Button } from 'antd';
+import { Row, Col, Button, Icon } from 'antd';
 
 class Head extends Component {
 
@@ -8,20 +8,22 @@ class Head extends Component {
   }
 
   render() {
-    const { logout, addFile } = this.props;
+    const { logout, tree, addFile } = this.props;
     return (
       <div className="leaf-desktop-head">
-        <Row className="leaf-head-wrap">
-          <Col span="20">
-            <h2 className="title">文章</h2>
-          </Col>
-          <Col span="4" className="action">
-            {/*
-              <Button onClick={logout} >{user.data.login}</Button>
-            */}
-            <Button onClick={addFile}>添加文章</Button>
-          </Col>
-        </Row>
+          { tree.loaded &&
+            <Row className="leaf-head-wrap">
+              <Col span="20">
+                <h2 className="title">文章</h2>
+              </Col>
+              <Col span="4" className="action">
+                {/*
+                  <Button onClick={logout} >{user.data.login}</Button>
+                */}
+                <Button type="ghost" onClick={addFile}><Icon type="plus" /> 添加</Button>
+              </Col>
+            </Row>
+          }
       </div>
     );
   }

@@ -3,9 +3,11 @@ import { Link } from 'react-router';
 import * as actions from '../actions/LeafActions';
 import { connect } from 'react-redux';
 
-import { Icon, message } from 'antd';
+import { Icon, message, Modal } from 'antd';
 import Head from '../components/Post/Head';
 import Editor from '../components/Post/Editor';
+
+const confirm = Modal.confirm;
 
 @connect(state => ({
   auth: state.auth,
@@ -92,6 +94,35 @@ class Post extends Component {
   handleUpdateCode(value) {
   }
 
+  handleRemove() {
+    const { params } = this.props;
+    const that = this;
+    confirm({
+      title: '删除文章',
+      content: '注意: 文件 "' + params.name + '" 将被永久删除',
+      onOk: function() {
+        that.handleRemoveReques();
+      },
+      onCancel: function() {}
+    });
+  }
+
+  handleRemoveReques() {
+    const { dispatch, user, params, history } = this.props;
+    const repo = {
+      username: user.data.login,
+      reponame: user.data.login + '.github.com',
+      path: '_posts/' + params.name
+    }
+    dispatch(actions.removeRepoBlob(repo))
+    .then(() => {
+      message.success('删除成功');
+    })
+    .then(() => {
+      history.pushState(null, '_posts/');
+    });
+  }
+
   render() {
     const { blob } = this.props;
     return (
@@ -100,6 +131,7 @@ class Post extends Component {
           <Head
             {...this.props}
             blob={blob}
+            handleRemove={this.handleRemove.bind(this)}
           />
           <Editor
             {...this.props}

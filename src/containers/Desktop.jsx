@@ -47,13 +47,18 @@ class Desktop extends Component {
         dispatch(actions.loadRepoInfo(repo));
         dispatch(actions.readRepoTree(repo));
       });
-    } else if (!repoInfo.loaded) {
+    } else {
+
       const repo = {
         username: this.props.user.data.login,
         reponame: this.props.user.data.login + '.github.com',
         path: '_posts',
       }
-      dispatch(actions.loadRepoInfo(repo));
+
+      if (!repoInfo.loaded) {
+        dispatch(actions.loadRepoInfo(repo));
+      }
+
       dispatch(actions.readRepoTree(repo));
     }
     dispatch(actions.clearRepoBlob());
@@ -62,13 +67,13 @@ class Desktop extends Component {
     const { dispatch, history } = this.props;
     dispatch(actions.logout())
     .then(() => {
-      history.pushState(null, '/login');
+      history.pushState(null, 'login');
     });
   }
 
   handleAddFile(file) {
     event.preventDefault();
-    const { dispatch, user } = this.props;
+    const { dispatch, user, history } = this.props;
     const repo = {
       username: user.data.login,
       email: user.data.email,
@@ -83,6 +88,7 @@ class Desktop extends Component {
     dispatch(actions.addRepoBlob(repo))
     .then(() => {
       msg();
+      history.pushState(null, '_posts/' + file.name)
     });
 
   }
@@ -114,6 +120,7 @@ class Desktop extends Component {
             <div className="leaf-desktop-main-wrap">
               <Head
                 logout={this.logout.bind(this)}
+                tree={tree}
                 addFile={this.handleShowAddModal.bind(this)}
               />
               <List
