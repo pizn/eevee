@@ -184,7 +184,8 @@
         width: 100%;
 
         .foot-user {
-          padding: 16px 24px;
+          position: relative;
+          padding: 8px 24px;
           cursor: pointer;
           border-top: 1px solid @border-color;
           border-bottom: 1px solid @border-color;
@@ -215,8 +216,61 @@
             }
           }
 
+          &-actions {
+            position: absolute;
+            width: 160px;
+            height: auto;
+            padding: 8px 0;
+            background: #fff;
+            border: 1px solid @border-color;
+            border-radius: 3px 3px;
+            bottom: 46px;
+            left: 32px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: all .3s ease-in-out;
+            transform: translateY(10px);
+
+            .item {
+              line-height: 32px;
+
+              a {
+                line-height: 32px;
+                padding: 0 16px;
+                color: #666;
+                display: block;
+
+                .anticon {
+                  color: #999;
+                  padding-right: 8px;
+                }
+
+                &:hover {
+                  color: #444;
+                  background: lighten(@primary-color, 34%);
+                }
+              }
+            }
+          }
+
           &:hover {
             background: lighten(@primary-color, 34%);
+            .foot-user-actions {
+              opacity: 1;
+              visibility: visible;
+              transform: translateY(0);
+            }
+          }
+        }
+
+        .foot-copyright {
+          padding: 8px 32px;
+          text-align: center;
+
+          a {
+            color: #666;
+            text-decoration: underline;
           }
         }
       }
@@ -252,6 +306,10 @@
 
       .action {
         padding: 8px 8px;
+
+        .anticon {
+          color: #999;
+        }
         .ant-btn {
           float: right;
         }

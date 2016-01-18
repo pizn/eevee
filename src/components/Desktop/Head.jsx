@@ -8,7 +8,7 @@ class Head extends Component {
   }
 
   render() {
-    const { logout, tree, addFile } = this.props;
+    const { tree, addFile } = this.props;
     return (
       <div className="leaf-desktop-head">
           { tree.loaded &&
@@ -17,9 +17,6 @@ class Head extends Component {
                 <h2 className="title">文章</h2>
               </Col>
               <Col span="4" className="action">
-                {/*
-                  <Button onClick={logout} >{user.data.login}</Button>
-                */}
                 <Button type="ghost" onClick={addFile}><Icon type="plus" /> 添加</Button>
               </Col>
             </Row>

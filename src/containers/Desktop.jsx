@@ -114,12 +114,12 @@ class Desktop extends Component {
           <Aside
             user={user}
             repoInfo={repoInfo}
+            logout={this.logout.bind(this)}
             tree={tree}
           />
           <div className="leaf-desktop-main">
             <div className="leaf-desktop-main-wrap">
               <Head
-                logout={this.logout.bind(this)}
                 tree={tree}
                 addFile={this.handleShowAddModal.bind(this)}
               />

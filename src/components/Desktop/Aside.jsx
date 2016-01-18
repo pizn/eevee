@@ -4,9 +4,13 @@ import { Link } from 'react-router';
 import classNames from 'classnames';
 
 class Aside extends Component {
+
+  logout() {
+    const { logout } = this.props;
+    logout();
+  }
   render() {
     const { user, repoInfo, tree } = this.props;
-    const yearNow = new Date().getFullYear();
     const logoCls = classNames({
       'head-logo': true,
       'head-logo-loading': user.loading | repoInfo.loading | tree.loading,
@@ -72,13 +76,16 @@ class Aside extends Component {
               <p className="name">{user.data.name || user.data.login}</p>
               <p className="email">{user.data.email}</p>
             </Col>
+            <ul className="foot-user-actions">
+              <li className="item">
+                <a onClick={this.logout.bind(this)} ><Icon type="logout" /> 登出</a>
+              </li>
+            </ul>
           </Row>
           }
-          {/*
           <Row className="foot-copyright">
-            <p className="text">Code & Design by <a href="http://pizn.net">PIZn</a></p>
+            <p className="text">Design & Code <a href="http://pizn.net">PIZn</a>. </p>
           </Row>
-          */}
         </div>
       </div>
     )
