@@ -3,6 +3,7 @@ import * as actions from '../actions/LeafActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { Button, Icon } from 'antd';
 
 import Form from '../components/Login/Form';
 import userAPI from '../services/user';
@@ -21,12 +22,17 @@ class Login extends Component {
     history: PropTypes.object,
   }
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      noRepo: false,
+    };
   }
 
   handleSubmit(data) {
     const { dispatch, history } = this.props;
+    const that = this;
     dispatch(actions.login({
       email: data.email,
       pass: data.pass,
@@ -42,11 +48,24 @@ class Login extends Component {
               dispatch(actions.loginDone());
               history.pushState(null, '/');
             } else {
-
+              that.setState({
+                noRepo: true,
+              });
             }
           });
         }
       }
+    });
+  }
+
+  logout() {
+    const { dispatch, history } = this.props;
+    const that = this;
+    dispatch(actions.logout())
+    .then(() => {
+      that.setState({
+        noRepo: false,
+      });
     });
   }
 
@@ -60,17 +79,35 @@ class Login extends Component {
     return (
       <div className="leaf">
         <div className="leaf-login">
-          <div className="leaf-login-contain">
-            <div className="leaf-login-contain-head">
-              <div className={logoCls}></div>
+          { !this.state.noRepo &&
+            <div className="leaf-login-contain">
+              <div className="leaf-login-contain-head">
+                <div className={logoCls}></div>
+              </div>
+              <div className="leaf-login-contain-form">
+                <Form
+                  onSubmit={this.handleSubmit.bind(this)}
+                  auth={auth}
+                />
+              </div>
             </div>
-            <div className="leaf-login-contain-form">
-              <Form
-                onSubmit={this.handleSubmit.bind(this)}
-                auth={auth}
-              />
+          }
+          { this.state.noRepo &&
+            <div className="leaf-login-contain">
+              <div className="leaf-login-contain-head">
+                <div className="head-user">
+                  <img src={user.data.avatar_url} className="avatar" />
+                  <h4 className="name">{user.data.name || user.data.login}</h4>
+                </div>
+              </div>
+              <div className="leaf-login-contain-contain">
+                <p>Hi, 你还没创建 <code>{user.data.login}.github.io</code> 的项目, 请移步 <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> 创建.</p>
+              </div>
+              <div className="leaf-login-contain-foot">
+                <Button type="ghost" size="large" style={{'width': '100%'}} onClick={this.logout.bind(this)}>登 出 <Icon type="github" /></Button>
+              </div>
             </div>
-          </div>
+          }
         </div>
       </div>
     );
