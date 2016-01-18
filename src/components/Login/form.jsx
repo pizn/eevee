@@ -33,7 +33,7 @@ class loginForm extends Component {
     return (
       <Form horizontal>
         {auth.error &&
-          <Alert message="账号或密码错误" type="error" showIcon />
+          <Alert message="Github 账号或密码错误" type="error" showIcon />
         }
         <FormItem
           label=""
@@ -42,12 +42,14 @@ class loginForm extends Component {
           validateStatus={ getFieldError('email') ? 'error' : '' }
           required
           >
-          <div className="ant-input-group">
-            <div className="ant-input-group-addon"><Icon type="mail" /></div>
-            <input className="ant-input" type="text" size="large" name="email" autoComplete="off"
-              {...getFieldProps('email', { rules: [{ required: true }] })}
-            />
-          </div>
+          <Input className="ant-input" type="text" size="large" name="email" autoComplete="off" placeholder="账号"
+            {...getFieldProps('email', {
+              rules: [{
+                required: true,
+                pattern: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: "请输入账号",
+              }] })}
+          />
           <Col span="19">
             <p className="ant-form-explain">{ getFieldError('email') ? getFieldError('email') + '' : '' }</p>
           </Col>
@@ -59,20 +61,20 @@ class loginForm extends Component {
           validateStatus={ getFieldError('pass') ? 'error' : '' }
           required
           >
-          <div className="ant-input-group">
-            <div className="ant-input-group-addon"><Icon type="lock" /></div>
-            <input className="ant-input" size="large" type="password" name="pass"
-              {...getFieldProps('pass', { rules: [{ required: true }] })}
-            />
-          </div>
+          <Input className="ant-input" size="large" type="password" name="pass" placeholder="密码"
+            {...getFieldProps('pass', { rules: [{
+              required: true,
+              message: "请输入密码",
+            }] })}
+          />
           <Col span="24">
             <p className="ant-form-explain">{ getFieldError('pass') ? getFieldError('pass') + '' : '' }</p>
           </Col>
         </FormItem>
         <Row>
           <Col span="24">
-            <Button type="primary" size="large" htmlType="submit" onClick={this.onSubmit.bind(this)} loading={!!auth.loading}>
-              <Icon type="github" /> 登 录
+            <Button type="primary" size="large" htmlType="submit" onClick={this.onSubmit.bind(this)}>
+              登 录 <Icon type="github" />
             </Button>
           </Col>
         </Row>
