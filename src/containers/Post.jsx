@@ -4,6 +4,8 @@ import * as actions from '../actions/LeafActions';
 import { connect } from 'react-redux';
 
 import { Icon } from 'antd';
+import Head from '../components/Post/Head';
+import Editor from '../components/Post/Editor';
 
 @connect(state => ({
   auth: state.auth,
@@ -40,18 +42,34 @@ class Post extends Component {
 
   }
 
+  handleSave(value) {
+    console.log(value);
+  }
+
+  handleFocusChange(focused) {
+  }
+
+  handleUpdateCode(value) {
+  }
+
   render() {
     const { blob } = this.props;
     return (
-      <div>
-        { blob.loading &&
-          <Icon type="loading" />
-        }
-        { !blob.loading &&
-          <div>
-            {blob.data.content}
-          </div>
-        }
+      <div className="leaf">
+        <div className="leaf-post">
+          <Head
+            {...this.props}
+            blob={blob}
+          />
+          <Editor
+            {...this.props}
+            blob={blob}
+            value={blob.data.content}
+            onChange={this.handleUpdateCode.bind(this)}
+            onFocusChange={this.handleFocusChange.bind(this)}
+            handleSave={this.handleSave.bind(this)}
+          />
+        </div>
       </div>
     );
   }

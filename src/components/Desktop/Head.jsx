@@ -13,7 +13,7 @@ class Head extends Component {
       <div className="leaf-desktop-head">
         <Row className="leaf-head-wrap">
           <Col span="16">
-            {repoInfo.data.name}
+            <h2 className="title">文章</h2>
           </Col>
           <Col span="8">
             <Button onClick={logout} >{user.data.login}</Button>

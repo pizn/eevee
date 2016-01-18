@@ -8,6 +8,7 @@ import { Icon } from 'antd';
 
 import Head from '../components/Desktop/Head';
 import Aside from '../components/Desktop/Aside';
+import List from '../components/Desktop/List';
 
 @connect(state => ({
   auth: state.auth,
@@ -71,23 +72,13 @@ class Desktop extends Component {
 
   render() {
     const { user, repoInfo, tree } = this.props;
-    const files = (
-      tree.loaded && tree.data.map(item => {
-        return (
-          <div key={item.sha}>
-            <Link to={`/${item.path}`} >
-            {item.name}
-            </Link>
-          </div>
-        )
-      })
-    )
 
     return (
       <div className="leaf">
-        <div lassName="leaf-desktop">
+        <div className="leaf-desktop">
           <Aside
             user={user}
+            repoInfo={repoInfo}
           />
           <div className="leaf-desktop-main">
             <div className="leaf-desktop-main-wrap">
@@ -96,7 +87,9 @@ class Desktop extends Component {
                 user={user}
                 repoInfo={repoInfo}
               />
-              {files}
+              <List
+                tree={tree}
+              />
             </div>
           </div>
         </div>

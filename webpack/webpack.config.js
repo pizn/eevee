@@ -54,6 +54,7 @@ export default (options) => {
     },
 
     module: {
+      noParse: [/autoit.js/],
       loaders: [
         { test: /\.(js|jsx)/, loader: reactLoader, exclude: /node_modules/},
         { test: /\.json/, loader: "json" },

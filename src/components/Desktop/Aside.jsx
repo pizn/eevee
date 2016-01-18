@@ -1,27 +1,64 @@
 import React, { Component, PropTypes } from 'react';
 import { Row, Col, Icon } from 'antd';
+import { Link } from 'react-router';
 
 class Aside extends Component {
   render() {
-    const { user } = this.props;
+    const { user, repoInfo } = this.props;
     const yearNow = new Date().getFullYear();
     return (
       <div className="leaf-desktop-aside">
         <div className="head">
           <div className="head-logo"></div>
-          <h1 className="head-title">Leafeon • Writing</h1>
         </div>
-
         <div className="body">
+          <div className="body-project">
+            { repoInfo.loading &&
+              <div className="body-project-title">
+                <Icon type="loading" />
+              </div>
+            }
+            { !repoInfo.loading &&
+              <a href={repoInfo.data.html_url} target="_blank" className="body-project-title">{repoInfo.data.name}</a>
+            }
+          </div>
+          <ul className="body-menu">
+            <li className="body-menu-item">
+              <Link to={`_posts`} className="link" activeClassName="link-active">
+                <Row>
+                  <Col span="4">
+                    <Icon type="folder"/>
+                    <Icon type="folder-open" />
+                  </Col>
+                  <Col span="20">
+                     文章
+                  </Col>
+                </Row>
+              </Link>
+            </li>
+            <li className="body-menu-item">
+              <Link to={`_drafts`} className="link" activeClassName="link-active">
+                <Row>
+                  <Col span="4">
+                    <Icon type="folder" />
+                    <Icon type="folder-open" />
+                  </Col>
+                  <Col span="20">
+                     草稿
+                  </Col>
+                </Row>
+              </Link>
+            </li>
+          </ul>
         </div>
 
         <div className="foot">
           { !user.loading &&
           <Row className="foot-user">
-            <Col span="5">
+            <Col span="4">
               <img className="foot-user-avatar" src={user.data.avatar_url} />
             </Col>
-            <Col span="19" className="foot-user-info">
+            <Col span="20" className="foot-user-info">
               <p className="name">{user.data.name || user.data.login}</p>
               <p className="email">{user.data.email}</p>
             </Col>

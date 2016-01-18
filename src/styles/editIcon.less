@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'editfont';
+  src: url('//at.alicdn.com/t/font_1450164737_488641.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1450164737_488641.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1450164737_488641.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1450164737_488641.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1450164737_488641.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.edit-icon {
+  position: relative;
+  display: inline-block;
+  font-style: normal;
+  vertical-align: baseline;
+  text-align: center;
+  text-transform: none;
+  text-rendering: auto;
+  line-height: 1;
+
+  &:before {
+    display: block;
+    font-family: "editfont" !important;
+  }
+}
+
+.edit-icon-bold:before               {content:"\e600";}
+.edit-icon-link:before               {content:"\e601";}
+.edit-icon-code:before               {content:"\e602";}
+.edit-icon-eyes:before               {content:"\e603";}
+.edit-icon-eyes-slash:before         {content:"\e604";}
+.edit-icon-h1:before               {content:"\e605";}
+.edit-icon-h2:before               {content:"\e605"; transform: scale(0.85)}
+.edit-icon-h3:before               {content:"\e605"; transform: scale(0.70)}
+.edit-icon-keyboard:before           {content:"\e606";}
+.edit-icon-image:before              {content:"\e607";}
+.edit-icon-italic:before             {content:"\e608";}
+.edit-icon-oList:before            {content:"\e609";}
+.edit-icon-uList:before            {content:"\e60a";}
+.edit-icon-redo:before            {content:"\e60b"; transform: rotate(30deg)}
+.edit-icon-undo:before             {content:"\e60c"; transform: rotate(-30deg)}
+.edit-icon-quote:before              {content:"\e60d";}
+.edit-icon-del:before                {content:"\e60e";}

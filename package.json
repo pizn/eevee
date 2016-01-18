@@ -34,14 +34,16 @@
     "babel-runtime": "~5.8.20",
     "babelify": "^7.2.0less",
     "base-64": "~0.1.0",
-    "classnames": "^2.2.1",
+    "classnames": "~2.2.3",
     "co": "~4.6.0",
     "co-views": "~1.0.0",
+    "codemirror": "~5.9.0",
     "css-loader": "^0.23.1",
     "detector": "2.4.1",
     "extract-text-webpack-plugin": "~1.0.1",
     "github-api": "~0.10.7",
     "history": "~1.17.0",
+    "keymaster": "~1.6.2",
     "koa": "~1.0.0",
     "koa-bodyparser": "~2.0.1",
     "koa-compress": "1.0.x",
@@ -56,6 +58,7 @@
     "less": "~2.5.0",
     "less-loader": "~2.2.0",
     "lodash": "~3.10.1",
+    "marked": "~0.3.5",
     "mocha": "~2.3.4",
     "moment": "~2.10.6",
     "nodemon": "~1.4.1",
@@ -105,7 +108,7 @@
     "validate": "npm ls"
   },
   "theme": {
-    "primary-color": "#a1a9b2",
-    "link-color": "#a1a9b2"
+    "primary-color": "#738bd7",
+    "link-color": "#738bd7"
   }
 }

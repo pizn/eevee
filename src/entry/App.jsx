@@ -30,8 +30,8 @@ function requireAuth(nextState, replace) {
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Redirect from="/" to="desktop" />
-      <Route path="desktop" component={Desktop} onEnter={requireAuth} />
+      <Redirect from="/" to="_posts" />
+      <Route path="_posts" component={Desktop} onEnter={requireAuth} />
       <Route path="_posts/:name" component={Post} onEnter={requireAuth} />
       <Route path="login" component={Login} />
     </Router>
