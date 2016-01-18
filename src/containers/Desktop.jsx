@@ -39,27 +39,35 @@ class Desktop extends Component {
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())
       .then(() => {
-        const repo = {
-          username: this.props.user.data.login,
-          reponame: this.props.user.data.login + '.github.com',
-          path: '_posts',
-        }
-        dispatch(actions.loadRepoInfo(repo));
-        dispatch(actions.readRepoTree(repo));
+        dispatch(actions.loadRepoInfo({username: this.props.user.data.login}))
+        .then(() => {
+          const repo = {
+            username: this.props.user.data.login,
+            reponame: this.props.repoInfo.data.name,
+            path: '_posts',
+          };
+          dispatch(actions.readRepoTree(repo));
+        });
       });
     } else {
-
-      const repo = {
-        username: this.props.user.data.login,
-        reponame: this.props.user.data.login + '.github.com',
-        path: '_posts',
-      }
-
       if (!repoInfo.loaded) {
-        dispatch(actions.loadRepoInfo(repo));
+        dispatch(actions.loadRepoInfo({username: this.props.user.data.login}))
+        .then(() => {
+          const repo = {
+            username: this.props.user.data.login,
+            reponame: this.props.repoInfo.data.name,
+            path: '_posts',
+          }
+          dispatch(actions.readRepoTree(repo));
+        });
+      } else {
+        const repo = {
+          username: this.props.user.data.login,
+          reponame: this.props.repoInfo.data.name,
+          path: '_posts',
+        }
+        dispatch(actions.readRepoTree(repo));
       }
-
-      dispatch(actions.readRepoTree(repo));
     }
     dispatch(actions.clearRepoBlob());
   }
@@ -73,11 +81,11 @@ class Desktop extends Component {
 
   handleAddFile(file) {
     event.preventDefault();
-    const { dispatch, user, history } = this.props;
+    const { dispatch, user, history, repoInfo } = this.props;
     const repo = {
       username: user.data.login,
       email: user.data.email,
-      reponame: user.data.login + '.github.com',
+      reponame: repoInfo.data.name,
       path: '_posts/' + file.name,
       content: '',
     }

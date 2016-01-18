@@ -378,7 +378,7 @@ export default class Editor extends Component {
             }
           </div>
           <div className="leaf-editor-footer clearfix">
-            <p>Leafeon</p>
+            <p>文章编写于</p>
           </div>
         </div>
       </div>

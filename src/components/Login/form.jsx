@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Row, Col, Form, Button, Input, Icon, Alert } from 'antd';
 import { createForm } from 'rc-form';
-
 const FormItem = Form.Item;
-const InputGroup = Input.Group;
 
 class loginForm extends Component {
 

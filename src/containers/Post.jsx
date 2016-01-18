@@ -13,8 +13,6 @@ const confirm = Modal.confirm;
   auth: state.auth,
   user: state.user,
   repoInfo: state.repoInfo,
-  repoTree: state.repoTree,
-  tree: state.tree,
   blob: state.blob,
 }))
 
@@ -26,41 +24,40 @@ class Post extends Component {
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())
       .then(() => {
-        const repo = {
-          username: this.props.user.data.login,
-          reponame: this.props.user.data.login + '.github.com',
-          path: '_posts/' + params.name,
-        }
-        dispatch(actions.readRepoBlob(repo))
+        dispatch(actions.loadRepoInfo({username: this.props.user.data.login}))
         .then(() => {
           const repo = {
             username: this.props.user.data.login,
-            reponame: this.props.user.data.login + '.github.com',
-            sha: this.props.blob.data.sha,
+            reponame: this.props.repoInfo.data.name,
+            path: '_posts/' + params.name,
           }
-          // dispatch(actions.readRepoBlobCommit(repo))
+          dispatch(actions.readRepoBlob(repo))
         });
       })
     } else {
-      const repo = {
-        username: this.props.user.data.login,
-        reponame: this.props.user.data.login + '.github.com',
-        path: '_posts/' + params.name,
-      }
-      dispatch(actions.readRepoBlob(repo))
-      .then(() => {
+      if (!repoInfo.loaded) {
+        dispatch(actions.loadRepoInfo({username: this.props.user.data.login}))
+        .then(() => {
+          const repo = {
+            username: this.props.user.data.login,
+            reponame: this.props.repoInfo.data.name,
+            path: '_posts/' + params.name,
+          }
+          dispatch(actions.readRepoBlob(repo));
+        });
+      } else {
         const repo = {
-          username: user.data.login,
-          reponame: user.data.login + '.github.com',
-          sha: this.props.blob.data.sha,
+          username: this.props.user.data.login,
+          reponame: this.props.repoInfo.data.name,
+          path: '_posts/' + params.name,
         }
-        // dispatch(actions.readRepoBlobCommit(repo))
-      });
+        dispatch(actions.readRepoBlob(repo));
+      }
     }
   }
 
   handleSave(value) {
-    const { blob, dispatch, user, params } = this.props;
+    const { blob, dispatch, user, repoInfo, params } = this.props;
     if (blob.data.content === value) {
       console.info('[leafeon]: 文档没有修改');
       return false;
@@ -72,7 +69,7 @@ class Post extends Component {
     const repo = {
       username: user.data.login,
       email: user.data.email,
-      reponame: user.data.login + '.github.com',
+      reponame: repoInfo.data.name,
       path: '_posts/' + params.name,
       content: value,
     }
@@ -108,10 +105,10 @@ class Post extends Component {
   }
 
   handleRemoveReques() {
-    const { dispatch, user, params, history } = this.props;
+    const { dispatch, user, params, repoInfo, history } = this.props;
     const repo = {
       username: user.data.login,
-      reponame: user.data.login + '.github.com',
+      reponame: repoInfo.data.name,
       path: '_posts/' + params.name
     }
     dispatch(actions.removeRepoBlob(repo))

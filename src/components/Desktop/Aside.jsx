@@ -83,9 +83,6 @@ class Aside extends Component {
             </ul>
           </Row>
           }
-          <Row className="foot-copyright">
-            <p className="text">Design & Code <a href="http://pizn.net">PIZn</a>. </p>
-          </Row>
         </div>
       </div>
     )

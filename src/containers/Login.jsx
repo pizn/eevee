@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import Form from '../components/Login/Form';
+import userAPI from '../services/user';
 
 @connect(state => ({
   auth: state.auth,
   user: state.user,
+  repoInfo: state.repoInfo,
 }))
 
 class Login extends Component {
@@ -25,6 +27,7 @@ class Login extends Component {
 
   handleSubmit(data) {
     const { dispatch, history } = this.props;
+
     dispatch(actions.login({
       email: data.email,
       pass: data.pass,
@@ -36,15 +39,27 @@ class Login extends Component {
         return false;
       }
     }).then(() => {
-      history.pushState(null, '/')
+      const { user } = this.props;
+      if (user.loaded) {
+        userAPI.checkRepo(user.data.login)
+        .then((data) => {
+          dispatch(actions.updateRepoInfo(data));
+          history.pushState(null, '/')
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      } else {
+        return false;
+      }
     });
   }
 
   render() {
-    const { auth } = this.props;
+    const { auth, user, repoInfo } = this.props;
     const logoCls = classNames({
       'head-logo': true,
-      'head-logo-loading': auth.loading,
+      'head-logo-loading': auth.loading || user.loading || repoInfo.loading,
     });
 
     return (

@@ -1,4 +1,4 @@
-import { LOAD_REPO_INFO, LOAD_REPO_INFO_SUCCESS, LOAD_REPO_INFO_FAIL } from '../constants/LeafActionTypes';
+import { LOAD_REPO_INFO, LOAD_REPO_INFO_SUCCESS, LOAD_REPO_INFO_FAIL, UPLOAD_REPO_INFO } from '../constants/LeafActionTypes';
 
 const initialState = {
   loaded: false,
@@ -27,6 +27,13 @@ export default function repoInfo(state = initialState, action) {
         loading: false,
         loaded: false,
         error: action.error,
+      }
+    case UPLOAD_REPO_INFO:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        data: action.data,
       }
     default:
       return state;

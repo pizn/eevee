@@ -11,7 +11,7 @@ class CreateFileForm extends Component {
     return (
       <Modal ref="modal"
         visible={modalVisible}
-        title='添加文章'
+        title='添加'
         onOk={modalHandleOk}
         onCancel={modalHandleCancel}
         footer={[
@@ -22,12 +22,12 @@ class CreateFileForm extends Component {
       ]}>
         <Form horizontal>
           <FormItem
-            label="文件名称："
+            label="名称："
             labelCol={{span: 6}}
             wrapperCol={{span: 14}}
             validateStatus={getFieldError('name') ? 'error' : 'success'}
-            required>
-            <Input type="text" name="name" autoComplete="off"
+            >
+            <Input type="text" name="name" autoComplete="off" placeholder="2016-01-18-hello-world.md"
               {...getFieldProps('name', {
                 rules: [{
                   type: "string",
