@@ -7,7 +7,7 @@ class CreateFileForm extends Component {
   render() {
     const { modalVisible, modalHandleOk, modalHandleCancel, form } = this.props;
     const { getFieldProps, getFieldError } = form;
-    const defaultValue = new Date().getDate() + '-';
+    const timeNow = new Date();
     return (
       <Modal ref="modal"
         visible={modalVisible}
@@ -28,12 +28,14 @@ class CreateFileForm extends Component {
             validateStatus={getFieldError('name') ? 'error' : 'success'}
             required>
             <Input type="text" name="name" autoComplete="off"
-              {...getFieldProps('name', {rules: [{
-                type: "string",
-                required: true,
-                pattern: /^(((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])-)+([a-zA-Z0-9-_])+(\.md)$/,
-                message: "例子: 2016-01-18-hello-world.md"
-              },]})}
+              {...getFieldProps('name', {
+                rules: [{
+                  type: "string",
+                  required: true,
+                  pattern: /^(((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])-)+([a-zA-Z0-9-_])+(\.md)$/,
+                  message: "例子: 2016-01-18-hello-world.md"
+                },
+                ]})}
             />
             <Col span="24">
               <p className="ant-form-explain">{getFieldError('name') ? getFieldError('name').join('') : ''}</p>

@@ -64,7 +64,6 @@ export function getCursorState (cm, pos) {
 export function applyFormat (cm, key) {
   var cs = getCursorState(cm);
   var format = FORMATS[key];
-  console.log(format);
   operations[format.type + (cs[key] ? 'Remove' : 'Apply')](cm, format);
 }
 
@@ -104,7 +103,6 @@ var operations = {
     var startPoint = cm.getCursor('start');
     var endPoint = cm.getCursor('end');
     var line = cm.getLine(startPoint.line);
-    console.log(format);
     var startPos = startPoint.ch;
 
     while (startPos) {

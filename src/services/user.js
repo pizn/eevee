@@ -2,12 +2,6 @@ import storage from '../utils/localStorage';
 import Github from 'github-api';
 
 const User = {
-
-  user() {
-
-    return github;
-  },
-
   getInfo() {
     const _leafAdmin = storage.get('_leafAdmin');
     const github = new Github({

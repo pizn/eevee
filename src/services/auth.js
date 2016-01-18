@@ -27,7 +27,6 @@ const authorization = {
   },
 
   logout() {
-    console.log('logout');
     return new Promise((resolve, reject) => {
       storage.remove('_leafAdmin');
       resolve();
