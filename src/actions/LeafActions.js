@@ -59,3 +59,24 @@ export function readRepoBlob(data) {
     promise: repo.readBlob(data.username, data.reponame, data.path),
   }
 }
+
+export function readRepoBlobCommit(data) {
+  return {
+    types: [types.READ_REPO_BLOB_COMMIT, types.READ_REPO_BLOB_COMMIT_SUCCESS, types.READ_REPO_BLOB_COMMIT_FAIL],
+    promise: repo.readBlobCommit(data.username, data.reponame, data.sha),
+  }
+}
+
+export function updateRepoBlob(data) {
+  return {
+    types: [types.UPDATE_REPO_BLOB, types.UPDATE_REPO_BLOB_SUCCESS, types.UPDATE_REPO_BLOB_FAIL],
+    promise: repo.writeBlob(data),
+    data,
+  }
+}
+
+export function clearRepoBlob() {
+  return {
+    type: types.CLEAR_REPO_BLOB,
+  }
+}

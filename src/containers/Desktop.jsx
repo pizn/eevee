@@ -37,7 +37,7 @@ class Desktop extends Component {
   }
 
   componentDidMount() {
-    const { dispatch, user } = this.props;
+    const { dispatch, user, repoInfo, tree } = this.props;
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())
       .then(() => {
@@ -47,21 +47,19 @@ class Desktop extends Component {
           path: '_posts',
         }
         dispatch(actions.loadRepoInfo(repo));
-        dispatch(actions.loadRepoTree(repo));
         dispatch(actions.readRepoTree(repo));
-      })
-    } else {
+      });
+    } else if (!repoInfo.loaded) {
       const repo = {
         username: this.props.user.data.login,
         reponame: this.props.user.data.login + '.github.com',
         path: '_posts',
       }
       dispatch(actions.loadRepoInfo(repo));
-      dispatch(actions.loadRepoTree(repo));
       dispatch(actions.readRepoTree(repo));
     }
+    dispatch(actions.clearRepoBlob());
   }
-
   logout() {
     const { dispatch, history } = this.props;
     dispatch(actions.logout())

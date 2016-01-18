@@ -239,6 +239,7 @@ export default class Editor extends Component {
   }
 
   renderToolbar () {
+    const { blob } = this.props;
     const previewClassName = classNames({
       'edit-icon': true,
       'edit-icon-eyes': !this.state.isPreview,
@@ -252,7 +253,7 @@ export default class Editor extends Component {
 
     const historyClassName = classNames({
       'leaf-editor-tool-icon': true,
-      'leaf-editor-tool-icon-disabled': this.state.isPreview
+      'leaf-editor-tool-icon-disabled': this.state.isPreview || !blob.loaded,
     });
 
     return (
@@ -327,35 +328,28 @@ export default class Editor extends Component {
 
   render () {
     const { className, blob } = this.props;
-    console.log(blob);
-
     const editorClassName = classNames({
       'leaf-editor-wrap': true,
       'leaf-editor-wrap-preview': this.state.isPreview,
       [className]: className
     });
-
     const editorToolClassName = classNames({
       'leaf-editor-tool': true,
       'leaf-editor-tool-active': this.state.onScrolled,
     });
-
     const penClassName = classNames({
       'pen': true,
       'pen-hide': this.state.isPreview
     });
-
     const viewClassName = classNames({
       'view': true,
       'view-show': this.state.isPreview
     });
-
     const containerClassName = classNames({
       'leaf-editor-container': true,
       'clearfix': true,
       'leaf-editor-container-preview': this.state.isPreview
     });
-
     return (
       <div className="leaf-editor">
         <div className={editorToolClassName}>
