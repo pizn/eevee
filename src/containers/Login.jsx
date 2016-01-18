@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import * as actions from '../actions/LeafActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 import Form from '../components/Login/Form';
 
@@ -41,12 +42,17 @@ class Login extends Component {
 
   render() {
     const { auth } = this.props;
+    const logoCls = classNames({
+      'head-logo': true,
+      'head-logo-loading': auth.loading,
+    });
+
     return (
       <div className="leaf">
         <div className="leaf-login">
           <div className="leaf-login-contain">
             <div className="leaf-login-contain-head">
-              <div className="head-logo"></div>
+              <div className={logoCls}></div>
             </div>
             <div className="leaf-login-contain-form">
               <Form

@@ -42,7 +42,7 @@ class Aside extends Component {
                       <Icon type="folder-open" />
                     </Col>
                     <Col span="20">
-                       文章
+                       文章 <span className="count">{tree.data.length}</span>
                     </Col>
                   </Row>
                 </Link>
