@@ -32,7 +32,7 @@ class CreateFileForm extends Component {
                 rules: [{
                   type: "string",
                   required: true,
-                  pattern: /^(((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])-)+([a-zA-Z0-9-_])+(\.md)$/,
+                  pattern: /^(((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])-)+([a-zA-Z0-9-_])+(\.md|\.markdown|\.mdown|\.mkd|\.mkdown|\.ron|\.txt)$/,
                   message: "例子: 2016-01-18-hello-world.md"
                 },
                 ]})}

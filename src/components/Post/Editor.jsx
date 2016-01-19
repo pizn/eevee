@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import CM from 'codemirror';
 import { getCursorState, applyFormat } from '../../utils/editorFormat';
 import marked from  'marked';
+import yaml from 'js-yaml';
 import hljs from 'highlight.js';
 import Key from 'keymaster';
 import { Icon, Tooltip } from 'antd';
@@ -10,11 +11,7 @@ import '../../styles/EditIcon.less';
 import '../../styles/CodeMirror.less';
 
 marked.setOptions({
-  renderer: new marked.Renderer(),
-  //sanitize: true,
-  //highlight: function (code) {
-  //  return hljs.highlightAuto(code).value;
-  //}
+  renderer: new marked.Renderer()
 });
 
 require('codemirror/mode/xml/xml');
@@ -35,7 +32,7 @@ require('codemirror/mode/http/http');
 require('codemirror/mode/clike/clike');
 require('codemirror/addon/edit/continuelist');
 
-export default class Editor extends Component {
+class Editor extends Component {
 
   static propTypes = {
     onChange: PropTypes.func,
@@ -50,18 +47,20 @@ export default class Editor extends Component {
     this.state = {
       isPreview: false,
       onScrolled: false,
-      cs: {}
+      cs: {},
+      meta: {},
+      head: "",
     }
   }
 
   componentDidMount () {
-    const { value, blob } = this.props;
+    const { blob } = this.props;
     const editorNode = this.refs.editor;
     const that = this;
     this.codeMirror = CM.fromTextArea(editorNode, this.getOptions());
     this.codeMirror.on('change', this.codemirrorValueChanged.bind(this));
     this.codeMirror.on('cursorActivity', this.updateCursorState.bind(this));
-    this._currentCodemirrorValue = value;
+    this._currentCodemirrorValue = '';
 
     // 保存
     Key('⌘+s, ctrl+s', function(e) {
@@ -147,7 +146,12 @@ export default class Editor extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (this.codeMirror && nextProps.value !== undefined && this._currentCodemirrorValue !== nextProps.value) {
-      this.codeMirror.setValue(nextProps.value);
+      const defaultValue = this.metaMarked(nextProps.value);
+      // update meta and head
+      this.state.meta = defaultValue.meta;
+      this.state.head = defaultValue.head;
+      // update content
+      this.codeMirror.setValue(defaultValue.body);
       this.codeMirror.refresh();
       this.codeMirror.focus();
     }
@@ -155,10 +159,9 @@ export default class Editor extends Component {
 
   /*
    * 1. 切换视图
-   * 2. 修改标题
-   * 3. 滚动条位置
-   * 4. 选中文字
-   * 5. 内容变化了
+   * 2. 滚动条位置
+   * 3. 选中文字
+   * 4. 内容变化了
    */
   shouldComponentUpdate(nextProps, nextState) {
     return nextState.isPreview !== this.state.isPreview || nextState.onScrolled !== this.state.onScrolled || nextState.cs.render || nextState.cs.render !== this.state.cs.render || nextProps.value !== this.props.value;
@@ -178,16 +181,7 @@ export default class Editor extends Component {
   }
 
   codemirrorValueChanged (doc, change) {
-    const { value } = this.props;
     const newValue = doc.getValue();
-    //if (value) {
-    //  const diff = diffLines(value, newValue);
-    //  diff.forEach(function(part){
-    //    var color = part.added ? 'green' :
-    //      part.removed ? 'red' : 'grey';
-    //    console.log(color);
-    //  });
-    //}
     this._currentCodemirrorValue = newValue;
   }
 
@@ -221,10 +215,9 @@ export default class Editor extends Component {
   }
 
   handleScrollEditor() {
-    // 只在临界值发生变化
     if (this.refs.editorContainer.scrollTop > 0 && !this.state.onScrolled) {
       this.setState({ onScrolled: true });
-    } else if (this.refs.editorContainer.scrollTop < 5) {
+    } else if (this.refs.editorContainer.scrollTop < 10) {
       this.setState({ onScrolled: false });
     }
   }
@@ -309,7 +302,9 @@ export default class Editor extends Component {
 
   handleSave() {
     const { handleSave } = this.props;
-    handleSave && handleSave(this._currentCodemirrorValue);
+    // 重新组装
+    const value = this.state.head + '\n---\n' + this._currentCodemirrorValue;
+    handleSave && handleSave(value);
   }
 
   handleUndo() {
@@ -325,9 +320,32 @@ export default class Editor extends Component {
       this.codeMirror.redoSelection();
     }
   }
+  
+  splitInput(str) {
+    if (str.slice(0, 3) !== '---') {
+      return;
+    }
+    var matcher = /\n(\.{3}|-{3})\n/g;
+    var metaEnd = matcher.exec(str);
+    return metaEnd && [str.slice(0, metaEnd.index), str.slice(matcher.lastIndex)];
+  }
+
+  metaMarked(src) {
+    const mySplitInput = this.splitInput(src);
+    return mySplitInput ?  {
+      meta: yaml.safeLoad(mySplitInput[0]),
+      head: mySplitInput[0],
+      body: mySplitInput[1]
+    } : {
+      meta: null,
+      head: null,
+      body: src
+    };
+  }
 
   render () {
     const { className, blob } = this.props;
+
     const editorClassName = classNames({
       'leaf-editor-wrap': true,
       'leaf-editor-wrap-preview': this.state.isPreview,
@@ -350,6 +368,9 @@ export default class Editor extends Component {
       'clearfix': true,
       'leaf-editor-container-preview': this.state.isPreview
     });
+
+
+
     return (
       <div className="leaf-editor">
         <div className={editorToolClassName}>
@@ -367,7 +388,6 @@ export default class Editor extends Component {
                 <textarea
                 ref="editor"
                 name={this.props.path}
-                defaultValue={this.props.value}
                 autoComplete="off"/>
               </div>
             </div>
@@ -385,3 +405,5 @@ export default class Editor extends Component {
     );
   }
 }
+
+export default Editor;

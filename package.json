@@ -43,6 +43,7 @@
     "extract-text-webpack-plugin": "~1.0.1",
     "github-api": "~0.10.7",
     "history": "~1.17.0",
+    "js-yaml": "~3.5.2",
     "keymaster": "~1.6.2",
     "koa": "~1.0.0",
     "koa-bodyparser": "~2.0.1",

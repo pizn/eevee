@@ -122,6 +122,7 @@ class Post extends Component {
 
   render() {
     const { blob } = this.props;
+
     return (
       <div className="leaf">
         <div className="leaf-post">
