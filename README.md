@@ -28,11 +28,11 @@
 
 ### 特性
 
-- [ ] 登录 GitHub 账号,获取 `*.github.io` 或者 `*.github.com` 的 Project
-- [ ] 获取 `_posts` 的所有文档（仅 markdown ）
-- [ ] 添加文章
-- [ ] 编辑文章
-- [ ] 删除文章
+- [x] 登录 GitHub 账号,获取 `*.github.io` 或者 `*.github.com` 的 Project
+- [x] 获取 `_posts` 的所有文档（仅 markdown ）
+- [x] 添加文章
+- [x] 编辑文章
+- [x] 删除文章
 
 ### 计划
 
