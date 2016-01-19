@@ -1,17 +1,17 @@
 {
-  "name": "leafeon",
+  "name": "eevee",
   "version": "0.0.1",
-  "description": "基于 Github Page 的博客在线编辑平台",
+  "description": "伊布 - 内容为王,基于 GitHub 的博客管理平台",
   "keywords": [
-    "page",
-    "jekyll"
+    "jekyll",
+    "github"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/pizn/leafeon.git"
+    "url": "https://github.com/pizn/eevee.git"
   },
   "bugs": {
-    "url": "https://github.com/pizn/leafeon.git/issues"
+    "url": "https://github.com/pizn/eevee.git/issues"
   },
   "license": "MIT",
   "entry": {

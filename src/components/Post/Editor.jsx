@@ -366,7 +366,7 @@ class Editor extends Component {
             }
           </div>
           <div className="leaf-editor-footer clearfix">
-            <p>文章编写于 </p>
+            <p>文章编写于 <a href="https://github.com/pizn/eevee" target="_blank">伊布</a></p>
           </div>
         </div>
       </div>

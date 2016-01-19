@@ -108,7 +108,11 @@ class Login extends Component {
               </div>
             </div>
           }
+          <div className="leaf-login-foot">
+            <p><a href="https://github.com/pizn/eevee" target="_blank">关于伊布</a> · <a href="https://github.com/pizn/eevee/issues" target="_blank">联系作者</a></p>
+          </div>
         </div>
+
       </div>
     );
   }
