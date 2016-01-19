@@ -81,7 +81,7 @@ const Repo = {
     }
 
     return new Promise((resolve, reject) => {
-      repo.write('master', data.path, data.content, '[Leafeon]: Add post', options, (err, file) => {
+      repo.write('master', data.path, data.content, '[log]: Add post', options, (err, file) => {
         if (err) {
           reject(err);
         } else {
@@ -111,7 +111,7 @@ const Repo = {
       committer: {name: data.username, email: data.email},
     }
     return new Promise((resolve, reject) => {
-      repo.write('master', data.path, data.content, '[Leafeon]: Update post', options, (err, file) => {
+      repo.write('master', data.path, data.content, '[log]: Update post', options, (err, file) => {
         if (err) {
           reject(err);
         } else {

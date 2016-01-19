@@ -77,7 +77,7 @@ class Post extends Component {
 
   handleSaveMeta(data) {
     if (data === this.state.head) {
-      console.log('leafeon: 没有修改');
+      console.log('[log]: 没有修改');
       return false;
     }
     this.setState({
@@ -90,7 +90,7 @@ class Post extends Component {
 
   handleSaveCnt(data) {
     if (data === this.state.body) {
-      console.log('leafeon: 没有修改');
+      console.log('[log]: 没有修改');
       return false;
     }
 
@@ -106,7 +106,7 @@ class Post extends Component {
     const { blob, dispatch, user, repoInfo, params } = this.props;
 
     if (blob.updating) {
-      console.log('[leafeon]: 文档正在保存...');
+      console.log('[log]: 文档正在保存...');
       return false;
     }
 

@@ -220,7 +220,7 @@ class Editor extends Component {
       const start_time = new Date();
       let rawMarkup = marked(this._currentCodemirrorValue);
       this.previewMarkup = rawMarkup;
-      console.info('[Leafeon] 渲染预览消耗 %s ms', new Date() - start_time);
+      console.info('[log] 渲染预览消耗 %s ms', new Date() - start_time);
     }
   }
 
