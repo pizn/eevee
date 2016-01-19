@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import CM from 'codemirror';
 import { getCursorState, applyFormat } from '../../utils/editorFormat';
 import marked from  'marked';
-import yaml from 'js-yaml';
+
 import hljs from 'highlight.js';
 import Key from 'keymaster';
 import { Icon, Tooltip } from 'antd';
@@ -48,19 +48,17 @@ class Editor extends Component {
       isPreview: false,
       onScrolled: false,
       cs: {},
-      meta: {},
-      head: "",
     }
   }
 
   componentDidMount () {
-    const { blob } = this.props;
+    const { value } = this.props;
     const editorNode = this.refs.editor;
     const that = this;
     this.codeMirror = CM.fromTextArea(editorNode, this.getOptions());
     this.codeMirror.on('change', this.codemirrorValueChanged.bind(this));
     this.codeMirror.on('cursorActivity', this.updateCursorState.bind(this));
-    this._currentCodemirrorValue = '';
+    this._currentCodemirrorValue = value;
 
     // 保存
     Key('⌘+s, ctrl+s', function(e) {
@@ -146,12 +144,7 @@ class Editor extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (this.codeMirror && nextProps.value !== undefined && this._currentCodemirrorValue !== nextProps.value) {
-      const defaultValue = this.metaMarked(nextProps.value);
-      // update meta and head
-      this.state.meta = defaultValue.meta;
-      this.state.head = defaultValue.head;
-      // update content
-      this.codeMirror.setValue(defaultValue.body);
+      this.codeMirror.setValue(nextProps.value);
       this.codeMirror.refresh();
       this.codeMirror.focus();
     }
@@ -303,8 +296,7 @@ class Editor extends Component {
   handleSave() {
     const { handleSave } = this.props;
     // 重新组装
-    const value = this.state.head + '\n---\n' + this._currentCodemirrorValue;
-    handleSave && handleSave(value);
+    handleSave && handleSave(this._currentCodemirrorValue);
   }
 
   handleUndo() {
@@ -319,28 +311,6 @@ class Editor extends Component {
     if (this.codeMirror && !this.state.isPreview) {
       this.codeMirror.redoSelection();
     }
-  }
-  
-  splitInput(str) {
-    if (str.slice(0, 3) !== '---') {
-      return;
-    }
-    var matcher = /\n(\.{3}|-{3})\n/g;
-    var metaEnd = matcher.exec(str);
-    return metaEnd && [str.slice(0, metaEnd.index), str.slice(matcher.lastIndex)];
-  }
-
-  metaMarked(src) {
-    const mySplitInput = this.splitInput(src);
-    return mySplitInput ?  {
-      meta: yaml.safeLoad(mySplitInput[0]),
-      head: mySplitInput[0],
-      body: mySplitInput[1]
-    } : {
-      meta: null,
-      head: null,
-      body: src
-    };
   }
 
   render () {
@@ -368,8 +338,6 @@ class Editor extends Component {
       'clearfix': true,
       'leaf-editor-container-preview': this.state.isPreview
     });
-
-
 
     return (
       <div className="leaf-editor">

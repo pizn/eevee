@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import * as actions from '../actions/LeafActions';
 import { connect } from 'react-redux';
+import yaml from 'js-yaml';
 
 import { Icon, message, Modal } from 'antd';
 import Head from '../components/Post/Head';
@@ -18,9 +19,18 @@ const confirm = Modal.confirm;
 
 class Post extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      meta: {},
+      head: '',
+      body: '',
+    }
+  }
+
   componentDidMount() {
     const { params, dispatch, user, repoInfo } = this.props;
-
+    const that = this;
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())
       .then(() => {
@@ -31,7 +41,9 @@ class Post extends Component {
             reponame: this.props.repoInfo.data.name,
             path: '_posts/' + params.name,
           }
-          dispatch(actions.readRepoBlob(repo))
+          dispatch(actions.readRepoBlob(repo)).then(() => {
+            that.generateContent();
+          });
         });
       })
     } else {
@@ -43,7 +55,9 @@ class Post extends Component {
             reponame: this.props.repoInfo.data.name,
             path: '_posts/' + params.name,
           }
-          dispatch(actions.readRepoBlob(repo));
+          dispatch(actions.readRepoBlob(repo)).then(() => {
+            that.generateContent();
+          });;
         });
       } else {
         const repo = {
@@ -51,7 +65,9 @@ class Post extends Component {
           reponame: this.props.repoInfo.data.name,
           path: '_posts/' + params.name,
         }
-        dispatch(actions.readRepoBlob(repo));
+        dispatch(actions.readRepoBlob(repo)).then(() => {
+          that.generateContent();
+        });
       }
     }
   }
@@ -66,13 +82,20 @@ class Post extends Component {
       console.log('[leafeon]: 文档正在保存...');
       return false;
     }
+
+    // setState
+    this.setState({
+      body: value,
+    });
+
     const repo = {
       username: user.data.login,
       email: user.data.email,
       reponame: repoInfo.data.name,
       path: '_posts/' + params.name,
-      content: value,
+      content: this.state.head + '\n---\n' + value,
     }
+
     const msg = message.loading('正在保存...', 0);
     dispatch(actions.updateRepoBlob(repo))
     .then(() => {
@@ -120,21 +143,56 @@ class Post extends Component {
     });
   }
 
+  splitInput(str) {
+    if (str.slice(0, 3) !== '---') {
+      return;
+    }
+    var matcher = /\n(\.{3}|-{3})\n/g;
+    var metaEnd = matcher.exec(str);
+    return metaEnd && [str.slice(0, metaEnd.index), str.slice(matcher.lastIndex)];
+  }
+
+  metaMarked(src) {
+    const mySplitInput = this.splitInput(src);
+    return mySplitInput ?  {
+      meta: yaml.safeLoad(mySplitInput[0]),
+      head: mySplitInput[0],
+      body: mySplitInput[1]
+    } : {
+      meta: null,
+      head: null,
+      body: src
+    };
+  }
+
+  generateContent() {
+    const { blob } = this.props;
+    if (blob.loaded) {
+      const defaultValue = this.metaMarked(blob.data.content);
+      // update meta and head
+      this.setState({
+        meta: defaultValue.meta,
+        head: defaultValue.head,
+        body: defaultValue.body,
+      });
+    }
+  }
+
   render() {
     const { blob } = this.props;
-
     return (
       <div className="leaf">
         <div className="leaf-post">
           <Head
             {...this.props}
             blob={blob}
+            meta={this.state.meta}
             handleRemove={this.handleRemove.bind(this)}
           />
           <Editor
             {...this.props}
             blob={blob}
-            value={blob.data.content}
+            value={this.state.body}
             onChange={this.handleUpdateCode.bind(this)}
             onFocusChange={this.handleFocusChange.bind(this)}
             handleSave={this.handleSave.bind(this)}

@@ -15,7 +15,7 @@ class Head extends Component {
   }
 
   render() {
-    const { blob, params } = this.props;
+    const { blob, meta, params } = this.props;
     return (
       <div className="leaf-post-head">
         <Row>
@@ -25,9 +25,16 @@ class Head extends Component {
             </Link>
           </Col>
           <Col span="10" className="loading">
-            <h1 className="title">
-              {params.name}
-            </h1>
+            { blob.loaded &&
+              <h1 className="title">
+                {meta && meta.title}
+              </h1>
+            }
+            { !blob.loaded &&
+              <h1 className="title">
+                <Icon type="loading" />
+              </h1>
+            }
           </Col>
           <Col span="7" className="action">
             <div className="action-list">
