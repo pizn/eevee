@@ -38,10 +38,12 @@ class Head extends Component {
                   {meta && meta.title} <Icon type="caret-down" />
                 </div>
                 <div className="meta-card">
-                  <Row className="meta-card-item">
-                    <Col span="4" className="name">描述:</Col>
-                    <Col span="20" className="cnt">{meta.description}</Col>
-                  </Row>
+                  { meta.description &&
+                    <Row className="meta-card-item">
+                      <Col span="4" className="name">描述:</Col>
+                      <Col span="20" className="cnt">{meta.description}</Col>
+                    </Row>
+                  }
                   { meta.categories &&
                     <Row className="meta-card-item">
                       <Col span="4" className="name">分类:</Col>

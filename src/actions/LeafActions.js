@@ -101,6 +101,7 @@ export function removeRepoBlob(data) {
   return {
     types: [types.REMOVE_REPO_BLOB, types.REMOVE_REPO_BLOB_SUCCESS, types.REMOVE_REPO_BLOB_FAIL],
     promise: repo.removeBlob(data),
+    data,
   }
 }
 

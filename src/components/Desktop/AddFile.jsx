@@ -7,7 +7,6 @@ class CreateFileForm extends Component {
   render() {
     const { modalVisible, modalHandleOk, modalHandleCancel, form } = this.props;
     const { getFieldProps, getFieldError } = form;
-    const timeNow = new Date();
     return (
       <Modal ref="modal"
         visible={modalVisible}
@@ -22,7 +21,7 @@ class CreateFileForm extends Component {
       ]}>
         <Form horizontal>
           <FormItem
-            label="名称："
+            label="文件名："
             labelCol={{span: 6}}
             wrapperCol={{span: 14}}
             validateStatus={getFieldError('name') ? 'error' : 'success'}
@@ -33,12 +32,31 @@ class CreateFileForm extends Component {
                   type: "string",
                   required: true,
                   pattern: /^(((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])-)+([a-zA-Z0-9-_])+(\.md|\.markdown|\.mdown|\.mkd|\.mkdown|\.ron|\.txt)$/,
-                  message: "例子: 2016-01-18-hello-world.md"
+                  message: "请输入文章 URL。例如: 2016-01-18-hello-world.md"
                 },
                 ]})}
             />
             <Col span="24">
               <p className="ant-form-explain">{getFieldError('name') ? getFieldError('name').join('') : ''}</p>
+            </Col>
+          </FormItem>
+          <FormItem
+            label="文章标题："
+            labelCol={{span: 6}}
+            wrapperCol={{span: 14}}
+            validateStatus={getFieldError('title') ? 'error' : 'success'}
+            >
+            <Input type="text" name="title" autoComplete="off"
+              {...getFieldProps('title', {
+                rules: [{
+                  type: "string",
+                  required: true,
+                  message: "请输入文章标题"
+                },
+                ]})}
+            />
+            <Col span="24">
+              <p className="ant-form-explain">{getFieldError('title') ? getFieldError('title').join('') : ''}</p>
             </Col>
           </FormItem>
         </Form>

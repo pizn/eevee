@@ -78,7 +78,7 @@ class Aside extends Component {
             </Col>
             <ul className="foot-user-actions">
               <li className="item">
-                <a onClick={this.logout.bind(this)} ><Icon type="logout" /> 登出</a>
+                <a onClick={this.logout.bind(this)} >登出 <Icon type="logout" /></a>
               </li>
             </ul>
           </Row>

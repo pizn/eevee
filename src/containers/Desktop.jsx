@@ -23,7 +23,6 @@ class Desktop extends Component {
 
   constructor(props) {
     super(props);
-    const { auth } = props;
     this.state = {
       addFile: false
     }
@@ -61,12 +60,14 @@ class Desktop extends Component {
           dispatch(actions.readRepoTree(repo));
         });
       } else {
-        const repo = {
-          username: this.props.user.data.login,
-          reponame: this.props.repoInfo.data.name,
-          path: '_posts',
+        if (!tree.loaded) {
+          const repo = {
+            username: this.props.user.data.login,
+            reponame: this.props.repoInfo.data.name,
+            path: '_posts',
+          }
+          dispatch(actions.readRepoTree(repo));
         }
-        dispatch(actions.readRepoTree(repo));
       }
     }
     dispatch(actions.clearRepoBlob());

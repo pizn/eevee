@@ -122,11 +122,6 @@ class Post extends Component {
     dispatch(actions.updateRepoBlob(repo))
     .then(() => {
       msg();
-      //if (this.props.blob.updated) {
-      //  message.success('已更新');
-      //} else {
-      //  message.error('未更新');
-      //}
     });
   }
 
@@ -156,9 +151,12 @@ class Post extends Component {
       reponame: repoInfo.data.name,
       path: '_posts/' + params.name
     }
+    const msg = message.loading('正在删除...', 0);
+
     dispatch(actions.removeRepoBlob(repo))
     .then(() => {
-      message.success('删除成功');
+      msg();
+      //message.success('删除成功');
     })
     .then(() => {
       history.pushState(null, '_posts/');

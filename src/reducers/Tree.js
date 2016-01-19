@@ -1,8 +1,8 @@
-import { READ_REPO_TREE, READ_REPO_TREE_SUCCESS, READ_REPO_TREE_FAIL, ADD_REPO_BLOB, ADD_REPO_BLOB_SUCCESS, ADD_REPO_BLOB_FAIL, AUTH_LOGOUT } from '../constants/LeafActionTypes';
+import { READ_REPO_TREE, READ_REPO_TREE_SUCCESS, READ_REPO_TREE_FAIL, ADD_REPO_BLOB, ADD_REPO_BLOB_SUCCESS, ADD_REPO_BLOB_FAIL, AUTH_LOGOUT, REMOVE_REPO_BLOB } from '../constants/LeafActionTypes';
 
 const initialState = {
   loaded: false,
-  data: {}
+  data: []
 };
 
 export default function tree(state = initialState, action) {
@@ -50,7 +50,15 @@ export default function tree(state = initialState, action) {
     case AUTH_LOGOUT:
       return {
         loaded: false,
-        data: {},
+        data: [],
+      }
+    case REMOVE_REPO_BLOB:
+      console.log(action.data);
+      return {
+        ...state,
+        data: state.data.filter(item => {
+          return item.path !== action.data.path;
+        }),
       }
     default:
       return state;
