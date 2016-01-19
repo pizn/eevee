@@ -14,8 +14,15 @@ class Head extends Component {
     handleRemove();
   }
 
+  handleEditMeta(e) {
+    e.preventDefault();
+    const { handleEditMeta } = this.props;
+    handleEditMeta();
+  }
+
   render() {
-    const { blob, meta, params } = this.props;
+    const { blob, meta } = this.props;
+
     return (
       <div className="leaf-post-head">
         <Row>
@@ -26,9 +33,32 @@ class Head extends Component {
           </Col>
           <Col span="10" className="loading">
             { blob.loaded &&
-              <h1 className="title">
-                {meta && meta.title}
-              </h1>
+              <div className="meta">
+                <div className="meta-title">
+                  {meta && meta.title} <Icon type="caret-down" />
+                </div>
+                <div className="meta-card">
+                  <Row className="meta-card-item">
+                    <Col span="4" className="name">描述:</Col>
+                    <Col span="20" className="cnt">{meta.description}</Col>
+                  </Row>
+                  { meta.categories &&
+                    <Row className="meta-card-item">
+                      <Col span="4" className="name">分类:</Col>
+                      <Col span="20" className="cnt">{meta.categories}</Col>
+                    </Row>
+                  }
+                  { meta.tags &&
+                    <Row className="meta-card-item">
+                      <Col span="4" className="name">标签:</Col>
+                      <Col span="20" className="cnt">{meta.tags}</Col>
+                    </Row>
+                  }
+                  <a onClick={this.handleEditMeta.bind(this)} className="meta-card-edit">
+                    编辑
+                  </a>
+                </div>
+              </div>
             }
             { !blob.loaded &&
               <h1 className="title">

@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import yaml from 'js-yaml';
 
 import { Icon, message, Modal } from 'antd';
+
 import Head from '../components/Post/Head';
 import Editor from '../components/Post/Editor';
+import MetaForm from '../components/Post/Meta';
 
 const confirm = Modal.confirm;
 
@@ -25,6 +27,7 @@ class Post extends Component {
       meta: {},
       head: '',
       body: '',
+      editMeta: false,
     }
   }
 
@@ -72,39 +75,58 @@ class Post extends Component {
     }
   }
 
-  handleSave(value) {
-    const { blob, dispatch, user, repoInfo, params } = this.props;
-    if (blob.data.content === value) {
-      console.info('[leafeon]: 文档没有修改');
+  handleSaveMeta(data) {
+    if (data === this.state.head) {
+      console.log('leafeon: 没有修改');
       return false;
     }
+    this.setState({
+      meta: yaml.safeLoad(data),
+      head: data,
+    });
+    const cnt = data + '\n---\n' + this.state.body;
+    this.handleSave(cnt);
+  }
+
+  handleSaveCnt(data) {
+    if (data === this.state.body) {
+      console.log('leafeon: 没有修改');
+      return false;
+    }
+
+    this.setState({
+      body: data,
+    });
+
+    const cnt = this.state.head + '\n---\n' + data;
+    this.handleSave(cnt);
+  }
+
+  handleSave(cnt) {
+    const { blob, dispatch, user, repoInfo, params } = this.props;
+
     if (blob.updating) {
       console.log('[leafeon]: 文档正在保存...');
       return false;
     }
-
-    // setState
-    this.setState({
-      body: value,
-    });
 
     const repo = {
       username: user.data.login,
       email: user.data.email,
       reponame: repoInfo.data.name,
       path: '_posts/' + params.name,
-      content: this.state.head + '\n---\n' + value,
+      content: cnt,
     }
 
     const msg = message.loading('正在保存...', 0);
     dispatch(actions.updateRepoBlob(repo))
     .then(() => {
       msg();
-      if (this.props.blob.updated) {
-        message.success('已更新');
-      } else {
-        message.error('未更新');
-      }
+      //if (this.props.blob.updated) {
+      //  message.success('已更新');
+      //} else {
+      //  message.error('未更新');
+      //}
     });
   }
 
@@ -140,6 +162,25 @@ class Post extends Component {
     })
     .then(() => {
       history.pushState(null, '_posts/');
+    });
+  }
+
+  handleEditMeta() {
+    this.setState({
+      editMeta: true,
+    });
+  }
+
+  handleEditMetaSubmit(data) {
+    this.setState({
+      editMeta: false,
+    });
+    this.handleSaveMeta(data.meta);
+  }
+
+  handleEditMetaCancle() {
+    this.setState({
+      editMeta: false,
     });
   }
 
@@ -188,6 +229,7 @@ class Post extends Component {
             blob={blob}
             meta={this.state.meta}
             handleRemove={this.handleRemove.bind(this)}
+            handleEditMeta={this.handleEditMeta.bind(this)}
           />
           <Editor
             {...this.props}
@@ -195,7 +237,13 @@ class Post extends Component {
             value={this.state.body}
             onChange={this.handleUpdateCode.bind(this)}
             onFocusChange={this.handleFocusChange.bind(this)}
-            handleSave={this.handleSave.bind(this)}
+            handleSave={this.handleSaveCnt.bind(this)}
+          />
+          <MetaForm
+            metaData={this.state.head}
+            modalVisible={this.state.editMeta}
+            modalHandleOk={this.handleEditMetaSubmit.bind(this)}
+            modalHandleCancel={this.handleEditMetaCancle.bind(this)}
           />
         </div>
       </div>
