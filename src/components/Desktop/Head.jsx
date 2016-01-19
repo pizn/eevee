@@ -8,13 +8,13 @@ class Head extends Component {
   }
 
   render() {
-    const { tree, addFile } = this.props;
+    const { addFile, repoInfo } = this.props;
     return (
       <div className="leaf-desktop-head">
-          { tree.loaded &&
+          { repoInfo.loaded &&
             <Row className="leaf-head-wrap">
               <Col span="20">
-                <h2 className="title">文章</h2>
+                <h2 className="title">{repoInfo.data.name} <Icon type="right" /> _posts</h2>
               </Col>
               <Col span="4" className="action">
                 <Button type="ghost" onClick={addFile}><Icon type="plus" /> 添加</Button>

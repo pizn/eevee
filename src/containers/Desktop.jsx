@@ -137,7 +137,7 @@ class Desktop extends Component {
           <div className="leaf-desktop-main">
             <div className="leaf-desktop-main-wrap">
               <Head
-                tree={tree}
+                repoInfo={repoInfo}
                 addFile={this.handleShowAddModal.bind(this)}
               />
               <List

@@ -11,6 +11,9 @@ class Aside extends Component {
   }
   render() {
     const { user, repoInfo, tree } = this.props;
+
+    console.log(repoInfo);
+
     const logoCls = classNames({
       'head-logo': true,
       'head-logo-loading': user.loading | repoInfo.loading | tree.loading,
@@ -22,48 +25,40 @@ class Aside extends Component {
           <div className={logoCls}></div>
         </div>
         <div className="body">
-          <div className="body-project">
-            { repoInfo.loading &&
-              <div className="body-project-title">
-                <Icon type="loading" />
-              </div>
-            }
-            { !repoInfo.loading &&
-              <a href={repoInfo.data.html_url} target="_blank" className="body-project-title">{repoInfo.data.name}</a>
-            }
+          { !tree.loaded &&
+          <div className="body-project-title">
+            <Icon type="loading" />
           </div>
+          }
+          { tree.loaded &&
           <ul className="body-menu">
-            { tree.loaded &&
-              <li className="body-menu-item">
-                <Link to={`_posts`} className="link" activeClassName="link-active">
-                  <Row>
-                    <Col span="4">
-                      <Icon type="folder"/>
-                      <Icon type="folder-open" />
-                    </Col>
-                    <Col span="20">
-                       文章 <span className="count">{tree.data.length}</span>
-                    </Col>
-                  </Row>
-                </Link>
-              </li>
-            }
-            {/*
-              <li className="body-menu-item">
-                <Link to={`_drafts`} className="link" activeClassName="link-active">
-                  <Row>
-                    <Col span="4">
-                      <Icon type="folder" />
-                      <Icon type="folder-open" />
-                    </Col>
-                    <Col span="20">
-                       草稿
-                    </Col>
-                  </Row>
-                </Link>
-              </li>
-            */}
+            <li className="body-menu-item">
+              <Link to={`_posts`} className="link" activeClassName="link-active">
+                <span className="icon"><Icon type="inbox" /></span>
+                <span className="count">{tree.data.length}</span>
+              </Link>
+              <p className="text">文章</p>
+            </li>
+            <li className="body-menu-item">
+              <div className="link">
+                <span className="icon"><Icon type="file-text" /></span>
+              </div>
+              <p className="text">草稿</p>
+            </li>
+            <li className="body-menu-item">
+              <div className="link">
+                <span className="icon"><Icon type="picture" /></span>
+              </div>
+              <p className="text">主题</p>
+            </li>
+            <li className="body-menu-item">
+              <div className="link">
+                <span className="icon"><Icon type="setting" /></span>
+              </div>
+              <p className="text">配置</p>
+            </li>
           </ul>
+          }
         </div>
 
         <div className="foot">

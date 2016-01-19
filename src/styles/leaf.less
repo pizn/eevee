@@ -41,7 +41,7 @@
 
         .head-logo {
           margin: 0 auto;
-          background: url(https://t.alipayobjects.com/images/rmsweb/T1.l8kXeViXXXXXXXX.png) no-repeat 0 0;
+          background: url(https://t.alipayobjects.com/images/rmsweb/T1EmVkXahfXXXXXXXX.png) no-repeat 0 0;
           width: 48px;
           height: 48px;
           background-size: 48px 48px;
@@ -122,7 +122,7 @@
 
         &-logo {
           margin: 0 auto;
-          background: url(https://t.alipayobjects.com/images/rmsweb/T1.l8kXeViXXXXXXXX.png) no-repeat 0 0;
+          background: url(https://t.alipayobjects.com/images/rmsweb/T1EmVkXahfXXXXXXXX.png) no-repeat 0 0;
           width: 48px;
           height: 48px;
           background-size: 48px 48px;
@@ -140,28 +140,43 @@
           text-align: center;
           font-family: "Courier New", Courier, monospace;
         }
-
       }
 
       .body {
-
         &-project {
-          border-top: 1px solid @border-color;
-          border-bottom: 1px solid @border-color;
-
           &-title {
+            padding: 0px 32px 8px 32px;
             display: block;
-            padding: 12px 32px;
             line-height: 24px;
-            min-height: 48px;
-            text-align: center;
             color: #666;
+            font-size: 16px;
+            font-weight: normal;
+            text-align: center;
 
-            &:hover {
-              background: lighten(@primary-color, 34%);
+            a {
+              color: #666;
             }
           }
 
+          &-description {
+            padding: 0 32px;
+            font-size: 12px;
+            color: #999;
+            display: none;
+          }
+
+          &-card {
+            padding: 16px 32px;
+            display: none;
+
+            &-item {
+              padding: 4px 8px;
+              border-radius: 24px 24px;
+              margin-right: 12px;
+              color: #fff;
+              background: @primary-color;
+            }
+          }
 
         }
 
@@ -169,52 +184,75 @@
           padding: 24px 0;
 
           &-item {
+            margin-bottom: 24px;
+
+
 
             .link {
-              padding: 0 24px;
-              display: block;
-              font-size: 14px;
+              position: relative;
+              width: 48px;
+              height: 48px;
+              margin: 0 auto;
               line-height: 48px;
-              color: #666;
+              display: block;
+              border-radius: 24px 24px;
+              background: #fff;
+              border: 1px solid @border-color;
+              text-align: center;
+              color: #999;
+              cursor: pointer;
 
-              .anticon {
-                width: 32px;
-                display: none;
-                text-align: center;
-                color: #a8a8a8;
-              }
-
-              .anticon-folder {
-                display: inline-block;
-              }
-
-              .anticon-folder-open {
-                display: none;
+              .icon {
+                position: relative;
+                font-size: 16px;
               }
 
               .count {
-                margin: 15px 0;
-                height: 18px;
-                line-height: 18px;
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                height: 24px;
+                line-height: 24px;
+                width: 24px;
                 font-size: 12px;
-                float: right;
-                padding: 0px 10px;
-                background: @primary-color;
-                color: #fff;
                 border-radius: 12px 12px;
+                display: block;
+                border: 1px solid @border-color;
+                color: #666;
+                background: #fff;
               }
+
+              &:hover {
+                border: 1px solid darken(@border-color, 15%);
+              }
+
               &-active {
+                color: #444;
+                border: 1px solid darken(@border-color, 15%);
                 background: lighten(@primary-color, 34%);
-
-                .anticon-folder {
-                  display: none;
-                }
-
-                .anticon-folder-open {
-                  display: inline-block;
-                }
               }
             }
+
+            .text {
+              opacity: 0;
+              visibility: hidden;
+              transition: all .3s ease-in-out;
+              transform: translateY(6px);
+              text-align: center;
+              line-height: 32px;
+              height: 32px;
+              color: #999;
+              font-size: 12px;
+            }
+
+            &:hover {
+              .text {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0px);
+              }
+            }
+
           }
         }
       }
@@ -345,6 +383,13 @@
 
       .title {
         line-height: 48px;
+        color: #444;
+        font-weight: normal;
+
+        .anticon {
+          font-size: 12px;
+          color: darken(@border-color, 15%);
+        }
       }
 
       .action {
