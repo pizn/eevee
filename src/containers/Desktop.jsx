@@ -83,12 +83,20 @@ class Desktop extends Component {
   handleAddFile(file) {
     event.preventDefault();
     const { dispatch, user, history, repoInfo } = this.props;
+
+    const content = '---\n' +
+      'layout: post\n' +
+      'title: ' + file.title + '\n' +
+      'description: ' + file.description + '\n' +
+      '---\n' +
+      '# ';
+
     const repo = {
       username: user.data.login,
       email: user.data.email,
       reponame: repoInfo.data.name,
       path: '_posts/' + file.name,
-      content: '',
+      content: content,
     }
     this.setState({
       addFile: false

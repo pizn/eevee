@@ -74,7 +74,7 @@ class Head extends Component {
                 <Icon type="ellipsis" />
               </div>
               <ul className="action-list-dropdown">
-                <li className="item"><a href={blob.data.html_url} target="_blank"><Icon type="file-text" /> 源文件</a></li>
+                <li className="item"><a href={blob.data.html_url} target="_blank"><Icon type="code" /> 源文件</a></li>
                 <li className="item"><a onClick={this.remove.bind(this)}><Icon type="delete" /> 删除</a></li>
               </ul>
             </div>

@@ -79,13 +79,10 @@ const Repo = {
       author: {name: data.username, email: data.email},
       committer: {name: data.username, email: data.email},
     }
-    const content = '---\n' +
-      'layout: post\n' +
-      'title: new post\n' +
-      'description: description\n\n---\n\n# title';
+
 
     return new Promise((resolve, reject) => {
-      repo.write('master', data.path, content, '[Leafeon]: Add post', options, (err, file) => {
+      repo.write('master', data.path, data.content, '[Leafeon]: Add post', options, (err, file) => {
         if (err) {
           reject(err);
         } else {

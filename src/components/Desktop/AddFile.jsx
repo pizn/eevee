@@ -21,7 +21,7 @@ class CreateFileForm extends Component {
       ]}>
         <Form horizontal>
           <FormItem
-            label="文件名："
+            label="URL："
             labelCol={{span: 6}}
             wrapperCol={{span: 14}}
             validateStatus={getFieldError('name') ? 'error' : 'success'}
@@ -32,7 +32,7 @@ class CreateFileForm extends Component {
                   type: "string",
                   required: true,
                   pattern: /^(((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])-)+([a-zA-Z0-9-_])+(\.md|\.markdown|\.mdown|\.mkd|\.mkdown|\.ron|\.txt)$/,
-                  message: "请输入文章 URL。例如: 2016-01-18-hello-world.md"
+                  message: "请输入 URL, 例如: 2016-01-18-hello-world.md"
                 },
                 ]})}
             />
@@ -41,12 +41,12 @@ class CreateFileForm extends Component {
             </Col>
           </FormItem>
           <FormItem
-            label="文章标题："
+            label="标题："
             labelCol={{span: 6}}
             wrapperCol={{span: 14}}
             validateStatus={getFieldError('title') ? 'error' : 'success'}
             >
-            <Input type="text" name="title" autoComplete="off"
+            <Input type="text" name="title" autoComplete="off" placeholder="文章标题"
               {...getFieldProps('title', {
                 rules: [{
                   type: "string",
@@ -57,6 +57,25 @@ class CreateFileForm extends Component {
             />
             <Col span="24">
               <p className="ant-form-explain">{getFieldError('title') ? getFieldError('title').join('') : ''}</p>
+            </Col>
+          </FormItem>
+          <FormItem
+            label="描述："
+            labelCol={{span: 6}}
+            wrapperCol={{span: 14}}
+            validateStatus={getFieldError('description') ? 'error' : 'success'}
+            >
+            <Input type="textarea" name="description" autoComplete="off" rows="5" placeholder="这是一篇关于...的文章"
+              {...getFieldProps('description', {
+                rules: [{
+                  type: "string",
+                  required: true,
+                  message: "请输入文章描述"
+                },
+                ]})}
+            />
+            <Col span="24">
+              <p className="ant-form-explain">{getFieldError('description') ? getFieldError('description').join('') : ''}</p>
             </Col>
           </FormItem>
         </Form>
