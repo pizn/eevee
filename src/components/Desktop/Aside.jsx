@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Col, Icon } from 'antd';
+
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Icon from 'antd/lib/icon';
+
 import { Link } from 'react-router';
 import classNames from 'classnames';
 
@@ -11,8 +15,6 @@ class Aside extends Component {
   }
   render() {
     const { user, repoInfo, tree } = this.props;
-
-    console.log(repoInfo);
 
     const logoCls = classNames({
       'head-logo': true,
@@ -49,7 +51,7 @@ class Aside extends Component {
               <div className="link">
                 <span className="icon"><Icon type="picture" /></span>
               </div>
-              <p className="text">主题</p>
+              <p className="text">素材</p>
             </li>
             <li className="body-menu-item">
               <div className="link">

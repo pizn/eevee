@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import * as actions from '../actions/LeafActions';
 import { connect } from 'react-redux';
-import Github from 'github-api';
 
-import { Icon, message } from 'antd';
+import Icon from 'antd/lib/icon';
+import message from 'antd/lib/message';
 
 import Head from '../components/Desktop/Head';
 import Aside from '../components/Desktop/Aside';

@@ -1,18 +1,18 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Col, Form, Button, Input, Icon, Alert } from 'antd';
-import { createForm } from 'rc-form';
-const FormItem = Form.Item;
+
+import Modal from 'antd/lib/modal';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Input from 'antd/lib/input';
+import Button from 'antd/lib/button';
+import Alert from 'antd/lib/alert';
+import Icon from 'antd/lib/icon';
+
+import { Form, Item as FormItem } from 'antd/lib/form';
+
+import createForm from 'rc-form/lib/createForm';
 
 class loginForm extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-  static propTypes = {
-    onSubmit: PropTypes.func,
-    form: PropTypes.object,
-  }
 
   onSubmit(e) {
     e.preventDefault();
@@ -27,7 +27,6 @@ class loginForm extends Component {
   render() {
     const { form, auth } = this.props;
     const { getFieldProps, getFieldError } = form;
-
     return (
       <Form horizontal>
         {auth.error &&

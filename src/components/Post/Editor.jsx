@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-import CM from 'codemirror';
+import CM from 'codemirror/lib/codemirror';
 import { getCursorState, applyFormat } from '../../utils/editorFormat';
-import marked from  'marked';
 
-import hljs from 'highlight.js';
+import marked from  'marked/lib/marked';
+import hljs from 'highlight.js/lib/highlight.js';
 import Key from 'keymaster';
-import { Icon, Tooltip } from 'antd';
+import Icon from 'antd/lib/icon';
+import Tooltip from 'antd/lib/tooltip';
 import '../../styles/EditIcon.less';
 import '../../styles/CodeMirror.less';
 

@@ -10,7 +10,12 @@ export default (config, options) => {
     });
     config.plugins = config.plugins.concat([
       new HotModuleReplacementPlugin(),
-      new optimize.UglifyJsPlugin(),
+      new optimize.UglifyJsPlugin({
+        compressor: {
+          warnings: false
+        }
+      }),
+      new optimize.OccurenceOrderPlugin(),
       new optimize.DedupePlugin(),
       new NoErrorsPlugin(),
     ]);

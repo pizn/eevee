@@ -1,11 +1,3 @@
 {
-  "stage": 0,
-  "optional": [
-    "runtime",
-    "es7.objectRestSpread",
-    "es7.asyncFunctions",
-    "es7.classProperties",
-    "es7.decorators",
-    "es7.trailingFunctionCommas"
-  ]
+  "stage": 0
 }

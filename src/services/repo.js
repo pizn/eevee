@@ -1,5 +1,5 @@
 import storage from '../utils/localStorage';
-import Github from 'github-api';
+import Github from 'github-api/dist/github';
 
 const b64decode = function(string) {
   const base64Decode = require('base-64').decode;

@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Col, Icon } from 'antd';
+
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Icon from 'antd/lib/icon';
+
 import { Link } from 'react-router';
 
 class Head extends Component {

@@ -1,7 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Form, Item as FormItem } from 'antd/lib/form';
-import { Modal, Row, Col, Input, Select, Button, Radio } from 'antd';
-import { createForm } from 'rc-form';
+import Modal from 'antd/lib/modal';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Input from 'antd/lib/input';
+import Button from 'antd/lib/button';
+
+import createForm from 'rc-form/lib/createForm';
 
 class MetaForm extends Component {
   render() {

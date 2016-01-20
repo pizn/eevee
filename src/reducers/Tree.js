@@ -53,7 +53,6 @@ export default function tree(state = initialState, action) {
         data: [],
       }
     case REMOVE_REPO_BLOB:
-      console.log(action.data);
       return {
         ...state,
         data: state.data.filter(item => {

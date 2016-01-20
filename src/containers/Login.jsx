@@ -3,10 +3,11 @@ import * as actions from '../actions/LeafActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { Button, Icon } from 'antd';
+import Button from 'antd/lib/button';
+import Icon from 'antd/lib/icon';
 
-import Form from '../components/Login/Form';
 import userAPI from '../services/user';
+import LoginForm from '../components/Login/LoginForm';
 
 @connect(state => ({
   auth: state.auth,
@@ -85,7 +86,7 @@ class Login extends Component {
                 <div className={logoCls}></div>
               </div>
               <div className="leaf-login-contain-form">
-                <Form
+                <LoginForm
                   onSubmit={this.handleSubmit.bind(this)}
                   auth={auth}
                 />

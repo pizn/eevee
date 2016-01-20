@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Col, Button, Icon } from 'antd';
+
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Icon from 'antd/lib/icon';
+import Button from 'antd/lib/button';
 
 class Head extends Component {
 
