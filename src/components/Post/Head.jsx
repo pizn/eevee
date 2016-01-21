@@ -37,7 +37,7 @@ class Head extends Component {
       <div className="leaf-post-head">
         <Row>
           <Col span="7" >
-            <Link to={`_posts/${backDir}`} className="back">
+            <Link to={`/_posts/${backDir}`} className="back">
               <Icon type="left" />
             </Link>
           </Col>

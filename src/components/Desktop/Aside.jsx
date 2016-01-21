@@ -34,7 +34,7 @@ class Aside extends Component {
         <div className="body">
           <ul className="body-menu">
             <li className="body-menu-item">
-              <Link to={`_posts`} className="link" activeClassName="link-active">
+              <Link to={`/_posts`} className="link" activeClassName="link-active">
                 <span className="icon"><Icon type="inbox" /></span>
                 <span className={countCls}>
                   <span>{tree.data.length}</span>

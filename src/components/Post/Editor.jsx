@@ -81,8 +81,13 @@ class Editor extends Component {
   }
 
   handleBack() {
-    const { history } = this.props;
-    history.pushState(null, '_posts/')
+    const { history, blob } = this.props;
+    let backDir = '';
+    if (blob.loaded) {
+      backDir = params.splat.split(blob.data.name)[0];
+      backDir = backDir !== '' ? 'd/' + backDir : '';
+    }
+    history.pushState(null, '/_posts/' + backDir);
   }
 
   getOptions () {

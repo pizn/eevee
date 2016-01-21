@@ -30,7 +30,7 @@ class Head extends Component {
             }
             { index !== crumbData.length - 1 &&
               <span>
-                <Icon type="right" /><Link to={`_posts/d/${data.path}`}>{data.name}</Link>
+                <Icon type="right" /><Link to={`/_posts/d/${data.path}`}>{data.name}</Link>
               </span>
             }
           </span>
@@ -39,7 +39,7 @@ class Head extends Component {
 
       crumb = (
         <span>
-          <Link to="_posts" >_posts</Link>
+          <Link to="/_posts" >_posts</Link>
           {child}
         </span>
       );
@@ -47,14 +47,13 @@ class Head extends Component {
       crumb = `_posts`;
     }
 
-
     return (
       <div className="leaf-desktop-head">
           { repoInfo.loaded &&
             <Row className="leaf-head-wrap">
               <Col span="20">
                 <h2 className="title">
-                  <a href={repoInfo.data.html_url} target="_blank">{repoInfo.data.name}</a>
+                  <Link to="/_posts">{repoInfo.data.name}</Link>
                   <Icon type="right" />
                   {crumb}
                 </h2>

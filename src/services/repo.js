@@ -53,7 +53,8 @@ const Repo = {
         if (err) {
           reject(err);
         } else {
-          resolve(file);
+          const tree = file.reverse();
+          resolve(tree);
         }
       });
     });
