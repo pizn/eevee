@@ -51,20 +51,20 @@ class Head extends Component {
                 <div className="meta-card">
                   { meta.description &&
                     <Row className="meta-card-item">
-                      <Col span="4" className="name">Description:</Col>
-                      <Col span="20" className="cnt">{meta.description}</Col>
+                      <Col span="6" className="name">Description:</Col>
+                      <Col span="18" className="cnt">{meta.description}</Col>
                     </Row>
                   }
                   { meta.categories &&
                     <Row className="meta-card-item">
-                      <Col span="4" className="name">Categories:</Col>
-                      <Col span="20" className="cnt">{meta.categories}</Col>
+                      <Col span="6" className="name">Categories:</Col>
+                      <Col span="18" className="cnt">{meta.categories}</Col>
                     </Row>
                   }
                   { meta.tags &&
                     <Row className="meta-card-item">
-                      <Col span="4" className="name">Tags:</Col>
-                      <Col span="20" className="cnt">{meta.tags}</Col>
+                      <Col span="6" className="name">Tags:</Col>
+                      <Col span="18" className="cnt">{meta.tags}</Col>
                     </Row>
                   }
                   <a onClick={this.handleEditMeta.bind(this)} className="meta-card-edit">

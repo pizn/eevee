@@ -81,7 +81,7 @@ class Aside extends Component {
           </Row>
           }
           <Row className="foot-copyright">
-            <p>Write with <span className="love">Love</span> in Eevee.</p>
+            <p>Write with <span className="love">Love</span> in <a href="https://github.com/pizn/eevee" target="_blank">Eevee</a>.</p>
           </Row>
         </div>
       </div>
