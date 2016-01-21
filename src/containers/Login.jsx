@@ -60,7 +60,7 @@ class Login extends Component {
   }
 
   logout() {
-    const { dispatch, history } = this.props;
+    const { dispatch } = this.props;
     const that = this;
     dispatch(actions.logout())
     .then(() => {
@@ -110,7 +110,7 @@ class Login extends Component {
             </div>
           }
           <div className="leaf-login-foot">
-            <p><a href="https://github.com/pizn/eevee" target="_blank">关于伊布</a> · <a href="https://github.com/pizn/eevee/issues" target="_blank">联系作者</a></p>
+            <p>Write with <span className="love">Love</span> in <a href="https://github.com/pizn/eevee" target="_blank">Eevee</a>.</p>
           </div>
         </div>
 

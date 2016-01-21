@@ -40,25 +40,25 @@ class Aside extends Component {
                   <span>{tree.data.length}</span>
                 </span>
               </Link>
-              <p className="text">文章</p>
+              <p className="text">_posts</p>
             </li>
             <li className="body-menu-item">
               <div className="link">
                 <span className="icon"><Icon type="file-text" /></span>
               </div>
-              <p className="text">草稿</p>
+              <p className="text">_drafts</p>
             </li>
             <li className="body-menu-item">
               <div className="link">
                 <span className="icon"><Icon type="picture" /></span>
               </div>
-              <p className="text">素材</p>
+              <p className="text">_media</p>
             </li>
             <li className="body-menu-item">
               <div className="link">
                 <span className="icon"><Icon type="setting" /></span>
               </div>
-              <p className="text">配置</p>
+              <p className="text">_setting</p>
             </li>
           </ul>
         </div>
@@ -75,13 +75,13 @@ class Aside extends Component {
             </Col>
             <ul className="foot-user-actions">
               <li className="item">
-                <a onClick={this.logout.bind(this)} >登出 <Icon type="logout" /></a>
+                <a onClick={this.logout.bind(this)} ><Icon type="poweroff" />Logout</a>
               </li>
             </ul>
           </Row>
           }
           <Row className="foot-copyright">
-            <p>Build width  in China.</p>
+            <p>Write with <span className="love">Love</span> in Eevee.</p>
           </Row>
         </div>
       </div>

@@ -122,7 +122,7 @@ class Post extends Component {
       content: cnt,
     }
 
-    const msg = message.loading('正在保存...', 0);
+    const msg = message.loading('Saving...', 0);
     dispatch(actions.updateRepoBlob(repo))
     .then(() => {
       msg();
@@ -139,8 +139,8 @@ class Post extends Component {
     const { params } = this.props;
     const that = this;
     confirm({
-      title: '删除文章',
-      content: '注意: 文件 "' + params.splat + '" 将被永久删除',
+      title: 'Remove this post',
+      content: 'The file "' + params.splat + '" will be remove forever.',
       onOk: function() {
         that.handleRemoveReques();
       },
@@ -155,7 +155,7 @@ class Post extends Component {
       reponame: repoInfo.data.name,
       path: '_posts/' + params.splat
     }
-    const msg = message.loading('正在删除...', 0);
+    const msg = message.loading('Removing...', 0);
 
     dispatch(actions.removeRepoBlob(repo))
     .then(() => {

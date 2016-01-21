@@ -30,7 +30,7 @@ class loginForm extends Component {
     return (
       <Form horizontal>
         {auth.error &&
-          <Alert message="Github 账号或密码错误" type="error" showIcon />
+          <Alert message="GitHub account or passsword is wrong." type="error" showIcon />
         }
         <FormItem
           label=""
@@ -39,12 +39,12 @@ class loginForm extends Component {
           validateStatus={ getFieldError('email') ? 'error' : '' }
           required
           >
-          <Input className="ant-input" type="text" size="large" name="email" autoComplete="off" placeholder="账号"
+          <Input className="ant-input" type="text" size="large" name="email" autoComplete="off" placeholder="Email"
             {...getFieldProps('email', {
               rules: [{
                 required: true,
                 pattern: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                message: "请输入账号",
+                message: "Please input your GitHub Email",
               }] })}
           />
           <Col span="19">
@@ -58,10 +58,10 @@ class loginForm extends Component {
           validateStatus={ getFieldError('pass') ? 'error' : '' }
           required
           >
-          <Input className="ant-input" size="large" type="password" name="pass" placeholder="密码"
+          <Input className="ant-input" size="large" type="password" name="pass" placeholder="Password"
             {...getFieldProps('pass', { rules: [{
               required: true,
-              message: "请输入密码",
+              message: "Please input your GitHub password",
             }] })}
           />
           <Col span="24">
@@ -71,7 +71,7 @@ class loginForm extends Component {
         <Row>
           <Col span="24">
             <Button type="primary" size="large" htmlType="submit" onClick={this.onSubmit.bind(this)}>
-              登 录 <Icon type="github" />
+              Login <Icon type="github" />
             </Button>
           </Col>
         </Row>

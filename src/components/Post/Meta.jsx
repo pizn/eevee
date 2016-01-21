@@ -15,13 +15,13 @@ class MetaForm extends Component {
     return (
       <Modal ref="modal"
         visible={modalVisible}
-        title='编辑'
+        title='Edit'
         onOk={modalHandleOk}
         onCancel={modalHandleCancel}
         footer={[
-        <Button key="back" type="ghost" onClick={modalHandleCancel}>取 消</Button>,
+        <Button key="back" type="ghost" onClick={modalHandleCancel}>Cancle</Button>,
         <Button key="submit" type="primary" onClick={this.modalHandleOk.bind(this)}>
-          提 交
+          Submit
         </Button>
       ]}>
         <Form horizontal>
@@ -35,7 +35,7 @@ class MetaForm extends Component {
                 rules: [{
                   type: "string",
                   required: true,
-                  message: "请输入文章基本信息"
+                  message: "Please input the meta info"
                 },
                 ]})}
             />

@@ -245,12 +245,12 @@ class Editor extends Component {
 
     return (
       <div className="leaf-editor-tool-list">
-        <Tooltip title="撤销 (Cmd+U)" placement="bottom">
+        <Tooltip title="Undo (Cmd+U)" placement="bottom">
           <button className={historyClassName} onClick={this.handleUndo.bind(this)}>
             <span className="edit-icon edit-icon-undo" />
           </button>
         </Tooltip>
-        <Tooltip title="重做 (Cmd+Shift+U)" placement="bottom">
+        <Tooltip title="Redo (Cmd+Shift+U)" placement="bottom">
           <button className={historyClassName} onClick={this.handleRedo.bind(this)}>
             <span className="edit-icon edit-icon-redo" />
           </button>
@@ -260,19 +260,19 @@ class Editor extends Component {
         {this.renderButton('h2', 'H2 (Cmd+2)')}
         {this.renderButton('h3', 'H3 (Cmd+3)')}
         <span className="leaf-editor-tool-separator" />
-        {this.renderButton('bold', '粗体 (Cmd+B')}
-        {this.renderButton('italic', '斜体 (Cmd+I)')}
-        {this.renderButton('del', '删除线 (Cmd+Alt+G)')}
-        {this.renderButton('quote', '引用 (Cmd+Alt+E)')}
+        {this.renderButton('bold', 'Blod (Cmd+B')}
+        {this.renderButton('italic', 'Italic (Cmd+I)')}
+        {this.renderButton('del', 'Strikethrough (Cmd+Alt+G)')}
+        {this.renderButton('quote', 'Quote (Cmd+Alt+E)')}
         <span className="leaf-editor-tool-separator" />
-        {this.renderButton('oList', '有序列表 (Cmd+Alt+O)')}
-        {this.renderButton('uList', '无序列表 (Cmd+Alt+U)')}
+        {this.renderButton('oList', 'Order List (Cmd+Alt+O)')}
+        {this.renderButton('uList', 'Unorder List (Cmd+Alt+U)')}
         <span className="leaf-editor-tool-separator" />
-        {this.renderButton('link', '超链接 (Cmd+Alt+L)')}
-        {this.renderButton('image', '图片 (Cmd+Alt+P)')}
-        {this.renderButton('code', '代码 (Cmd+Alt+C)')}
+        {this.renderButton('link', 'Link (Cmd+Alt+L)')}
+        {this.renderButton('image', 'Image (Cmd+Alt+P)')}
+        {this.renderButton('code', 'Code (Cmd+Alt+C)')}
         <span className="leaf-editor-tool-separator" />
-        <Tooltip placement="bottom" title="预览 (Cmd+0)">
+        <Tooltip placement="bottom" title="Preview (Cmd+0)">
           <button className={previewIconActive} onClick={this.handlePreviewEvent.bind(this)}>
             <span className={previewClassName} />
           </button>
@@ -367,7 +367,7 @@ class Editor extends Component {
             }
           </div>
           <div className="leaf-editor-footer clearfix">
-            <p>文章编写于 <a href="https://github.com/pizn/eevee" target="_blank">伊布</a></p>
+            <p>Write with <span className="love">Love</span> in <a href="https://github.com/pizn/eevee" target="_blank">Eevee</a> :)</p>
           </div>
         </div>
       </div>

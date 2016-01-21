@@ -114,7 +114,7 @@ class Dir extends Component {
     this.setState({
       addFile: false
     });
-    const msg = message.loading('正在保存...', 0);
+    const msg = message.loading('Saving...', 0);
     dispatch(actions.addRepoBlob(repo))
     .then(() => {
       msg();

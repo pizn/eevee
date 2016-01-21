@@ -60,7 +60,7 @@ class Head extends Component {
                 </h2>
               </Col>
               <Col span="4" className="action">
-                <Button type="ghost" onClick={addFile}><Icon type="plus" /> 添加</Button>
+                <Button type="ghost" onClick={addFile}><Icon type="plus" /> Create</Button>
               </Col>
             </Row>
           }

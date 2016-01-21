@@ -110,8 +110,8 @@
     "validate": "npm ls"
   },
   "theme": {
-    "primary-color": "#738bd7",
-    "link-color": "#738bd7",
+    "primary-color": "#343434",
+    "link-color": "#343434",
     "border-color-base": "#e2e7ec",
     "btn-border-radius-base": "32px"
   }

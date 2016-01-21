@@ -31,7 +31,6 @@ class Head extends Component {
     let backDir;
     if (blob.loaded) {
       backDir = params.splat.split(blob.data.name)[0];
-      console.log(backDir);
       backDir = backDir !== '' ? 'd/' + backDir : '';
     }
 
@@ -52,24 +51,24 @@ class Head extends Component {
                 <div className="meta-card">
                   { meta.description &&
                     <Row className="meta-card-item">
-                      <Col span="4" className="name">描述:</Col>
+                      <Col span="4" className="name">Description:</Col>
                       <Col span="20" className="cnt">{meta.description}</Col>
                     </Row>
                   }
                   { meta.categories &&
                     <Row className="meta-card-item">
-                      <Col span="4" className="name">分类:</Col>
+                      <Col span="4" className="name">Categories:</Col>
                       <Col span="20" className="cnt">{meta.categories}</Col>
                     </Row>
                   }
                   { meta.tags &&
                     <Row className="meta-card-item">
-                      <Col span="4" className="name">标签:</Col>
+                      <Col span="4" className="name">Tags:</Col>
                       <Col span="20" className="cnt">{meta.tags}</Col>
                     </Row>
                   }
                   <a onClick={this.handleEditMeta.bind(this)} className="meta-card-edit">
-                    编辑
+                    Edit
                   </a>
                 </div>
               </div>
@@ -86,8 +85,8 @@ class Head extends Component {
                 <Icon type="ellipsis" />
               </div>
               <ul className="action-list-dropdown">
-                <li className="item"><a href={blob.data.html_url} target="_blank"><Icon type="code" /> 源文件</a></li>
-                <li className="item"><a onClick={this.remove.bind(this)}><Icon type="delete" /> 删除</a></li>
+                <li className="item"><a href={blob.data.html_url} target="_blank"><Icon type="code" /> Source</a></li>
+                <li className="item"><a onClick={this.remove.bind(this)}><Icon type="delete" /> Remove</a></li>
               </ul>
             </div>
           </Col>
