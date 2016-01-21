@@ -36,6 +36,7 @@ class Post extends Component {
 
   componentDidMount() {
     const { params, dispatch, user, repoInfo } = this.props;
+
     const that = this;
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())
@@ -45,7 +46,7 @@ class Post extends Component {
           const repo = {
             username: this.props.user.data.login,
             reponame: this.props.repoInfo.data.name,
-            path: '_posts/' + params.name,
+            path: '_posts/' + params.splat,
           }
           dispatch(actions.readRepoBlob(repo)).then(() => {
             that.generateContent();
@@ -59,7 +60,7 @@ class Post extends Component {
           const repo = {
             username: this.props.user.data.login,
             reponame: this.props.repoInfo.data.name,
-            path: '_posts/' + params.name,
+            path: '_posts/' + params.splat,
           }
           dispatch(actions.readRepoBlob(repo)).then(() => {
             that.generateContent();
@@ -69,7 +70,7 @@ class Post extends Component {
         const repo = {
           username: this.props.user.data.login,
           reponame: this.props.repoInfo.data.name,
-          path: '_posts/' + params.name,
+          path: '_posts/' + params.splat,
         }
         dispatch(actions.readRepoBlob(repo)).then(() => {
           that.generateContent();
@@ -117,7 +118,7 @@ class Post extends Component {
       username: user.data.login,
       email: user.data.email,
       reponame: repoInfo.data.name,
-      path: '_posts/' + params.name,
+      path: '_posts/' + params.splat,
       content: cnt,
     }
 
@@ -139,7 +140,7 @@ class Post extends Component {
     const that = this;
     confirm({
       title: '删除文章',
-      content: '注意: 文件 "' + params.name + '" 将被永久删除',
+      content: '注意: 文件 "' + params.splat + '" 将被永久删除',
       onOk: function() {
         that.handleRemoveReques();
       },
@@ -152,7 +153,7 @@ class Post extends Component {
     const repo = {
       username: user.data.login,
       reponame: repoInfo.data.name,
-      path: '_posts/' + params.name
+      path: '_posts/' + params.splat
     }
     const msg = message.loading('正在删除...', 0);
 

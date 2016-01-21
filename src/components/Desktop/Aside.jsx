@@ -21,23 +21,24 @@ class Aside extends Component {
       'head-logo-loading': user.loading | repoInfo.loading | tree.loading,
     });
 
+    const countCls = classNames({
+      'count': true,
+      'count-active': tree.loaded,
+    });
+
     return (
       <div className="leaf-desktop-aside">
         <div className="head">
           <div className={logoCls}></div>
         </div>
         <div className="body">
-          { !tree.loaded &&
-          <div className="body-project-title">
-            <Icon type="loading" />
-          </div>
-          }
-          { tree.loaded &&
           <ul className="body-menu">
             <li className="body-menu-item">
               <Link to={`_posts`} className="link" activeClassName="link-active">
                 <span className="icon"><Icon type="inbox" /></span>
-                <span className="count">{tree.data.length}</span>
+                <span className={countCls}>
+                  <span>{tree.data.length}</span>
+                </span>
               </Link>
               <p className="text">文章</p>
             </li>
@@ -60,7 +61,6 @@ class Aside extends Component {
               <p className="text">配置</p>
             </li>
           </ul>
-          }
         </div>
 
         <div className="foot">
@@ -80,6 +80,9 @@ class Aside extends Component {
             </ul>
           </Row>
           }
+          <Row className="foot-copyright">
+            <p>Build width  in China.</p>
+          </Row>
         </div>
       </div>
     )

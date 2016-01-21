@@ -19,7 +19,7 @@ import ModalAddFile from '../components/Desktop/AddFile';
   tree: state.tree,
 }))
 
-class Desktop extends Component {
+class Dir extends Component {
 
   constructor(props) {
     super(props);
@@ -34,7 +34,20 @@ class Desktop extends Component {
   }
 
   componentDidMount() {
-    const { dispatch, user, repoInfo, tree } = this.props;
+    this.getData();
+  }
+
+  componentDidUpdate(prevProps) {
+    const oldId = prevProps.params.splat;
+    const newId = this.props.params.splat;
+    if (newId !== oldId) {
+      this.getData();
+    }
+  }
+
+  getData() {
+    const { dispatch, user, repoInfo, tree, params } = this.props;
+
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())
       .then(() => {
@@ -43,7 +56,7 @@ class Desktop extends Component {
           const repo = {
             username: this.props.user.data.login,
             reponame: this.props.repoInfo.data.name,
-            path: '_posts',
+            path: '_posts/' + params.splat,
           };
           dispatch(actions.readRepoTree(repo));
         });
@@ -55,21 +68,23 @@ class Desktop extends Component {
           const repo = {
             username: this.props.user.data.login,
             reponame: this.props.repoInfo.data.name,
-            path: '_posts',
+            path: '_posts/' + params.splat,
           }
           dispatch(actions.readRepoTree(repo));
         });
       } else {
+        console.log('here');
         const repo = {
           username: this.props.user.data.login,
           reponame: this.props.repoInfo.data.name,
-          path: '_posts',
+          path: '_posts/' + params.splat,
         }
         dispatch(actions.readRepoTree(repo));
       }
     }
     dispatch(actions.clearRepoBlob());
   }
+
   logout() {
     const { dispatch, history } = this.props;
     dispatch(actions.logout())
@@ -80,7 +95,7 @@ class Desktop extends Component {
 
   handleAddFile(file) {
     event.preventDefault();
-    const { dispatch, user, history, repoInfo } = this.props;
+    const { dispatch, user, history, repoInfo, params } = this.props;
 
     const content = '---\n' +
       'layout: post\n' +
@@ -93,7 +108,7 @@ class Desktop extends Component {
       username: user.data.login,
       email: user.data.email,
       reponame: repoInfo.data.name,
-      path: '_posts/' + file.name,
+      path: '_posts/' + params.splat + '/' + file.name,
       content: content,
     }
     this.setState({
@@ -103,7 +118,7 @@ class Desktop extends Component {
     dispatch(actions.addRepoBlob(repo))
     .then(() => {
       msg();
-      history.pushState(null, '_posts/f/' + file.name)
+      history.pushState(null, '_posts/f/' + params.splat + '/' + file.name);
     });
 
   }
@@ -127,6 +142,7 @@ class Desktop extends Component {
       <div className="leaf">
         <div className="leaf-desktop">
           <Aside
+            {...this.props}
             user={user}
             repoInfo={repoInfo}
             logout={this.logout.bind(this)}
@@ -135,6 +151,7 @@ class Desktop extends Component {
           <div className="leaf-desktop-main">
             <div className="leaf-desktop-main-wrap">
               <Head
+                {...this.props}
                 repoInfo={repoInfo}
                 addFile={this.handleShowAddModal.bind(this)}
               />
@@ -154,4 +171,4 @@ class Desktop extends Component {
   }
 }
 
-export default Desktop;
+export default Dir;

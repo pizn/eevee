@@ -25,13 +25,21 @@ class Head extends Component {
   }
 
   render() {
-    const { blob, meta } = this.props;
+    const { blob, meta, params } = this.props;
+
+    // define backUrl
+    let backDir;
+    if (blob.loaded) {
+      backDir = params.splat.split(blob.data.name)[0];
+      console.log(backDir);
+      backDir = backDir !== '' ? 'd/' + backDir : '';
+    }
 
     return (
       <div className="leaf-post-head">
         <Row>
           <Col span="7" >
-            <Link to={`_posts/`} className="back">
+            <Link to={`_posts/${backDir}`} className="back">
               <Icon type="left" />
             </Link>
           </Col>
