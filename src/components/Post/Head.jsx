@@ -26,9 +26,8 @@ class Head extends Component {
 
   render() {
     const { blob, meta, params } = this.props;
-
     // define backUrl
-    let backDir;
+    let backDir = '';
     if (blob.loaded) {
       backDir = params.splat.split(blob.data.name)[0];
       backDir = backDir !== '' ? 'd/' + backDir : '';
@@ -75,7 +74,12 @@ class Head extends Component {
             }
             { !blob.loaded &&
               <h1 className="title">
-                <Icon type="loading" />
+                { !blob.error &&
+                  <Icon type="loading"/>
+                }
+                { blob.error &&
+                  <Icon type="frown-circle" />
+                }
               </h1>
             }
           </Col>

@@ -149,7 +149,13 @@ class Post extends Component {
   }
 
   handleRemoveReques() {
-    const { dispatch, user, params, repoInfo, history } = this.props;
+    const { dispatch, user, params, repoInfo, history, blob } = this.props;
+    let backDir
+    if (blob.loaded) {
+      backDir = params.splat.split(blob.data.name)[0];
+      backDir = backDir !== '' ? 'd/' + backDir : '';
+    }
+
     const repo = {
       username: user.data.login,
       reponame: repoInfo.data.name,
@@ -163,7 +169,7 @@ class Post extends Component {
       //message.success('删除成功');
     })
     .then(() => {
-      history.pushState(null, '_posts/');
+      history.pushState(null, '_posts/' + backDir);
     });
   }
 
@@ -180,7 +186,7 @@ class Post extends Component {
     this.handleSaveMeta(data.meta);
   }
 
-  handleEditMetaCancle() {
+  handleEditMetaCancel() {
     this.setState({
       editMeta: false,
     });
@@ -218,6 +224,11 @@ class Post extends Component {
         head: defaultValue.head,
         body: defaultValue.body,
       });
+    } else {
+      if (blob.error) {
+        const msg = blob.error.request && blob.error.request.message;
+        message.error(msg || 'Something error');
+      }
     }
   }
 
@@ -245,7 +256,7 @@ class Post extends Component {
             metaData={this.state.head}
             modalVisible={this.state.editMeta}
             modalHandleOk={this.handleEditMetaSubmit.bind(this)}
-            modalHandleCancel={this.handleEditMetaCancle.bind(this)}
+            modalHandleCancel={this.handleEditMetaCancel.bind(this)}
           />
         </div>
       </div>

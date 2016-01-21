@@ -46,12 +46,17 @@ class List extends Component {
     )
     return (
       <div className="leaf-desktop-list">
-        { tree.loading &&
+        { !tree.loaded &&
           <div className="leaf-desktop-list-loading">
-            <Icon type="loading" />
+            { !tree.error &&
+              <Icon type="loading" />
+            }
+            { tree.error &&
+              <Icon type="frown-circle" />
+            }
           </div>
         }
-        { !tree.loading &&
+        { tree.loaded &&
           <ul className="leaf-desktop-list-cnt clearfix">
           {files}
           </ul>

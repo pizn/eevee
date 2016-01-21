@@ -344,7 +344,7 @@
               a {
                 line-height: 32px;
                 padding: 0 32px;
-                color: #666;
+                color: #444;
                 display: block;
 
                 .anticon {
@@ -354,6 +354,7 @@
 
                 &:hover {
                   color: #444;
+                  background: #f7f8f9;
                 }
               }
             }
@@ -481,14 +482,13 @@
               text-align: center;
               min-height: 42px;
               max-height: 63px;
-
               overflow: hidden;
             }
           }
 
           &:hover {
             background: #fff;
-            border: 1px solid @border-color;
+            border: 1px solid darken(@border-color, 2%);
             box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
           }
         }

@@ -73,7 +73,6 @@ class Dir extends Component {
           dispatch(actions.readRepoTree(repo));
         });
       } else {
-        console.log('here');
         const repo = {
           username: this.props.user.data.login,
           reponame: this.props.repoInfo.data.name,

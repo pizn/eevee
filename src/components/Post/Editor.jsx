@@ -349,7 +349,9 @@ class Editor extends Component {
           <div className={containerClassName} >
             { !blob.loaded &&
               <div className="loading">
-                <Icon type="loading" />
+                { !blob.error &&
+                  <Icon type="loading" />
+                }
               </div>
             }
             <div className={penClassName}>
