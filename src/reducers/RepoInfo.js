@@ -2,7 +2,7 @@ import { LOAD_REPO_INFO, LOAD_REPO_INFO_SUCCESS, LOAD_REPO_INFO_FAIL, UPLOAD_REP
 
 const initialState = {
   loaded: false,
-  data: {}
+  data: {},
 };
 
 export default function repoInfo(state = initialState, action) {
@@ -27,19 +27,19 @@ export default function repoInfo(state = initialState, action) {
         loading: false,
         loaded: false,
         error: action.error,
-      }
+      };
     case UPLOAD_REPO_INFO:
       return {
         ...state,
         loading: false,
         loaded: true,
         data: action.data,
-      }
+      };
     case AUTH_LOGOUT:
       return {
         loaded: false,
         data: {},
-      }
+      };
     default:
       return state;
   }

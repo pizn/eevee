@@ -7,12 +7,12 @@ const authorization = {
   login(auth) {
     return new Promise((resolve, reject) => {
       const github = new Github({
-         username: auth.email,
-         password: auth.pass,
-         auth: 'basic'
+        username: auth.email,
+        password: auth.pass,
+        auth: 'basic'
       });
       const user = github.getUser();
-      user.show(null, (err, user) => {
+      user.show(null, (err, repodata) => {
         if (err) {
           reject(err);
         } else {
@@ -21,7 +21,7 @@ const authorization = {
             pass: auth.pass,
             loggedIn: false,
           });
-          resolve(user);
+          resolve(repodata);
         }
       });
     });
@@ -36,7 +36,7 @@ const authorization = {
   },
 
   logout() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       storage.remove('_leafAdmin');
       resolve();
     });

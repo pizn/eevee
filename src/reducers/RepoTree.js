@@ -2,7 +2,7 @@ import { LOAD_REPO_TREE, LOAD_REPO_TREE_SUCCESS, LOAD_REPO_TREE_FAIL, AUTH_LOGOU
 
 const initialState = {
   loaded: false,
-  data: {}
+  data: {},
 };
 
 export default function repoTree(state = initialState, action) {
@@ -27,12 +27,12 @@ export default function repoTree(state = initialState, action) {
         loading: false,
         loaded: false,
         error: action.error,
-      }
+      };
     case AUTH_LOGOUT:
       return {
         loaded: false,
         data: {},
-      }
+      };
     default:
       return state;
   }

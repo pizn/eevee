@@ -10,6 +10,11 @@ class Head extends Component {
 
   static propTypes = {
     logout: PropTypes.func,
+    handleRemove: PropTypes.func,
+    handleEditMeta: PropTypes.func,
+    blob: PropTypes.object,
+    meta: PropTypes.object,
+    params: PropTypes.object,
   }
 
   remove(e) {
@@ -98,7 +103,6 @@ class Head extends Component {
       </div>
     );
   }
-
 }
 
 export default Head;

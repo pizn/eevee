@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import CM from 'codemirror/lib/codemirror';
 import { getCursorState, applyFormat } from '../../utils/editorFormat';
 
-import marked from  'marked/lib/marked';
-import hljs from 'highlight.js/lib/highlight.js';
-import Key from 'keymaster';
+import marked from 'marked/lib/marked';
+// import hljs from 'highlight.js/lib/highlight.js';
+import key from 'keymaster';
 import Icon from 'antd/lib/icon';
 import Tooltip from 'antd/lib/tooltip';
 import '../../styles/EditIcon.less';
@@ -40,19 +40,23 @@ class Editor extends Component {
     options: PropTypes.object,
     path: PropTypes.string,
     value: PropTypes.string,
+    history: PropTypes.object,
+    blob: PropTypes.object,
+    params: PropTypes.object,
+    handleSave: PropTypes.func,
+    className: PropTypes.string,
   }
 
   constructor(props, context) {
     super(props, context);
-
     this.state = {
       isPreview: false,
       onScrolled: false,
       cs: {},
-    }
+    };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { value } = this.props;
     const editorNode = this.refs.editor;
     const that = this;
@@ -62,93 +66,25 @@ class Editor extends Component {
     this._currentCodemirrorValue = value;
 
     // 保存
-    Key('⌘+s, ctrl+s', function(e) {
+    key('⌘+s, ctrl+s', (e) => {
       e.preventDefault();
       that.handleSave();
     });
 
     // 返回
-    Key('⌘+shift+left', function(e) {
+    key('⌘+shift+left', (e) => {
       e.preventDefault();
       that.handleBack();
     });
 
     // 预览
-    Key('⌘+0, ctrl+0', function(e) {
+    key('⌘+0, ctrl+0', (e) => {
       e.preventDefault();
       that.handlePreviewEvent();
-    })
+    });
   }
 
-  handleBack() {
-    const { history, blob } = this.props;
-    let backDir = '';
-    if (blob.loaded) {
-      backDir = params.splat.split(blob.data.name)[0];
-      backDir = backDir !== '' ? 'd/' + backDir : '';
-    }
-    history.pushState(null, '/_posts/' + backDir);
-  }
-
-  getOptions () {
-    const that = this;
-    return Object.assign({
-      mode: 'gfm',
-      lineNumbers: false,
-      lineWrapping: true,
-      indentWithTabs: true,
-      matchBrackets: true,
-      autofocus: true,
-      tabSize: '2',
-      extraKeys: {
-        "Enter": "newlineAndIndentContinueMarkdownList",
-        "Cmd-S": function() {
-          that.handleSave();
-        },
-        "Cmd-B": function() {
-          that.toggleFormat('bold');
-        },
-        "Cmd-I": function() {
-          that.toggleFormat('italic')
-        },
-        "Cmd-1": function() {
-          that.toggleFormat('h1');
-        },
-        "Cmd-2": function() {
-          that.toggleFormat('h2');
-        },
-        "Cmd-3": function() {
-          that.toggleFormat('h3');
-        },
-        "Cmd-Alt-U": function() {
-          that.toggleFormat('uList');
-        },
-        "Cmd-Alt-O": function() {
-          that.toggleFormat('oList');
-        },
-        "Cmd-Alt-G": function() {
-          that.toggleFormat('del');
-        },
-        "Cmd-Alt-C": function() {
-          that.toggleFormat('code');
-        },
-        "Cmd-Alt-E": function() {
-          that.toggleFormat('quote');
-        },
-        "Cmd-Alt-L": function() {
-          that.toggleFormat('link');
-        },
-        "Cmd-Alt-P": function() {
-          that.toggleFormat('image');
-        },
-        "Cmd-0": function() {
-          that.handlePreviewEvent();
-        }
-      }
-    }, this.props.options);
-  }
-
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.codeMirror && nextProps.value !== undefined && this._currentCodemirrorValue !== nextProps.value) {
       this.codeMirror.setValue(nextProps.value);
       this.codeMirror.refresh();
@@ -166,7 +102,13 @@ class Editor extends Component {
     return nextState.isPreview !== this.state.isPreview || nextState.onScrolled !== this.state.onScrolled || nextState.cs.render || nextState.cs.render !== this.state.cs.render || nextProps.value !== this.props.value;
   }
 
-  componentWillUnmount () {
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.isPreview !== this.state.isPreview) {
+      this.previewMarkup = marked(this._currentCodemirrorValue);
+    }
+  }
+
+  componentWillUnmount() {
     if (this.codeMirror) {
       this.codeMirror.setValue('');
       this.codeMirror.clearHistory();
@@ -175,42 +117,78 @@ class Editor extends Component {
     }
   }
 
-  updateCursorState () {
+  getOptions() {
+    const that = this;
+    return Object.assign({
+      mode: 'gfm',
+      lineNumbers: false,
+      lineWrapping: true,
+      indentWithTabs: true,
+      matchBrackets: true,
+      autofocus: true,
+      tabSize: '2',
+      extraKeys: {
+        'Enter': 'newlineAndIndentContinueMarkdownList',
+        'Cmd-S': () => {
+          that.handleSave();
+        },
+        'Cmd-B': () => {
+          that.toggleFormat('bold');
+        },
+        'Cmd-I': () => {
+          that.toggleFormat('italic');
+        },
+        'Cmd-1': () => {
+          that.toggleFormat('h1');
+        },
+        'Cmd-2': () => {
+          that.toggleFormat('h2');
+        },
+        'Cmd-3': () => {
+          that.toggleFormat('h3');
+        },
+        'Cmd-Alt-U': () => {
+          that.toggleFormat('uList');
+        },
+        'Cmd-Alt-O': () => {
+          that.toggleFormat('oList');
+        },
+        'Cmd-Alt-G': () => {
+          that.toggleFormat('del');
+        },
+        'Cmd-Alt-C': () => {
+          that.toggleFormat('code');
+        },
+        'Cmd-Alt-E': () => {
+          that.toggleFormat('quote');
+        },
+        'Cmd-Alt-L': () => {
+          that.toggleFormat('link');
+        },
+        'Cmd-Alt-P': () => {
+          that.toggleFormat('image');
+        },
+        'Cmd-0': () => {
+          that.handlePreviewEvent();
+        },
+      },
+    }, this.props.options);
+  }
+
+  updateCursorState() {
     this.setState({ cs: getCursorState(this.codeMirror) });
   }
 
-  codemirrorValueChanged (doc, change) {
+  codemirrorValueChanged(doc) {
     const newValue = doc.getValue();
     this._currentCodemirrorValue = newValue;
   }
 
-  toggleFormat (formatKey) {
+  toggleFormat(formatKey) {
     if (this.state.isPreview) {
       return;
     }
     applyFormat(this.codeMirror, formatKey);
-  }
-
-  renderIcon (icon) {
-    return <span className={'edit-icon edit-icon-'+ icon} />;
-  }
-
-  renderButton (formatKey, label, action) {
-    const { blob } = this.props;
-    if (!action) action = this.toggleFormat.bind(this, formatKey);
-    const className = classNames('leaf-editor-tool-icon',
-      {
-        'leaf-editor-tool-icon-active': this.state.cs[formatKey],
-        'leaf-editor-tool-icon-disabled': this.state.isPreview || !blob.loaded
-      },
-      ('leaf-editor-tool-icon-' + formatKey));
-    return (
-      <Tooltip title={label} placement="bottom">
-        <button className={className} onClick={action}>
-          { this.renderIcon(formatKey) }
-        </button>
-      </Tooltip>
-    );
   }
 
   handleScrollEditor() {
@@ -221,16 +199,79 @@ class Editor extends Component {
     }
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.isPreview !== this.state.isPreview) {
-      const start_time = new Date();
-      let rawMarkup = marked(this._currentCodemirrorValue);
-      this.previewMarkup = rawMarkup;
-      console.info('[log] 渲染预览消耗 %s ms', new Date() - start_time);
+  handleBack() {
+    const { history, blob, params } = this.props;
+    let backDir = '';
+    if (blob.loaded) {
+      backDir = params.splat.split(blob.data.name)[0];
+      backDir = backDir !== '' ? 'd/' + backDir : '';
+    }
+    history.pushState(null, '/_posts/' + backDir);
+  }
+
+  handlePenFocus() {
+    event.preventDefault();
+    if (this.codeMirror) {
+      this.codeMirror.focus();
     }
   }
 
-  renderToolbar () {
+  handlePreviewEvent() {
+    this.setState({
+      isPreview: !this.state.isPreview
+    });
+  }
+
+  handleSave() {
+    const { handleSave } = this.props;
+    // 重新组装
+    if (handleSave) {
+      handleSave(this._currentCodemirrorValue);
+    }
+  }
+
+  handleUndo() {
+    event.preventDefault();
+    if (this.codeMirror && !this.state.isPreview) {
+      this.codeMirror.undoSelection();
+    }
+  }
+
+  handleRedo() {
+    event.preventDefault();
+    if (this.codeMirror && !this.state.isPreview) {
+      this.codeMirror.redoSelection();
+    }
+  }
+
+  renderIcon(icon) {
+    return <span className={'edit-icon edit-icon-' + icon} />;
+  }
+
+  renderButton(formatKey, label, action) {
+    const { blob } = this.props;
+    let actionTmp;
+    if (!action) {
+      actionTmp = this.toggleFormat.bind(this, formatKey);
+    } else {
+      actionTmp = action;
+    }
+    const className = classNames('leaf-editor-tool-icon',
+      {
+        'leaf-editor-tool-icon-active': this.state.cs[formatKey],
+        'leaf-editor-tool-icon-disabled': this.state.isPreview || !blob.loaded
+      },
+      ('leaf-editor-tool-icon-' + formatKey));
+    return (
+      <Tooltip title={label} placement="bottom">
+        <button className={className} onClick={actionTmp}>
+          { this.renderIcon(formatKey) }
+        </button>
+      </Tooltip>
+    );
+  }
+
+  renderToolbar() {
     const { blob } = this.props;
     const previewClassName = classNames({
       'edit-icon': true,
@@ -286,40 +327,7 @@ class Editor extends Component {
     );
   }
 
-  handlePenFocus() {
-    event.preventDefault();
-    if (this.codeMirror) {
-      this.codeMirror.focus();
-    }
-  }
-
-  handlePreviewEvent() {
-    this.setState({
-      isPreview: !this.state.isPreview
-    });
-  }
-
-  handleSave() {
-    const { handleSave } = this.props;
-    // 重新组装
-    handleSave && handleSave(this._currentCodemirrorValue);
-  }
-
-  handleUndo() {
-    event.preventDefault();
-    if (this.codeMirror && !this.state.isPreview) {
-      this.codeMirror.undoSelection();
-    }
-  }
-
-  handleRedo() {
-    event.preventDefault();
-    if (this.codeMirror && !this.state.isPreview) {
-      this.codeMirror.redoSelection();
-    }
-  }
-
-  render () {
+  render() {
     const { className, blob } = this.props;
 
     const editorClassName = classNames({
@@ -362,14 +370,15 @@ class Editor extends Component {
             <div className={penClassName}>
               <div className="content" onClick={this.handlePenFocus.bind(this)}>
                 <textarea
-                ref="editor"
-                name={this.props.path}
-                autoComplete="off"/>
+                  ref="editor"
+                  name={this.props.path}
+                  autoComplete="off"
+                />
               </div>
             </div>
             {this.state.isPreview &&
               <div className={viewClassName}>
-                <div className="leaf-editor-github" dangerouslySetInnerHTML={{__html: this.previewMarkup}} />
+                <div className="leaf-editor-github" dangerouslySetInnerHTML={{ __html: this.previewMarkup }} />
               </div>
             }
           </div>

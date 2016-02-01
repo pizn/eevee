@@ -6,9 +6,9 @@ const User = {
   init() {
     const _leafAdmin = storage.get('_leafAdmin');
     const github = new Github({
-       username: _leafAdmin.email,
-       password: _leafAdmin.pass,
-       auth: 'basic'
+      username: _leafAdmin.email,
+      password: _leafAdmin.pass,
+      auth: 'basic',
     });
     this.github = github;
   },
@@ -16,11 +16,11 @@ const User = {
   getInfo() {
     const user = this.github.getUser();
     return new Promise((resolve, reject) => {
-      user.show(null, (err, user) => {
+      user.show(null, (err, userData) => {
         if (err) {
           reject(err);
         } else {
-          resolve(user);
+          resolve(userData);
         }
       });
     });
@@ -29,10 +29,10 @@ const User = {
   checkRepo(username) {
     const user = this.github.getUser();
     var options = {
-       type: 'owner',
-       sort: 'updated',
-       per_page: 1000,
-       page: 1
+      type: 'owner',
+      sort: 'updated',
+      per_page: 1000,
+      page: 1,
     };
     const rule = username + '.github.';
     return new Promise((resolve, reject) => {
@@ -51,13 +51,16 @@ const User = {
           if (status) {
             resolve(result);
           } else {
-            reject({ error: 404, message: 'Not found'});
+            reject({
+              error: 404,
+              message: 'Not found',
+            });
           }
         }
       });
     });
   }
-}
+};
 
 User.init();
 module.exports = User;

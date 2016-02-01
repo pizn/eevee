@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 
-import Modal from 'antd/lib/modal';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Input from 'antd/lib/input';
@@ -14,12 +13,19 @@ import createForm from 'rc-form/lib/createForm';
 
 class loginForm extends Component {
 
+  static propTypes = {
+    onSubmit: PropTypes.func,
+    form: PropTypes.object,
+    auth: PropTypes.object,
+  }
+
   onSubmit(e) {
     e.preventDefault();
-    const { onSubmit } = this.props;
-    this.props.form.validateFields((error, values) => {
+    const { onSubmit, form } = this.props;
+    const { validateFields } = form;
+    validateFields((error, values) => {
       if (!error) {
-        onSubmit(values)
+        onSubmit(values);
       }
     });
   }
@@ -34,17 +40,17 @@ class loginForm extends Component {
         }
         <FormItem
           label=""
-          labelCol={{span: 0}}
-          wrapperCol={{span: 24}}
+          labelCol={{ span: 0 }}
+          wrapperCol={{ span: 24 }}
           validateStatus={ getFieldError('email') ? 'error' : '' }
           required
-          >
+        >
           <Input className="ant-input" type="text" size="large" name="email" autoComplete="off" placeholder="Email"
             {...getFieldProps('email', {
               rules: [{
                 required: true,
                 pattern: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                message: "Please input your GitHub Email",
+                message: 'Please input your GitHub Email',
               }] })}
           />
           <Col span="19">
@@ -53,15 +59,15 @@ class loginForm extends Component {
         </FormItem>
         <FormItem
           label=""
-          labelCol={{span: 0}}
-          wrapperCol={{span: 24}}
+          labelCol={{ span: 0 }}
+          wrapperCol={{ span: 24 }}
           validateStatus={ getFieldError('pass') ? 'error' : '' }
           required
-          >
+        >
           <Input className="ant-input" size="large" type="password" name="pass" placeholder="Password"
             {...getFieldProps('pass', { rules: [{
               required: true,
-              message: "Please input your GitHub password",
+              message: 'Please input your GitHub password',
             }] })}
           />
           <Col span="24">

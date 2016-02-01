@@ -1,4 +1,4 @@
-import { LOAD_USER_INFO, LOAD_USER_INFO_SUCCESS, LOAD_USER_INFO_FAIL, UPDATE_USER_INFO, AUTH_LOGOUT} from '../constants/LeafActionTypes';
+import { LOAD_USER_INFO, LOAD_USER_INFO_SUCCESS, LOAD_USER_INFO_FAIL, UPDATE_USER_INFO, AUTH_LOGOUT } from '../constants/LeafActionTypes';
 
 const initialState = {
   loaded: false,
@@ -39,7 +39,7 @@ export default function user(state = initialState, action) {
       return {
         loaded: false,
         data: {},
-      }
+      };
     default:
       return state;
   }

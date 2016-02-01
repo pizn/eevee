@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import * as actions from '../actions/LeafActions';
 import { connect } from 'react-redux';
 
-import Icon from 'antd/lib/icon';
 import message from 'antd/lib/message';
 
 import Head from '../components/Desktop/Head';
@@ -21,24 +19,30 @@ import ModalAddFile from '../components/Desktop/AddFile';
 
 class Desktop extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      addFile: false
-    }
-  }
-
   static propTypes = {
     dispatch: PropTypes.func,
     children: PropTypes.object,
+    user: PropTypes.object,
+    repoInfo: PropTypes.object,
+    tree: PropTypes.object,
+    history: PropTypes.object,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      addFile: false,
+    };
   }
 
   componentDidMount() {
-    const { dispatch, user, repoInfo, tree } = this.props;
+    const { dispatch, user, repoInfo } = this.props;
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())
       .then(() => {
-        dispatch(actions.loadRepoInfo({username: this.props.user.data.login}))
+        dispatch(actions.loadRepoInfo({
+          username: this.props.user.data.login,
+        }))
         .then(() => {
           const repo = {
             username: this.props.user.data.login,
@@ -50,13 +54,15 @@ class Desktop extends Component {
       });
     } else {
       if (!repoInfo.loaded) {
-        dispatch(actions.loadRepoInfo({username: this.props.user.data.login}))
+        dispatch(actions.loadRepoInfo({
+          username: this.props.user.data.login,
+        }))
         .then(() => {
           const repo = {
             username: this.props.user.data.login,
             reponame: this.props.repoInfo.data.name,
             path: '_posts',
-          }
+          };
           dispatch(actions.readRepoTree(repo));
         });
       } else {
@@ -64,7 +70,7 @@ class Desktop extends Component {
           username: this.props.user.data.login,
           reponame: this.props.repoInfo.data.name,
           path: '_posts',
-        }
+        };
         dispatch(actions.readRepoTree(repo));
       }
     }
@@ -94,30 +100,29 @@ class Desktop extends Component {
       email: user.data.email,
       reponame: repoInfo.data.name,
       path: '_posts/' + file.name,
-      content: content,
-    }
+      content,
+    };
     this.setState({
-      addFile: false
+      addFile: false,
     });
     const msg = message.loading('Saving...', 0);
     dispatch(actions.addRepoBlob(repo))
     .then(() => {
       msg();
-      history.pushState(null, '_posts/f/' + file.name)
+      history.pushState(null, '_posts/f/' + file.name);
     });
-
   }
 
   handleShowAddModal() {
     this.setState({
-      addFile: true
+      addFile: true,
     });
   }
 
   handleHideAddModal() {
     this.setState({
       addFile: false,
-    })
+    });
   }
 
   render() {

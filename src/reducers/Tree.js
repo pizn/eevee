@@ -2,7 +2,7 @@ import { READ_REPO_TREE, READ_REPO_TREE_SUCCESS, READ_REPO_TREE_FAIL, ADD_REPO_B
 
 const initialState = {
   loaded: false,
-  data: []
+  data: [],
 };
 
 export default function tree(state = initialState, action) {
@@ -27,38 +27,38 @@ export default function tree(state = initialState, action) {
         loading: false,
         loaded: false,
         error: action.error,
-      }
+      };
     case ADD_REPO_BLOB:
       return {
         ...state,
         adding: true,
-      }
+      };
     case ADD_REPO_BLOB_SUCCESS:
       return {
         ...state,
         adding: false,
         added: true,
         data: state.data.concat([action.result.content]),
-      }
+      };
     case ADD_REPO_BLOB_FAIL:
       return {
         ...state,
         adding: false,
         added: false,
         error: action.error,
-      }
+      };
     case AUTH_LOGOUT:
       return {
         loaded: false,
         data: [],
-      }
+      };
     case REMOVE_REPO_BLOB:
       return {
         ...state,
         data: state.data.filter(item => {
           return item.path !== action.data.path;
         }),
-      }
+      };
     default:
       return state;
   }

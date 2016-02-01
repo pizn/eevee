@@ -7,10 +7,10 @@ const FORMATS = {
   quote: { type: 'block', token: 'quote', re: /^\>\s+/, before: '>', placeholder: 'quote' },
   oList: { type: 'block', before: '1. ', re: /^\d+\.\s+/, placeholder: 'List' },
   uList: { type: 'block', before: '* ', re: /^[\*\-]\s+/, placeholder: 'List' },
-  link: { type: 'inline', token: 'link', before: '[', after: ']()', placeholder: 'Link'},
-  image: { type: 'inline', token: 'image', before: '![', after: ']()', placeholder: 'Image'},
-  code: { type: 'inline', token: 'code', before: '`', after: '`', placeholder: 'code'},
-  del: { type: 'inline', token: 'strikethrough', before: '~~', after: '~~', placeholder: 'del'},
+  link: { type: 'inline', token: 'link', before: '[', after: ']()', placeholder: 'Link' },
+  image: { type: 'inline', token: 'image', before: '![', after: ']()', placeholder: 'Image' },
+  code: { type: 'inline', token: 'code', before: '`', after: '`', placeholder: 'code' },
+  del: { type: 'inline', token: 'strikethrough', before: '~~', after: '~~', placeholder: 'del' },
 };
 
 const FORMAT_TOKENS = {};
@@ -18,12 +18,13 @@ Object.keys(FORMATS).forEach(key => {
   if (FORMATS[key].token) FORMAT_TOKENS[FORMATS[key].token] = key;
 });
 
-export function getCursorState (cm, pos) {
-  pos = pos || cm.getCursor('start');
+export function getCursorState(cm, pos) {
+  let currentPos;
+  currentPos = pos || cm.getCursor('start');
   var cs = {
     render: false
   };
-  var token = cs.token = cm.getTokenAt(pos);
+  var token = cs.token = cm.getTokenAt(currentPos);
   if (!token.type) return cs;
   var tokens = token.type.split(' ');
   tokens.forEach(t => {
@@ -37,17 +38,18 @@ export function getCursorState (cm, pos) {
         cs.link = true;
         cs.link_label = true;
         cs.render = true;
-      break;
+        break;
       case 'string':
         cs.link = true;
         cs.link_href = true;
         cs.render = true;
-      break;
+        break;
       case 'comment':
         cs.code = true;
         cs.render = true;
+        break;
       case 'variable-2':
-        var text = cm.getLine(pos.line);
+        var text = cm.getLine(currentPos.line);
         if (/^\s*\d+\.\s/.test(text)) {
           cs.oList = true;
           cs.render = true;
@@ -55,25 +57,20 @@ export function getCursorState (cm, pos) {
           cs.uList = true;
           cs.render = true;
         }
-      break;
+        break;
+      default:
+        break;
     }
   });
   return cs;
 }
 
-export function applyFormat (cm, key) {
-  var cs = getCursorState(cm);
-  var format = FORMATS[key];
-  operations[format.type + (cs[key] ? 'Remove' : 'Apply')](cm, format);
-}
-
 var operations = {
-  inlineApply (cm, format) {
+  inlineApply(cm, format) {
     var startPoint = cm.getCursor('start');
     var endPoint = cm.getCursor('end');
     var selection = cm.getSelection();
     cm.replaceSelection(format.before + selection + format.after);
-
     startPoint.ch += format.before.length;
     endPoint.ch += format.after.length;
 
@@ -85,7 +82,7 @@ var operations = {
         // 如果是选中,则聚焦到连接里面
         cm.setSelection(endPoint, cm.getCursor('end') - 1);
       }
-    } else if (format.token === 'image')  {
+    } else if (format.token === 'image') {
       if (selection === '') {
         // 如果是新建,则聚焦到内容里面
         cm.setSelection(startPoint, cm.getCursor('end') - 2);
@@ -99,7 +96,7 @@ var operations = {
 
     cm.focus();
   },
-  inlineRemove (cm, format) {
+  inlineRemove(cm, format) {
     var startPoint = cm.getCursor('start');
     var endPoint = cm.getCursor('end');
     var line = cm.getLine(startPoint.line);
@@ -127,7 +124,7 @@ var operations = {
     cm.setSelection({ line: startPoint.line, ch: start.length }, { line: startPoint.line, ch: (start + mid).length });
     cm.focus();
   },
-  blockApply (cm, format) {
+  blockApply(cm, format) {
     var startPoint = cm.getCursor('start');
     var line = cm.getLine(startPoint.line);
     var text = format.before + ' ' + (line.length ? line : format.placeholder);
@@ -135,7 +132,7 @@ var operations = {
     cm.setSelection({ line: startPoint.line, ch: format.before.length + 1 }, { line: startPoint.line, ch: text.length });
     cm.focus();
   },
-  blockRemove (cm, format) {
+  blockRemove(cm, format) {
     var startPoint = cm.getCursor('start');
     var line = cm.getLine(startPoint.line);
     var text = line.replace(format.re, '');
@@ -144,3 +141,9 @@ var operations = {
     cm.focus();
   }
 };
+
+export function applyFormat(cm, key) {
+  var cs = getCursorState(cm);
+  var format = FORMATS[key];
+  operations[format.type + (cs[key] ? 'Remove' : 'Apply')](cm, format);
+}

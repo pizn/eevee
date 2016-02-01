@@ -9,6 +9,13 @@ import classNames from 'classnames';
 
 class Aside extends Component {
 
+  static propTypes = {
+    logout: PropTypes.func,
+    user: PropTypes.object,
+    repoInfo: PropTypes.object,
+    tree: PropTypes.object,
+  }
+
   logout() {
     const { logout } = this.props;
     logout();
@@ -85,7 +92,7 @@ class Aside extends Component {
           </Row>
         </div>
       </div>
-    )
+    );
   }
 }
 

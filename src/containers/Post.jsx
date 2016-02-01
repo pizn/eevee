@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import * as actions from '../actions/LeafActions';
 import { connect } from 'react-redux';
 
 import yaml from 'js-yaml/lib/js-yaml';
 
 import Modal from 'antd/lib/modal';
-import Icon from 'antd/lib/icon';
 import message from 'antd/lib/message';
 
 import Head from '../components/Post/Head';
@@ -24,6 +22,15 @@ const confirm = Modal.confirm;
 
 class Post extends Component {
 
+  static propTypes = {
+    params: PropTypes.object,
+    dispatch: PropTypes.func,
+    user: PropTypes.object,
+    repoInfo: PropTypes.object,
+    blob: PropTypes.object,
+    history: PropTypes.object,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +38,7 @@ class Post extends Component {
       head: '',
       body: '',
       editMeta: false,
-    }
+    };
   }
 
   componentDidMount() {
@@ -41,37 +48,41 @@ class Post extends Component {
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())
       .then(() => {
-        dispatch(actions.loadRepoInfo({username: this.props.user.data.login}))
+        dispatch(actions.loadRepoInfo({
+          username: this.props.user.data.login,
+        }))
         .then(() => {
           const repo = {
             username: this.props.user.data.login,
             reponame: this.props.repoInfo.data.name,
             path: '_posts/' + params.splat,
-          }
+          };
           dispatch(actions.readRepoBlob(repo)).then(() => {
             that.generateContent();
           });
         });
-      })
+      });
     } else {
       if (!repoInfo.loaded) {
-        dispatch(actions.loadRepoInfo({username: this.props.user.data.login}))
+        dispatch(actions.loadRepoInfo({
+          username: this.props.user.data.login,
+        }))
         .then(() => {
           const repo = {
             username: this.props.user.data.login,
             reponame: this.props.repoInfo.data.name,
             path: '_posts/' + params.splat,
-          }
+          };
           dispatch(actions.readRepoBlob(repo)).then(() => {
             that.generateContent();
-          });;
+          });
         });
       } else {
         const repo = {
           username: this.props.user.data.login,
           reponame: this.props.repoInfo.data.name,
           path: '_posts/' + params.splat,
-        }
+        };
         dispatch(actions.readRepoBlob(repo)).then(() => {
           that.generateContent();
         });
@@ -120,7 +131,7 @@ class Post extends Component {
       reponame: repoInfo.data.name,
       path: '_posts/' + params.splat,
       content: cnt,
-    }
+    };
 
     const msg = message.loading('Saving...', 0);
     dispatch(actions.updateRepoBlob(repo))
@@ -129,10 +140,10 @@ class Post extends Component {
     });
   }
 
-  handleFocusChange(focused) {
+  handleFocusChange() {
   }
 
-  handleUpdateCode(value) {
+  handleUpdateCode() {
   }
 
   handleRemove() {
@@ -141,16 +152,16 @@ class Post extends Component {
     confirm({
       title: 'Remove this post',
       content: 'The file "' + params.splat + '" will be remove forever.',
-      onOk: function() {
+      onOk: () => {
         that.handleRemoveReques();
       },
-      onCancel: function() {}
+      onCancel: () => {}
     });
   }
 
   handleRemoveReques() {
     const { dispatch, user, params, repoInfo, history, blob } = this.props;
-    let backDir
+    let backDir;
     if (blob.loaded) {
       backDir = params.splat.split(blob.data.name)[0];
       backDir = backDir !== '' ? 'd/' + backDir : '';
@@ -160,13 +171,13 @@ class Post extends Component {
       username: user.data.login,
       reponame: repoInfo.data.name,
       path: '_posts/' + params.splat
-    }
+    };
     const msg = message.loading('Removing...', 0);
 
     dispatch(actions.removeRepoBlob(repo))
     .then(() => {
       msg();
-      //message.success('删除成功');
+      // message.success('删除成功');
     })
     .then(() => {
       history.pushState(null, '_posts/' + backDir);
@@ -196,14 +207,14 @@ class Post extends Component {
     if (str.slice(0, 3) !== '---') {
       return;
     }
-    var matcher = /\n(\.{3}|-{3})\n/g;
-    var metaEnd = matcher.exec(str);
+    const matcher = /\n(\.{3}|-{3})\n/g;
+    const metaEnd = matcher.exec(str);
     return metaEnd && [str.slice(0, metaEnd.index), str.slice(matcher.lastIndex)];
   }
 
   metaMarked(src) {
     const mySplitInput = this.splitInput(src);
-    return mySplitInput ?  {
+    return mySplitInput ? {
       meta: yaml.safeLoad(mySplitInput[0]),
       head: mySplitInput[0],
       body: mySplitInput[1]

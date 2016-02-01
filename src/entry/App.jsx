@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Router, Route, IndexRoute, Redirect } from 'react-router';
+import { Router, Route, Redirect } from 'react-router';
 import createHistory from 'history/lib/createHashHistory';
 
 import configureStore from '../stores';

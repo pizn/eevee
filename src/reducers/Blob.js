@@ -3,7 +3,7 @@ import assign from 'object-assign';
 
 const initialState = {
   loaded: false,
-  data: {}
+  data: {},
 };
 
 export default function blob(state = initialState, action) {
@@ -28,14 +28,14 @@ export default function blob(state = initialState, action) {
         loading: false,
         loaded: false,
         error: action.error,
-      }
+      };
     case CLEAR_REPO_BLOB:
       return {
         loaded: false,
         data: {},
         loading: false,
         error: action.error,
-      }
+      };
     case UPDATE_REPO_BLOB:
       return {
         ...state,
@@ -43,42 +43,42 @@ export default function blob(state = initialState, action) {
           content: action.data.content,
         }),
         updating: true,
-      }
+      };
     case UPDATE_REPO_BLOB_SUCCESS:
       return {
         ...state,
         updating: false,
         updated: true,
-      }
+      };
     case UPDATE_REPO_BLOB_FAIL:
       return {
         ...state,
         updating: false,
         updated: false,
-      }
+      };
     case REMOVE_REPO_BLOB:
       return {
         ...state,
         removing: true,
-      }
+      };
     case REMOVE_REPO_BLOB_SUCCESS:
       return {
         ...state,
         removing: false,
         removed: true,
         data: {},
-      }
+      };
     case REMOVE_REPO_BLOB_FAIL:
       return {
         ...state,
         removing: false,
         removed: false,
-      }
+      };
     case ADD_REPO_BLOB:
       return {
         ...state,
         adding: true,
-      }
+      };
     case ADD_REPO_BLOB_SUCCESS:
       return {
         ...state,
@@ -86,19 +86,19 @@ export default function blob(state = initialState, action) {
         added: true,
         data: action.result.content,
         error: action.error,
-      }
+      };
     case ADD_REPO_BLOB_FAIL:
       return {
         ...state,
         adding: false,
         added: false,
         error: action.error
-      }
+      };
     case AUTH_LOGOUT:
       return {
         loaded: false,
         data: {},
-      }
+      };
     default:
       return state;
   }

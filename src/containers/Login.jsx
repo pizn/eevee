@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import * as actions from '../actions/LeafActions';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Button from 'antd/lib/button';
 import Icon from 'antd/lib/icon';
 
-import userAPI from '../services/user';
 import LoginForm from '../components/Login/LoginForm';
 
 @connect(state => ({
@@ -21,6 +19,8 @@ class Login extends Component {
     dispatch: PropTypes.func,
     auth: PropTypes.object,
     history: PropTypes.object,
+    user: PropTypes.object,
+    repoInfo: PropTypes.object,
   }
 
   constructor(props) {
@@ -43,7 +43,9 @@ class Login extends Component {
         dispatch(actions.updateUserInfo(auth.user));
         const { user } = this.props;
         if (user.loaded) {
-          dispatch(actions.loadRepoInfo({username: user.data.login}))
+          dispatch(actions.loadRepoInfo({
+            username: user.data.login,
+          }))
           .then(() => {
             if (this.props.repoInfo.loaded) {
               dispatch(actions.loginDone());
@@ -105,7 +107,7 @@ class Login extends Component {
                 <p>Hi, 你还没创建 <code>{user.data.login}.github.io</code> 的项目, 请移步 <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> 创建.</p>
               </div>
               <div className="leaf-login-contain-foot">
-                <Button type="ghost" size="large" style={{'width': '100%'}} onClick={this.logout.bind(this)}>登 出 <Icon type="github" /></Button>
+                <Button type="ghost" size="large" style={{ 'width': '100%' }} onClick={this.logout.bind(this)}>登 出 <Icon type="github" /></Button>
               </div>
             </div>
           }
@@ -113,7 +115,6 @@ class Login extends Component {
             <p>Write with <span className="love">Love</span> in <a href="https://github.com/pizn/eevee" target="_blank">Eevee</a>.</p>
           </div>
         </div>
-
       </div>
     );
   }

@@ -11,6 +11,9 @@ class Head extends Component {
 
   static propTypes = {
     logout: PropTypes.func,
+    addFile: PropTypes.func,
+    repoInfo: PropTypes.object,
+    params: PropTypes.object,
   }
 
   render() {
@@ -22,7 +25,7 @@ class Head extends Component {
         const data = {
           name: item,
           path: crumbData.slice(0, index + 1).join('/'),
-        }
+        };
         return (
           <span key={index}>
             { index === crumbData.length - 1 &&
@@ -66,7 +69,6 @@ class Head extends Component {
       </div>
     );
   }
-
 }
 
 export default Head;

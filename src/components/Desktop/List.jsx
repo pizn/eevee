@@ -1,22 +1,24 @@
 import React, { Component, PropTypes } from 'react';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
 import Icon from 'antd/lib/icon';
 
 import classNames from 'classnames';
 import { Link } from 'react-router';
 
 class List extends Component {
+
+  static propTypes = {
+    tree: PropTypes.object,
+  }
+
   render() {
     const { tree } = this.props;
     let files;
     if (tree.loaded) {
-
       files = (
         tree.data.map(item => {
           let fileName = item.name.split(/^((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])-/);
           fileName = fileName[4] || item.name;
-          let filePath = item.path.split('_posts/')[1];
+          const filePath = item.path.split('_posts/')[1];
           const fileCls = classNames({
             'file': true,
             'file-f': item.type === 'file',
@@ -42,7 +44,7 @@ class List extends Component {
                 </Link>
               }
             </li>
-          )
+          );
         })
       );
     }
