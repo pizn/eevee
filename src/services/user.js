@@ -1,5 +1,5 @@
 import storage from '../utils/localStorage';
-import Github from 'github-api/dist/github';
+import Github from 'github-api/dist/github.min';
 
 const User = {
 
