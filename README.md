@@ -4,6 +4,8 @@
 
 基于 Github Pages 的在线编辑平台，让你更加专注于内容的编写.
 
+<img src="./images/eevee.jpg" />
+
 ### 初衷
 
 像黑客一样写博客太麻烦了 -- 需要在你的编辑器（Vim/Mou...）打开项目,然后编辑一篇 markdown 文章,写完之后还要 add/commit/push 等动作.为何不能简单些呢?我只关注于内容不是更好么?于是就有了这样的一个想法,需要有一个工具,让我可以在任何地方,任何时候,想写就写.这个工具,它就是 `伊布`.为喜欢在 GitHub 上分享文章的人精心打造.
@@ -44,7 +46,32 @@
 - [ ] 管理图片等静态文件功能
 - [ ] 编辑配置
 
-### license
+## Author
 
-Licensed under MIT.
+#### PIZn
 
+* https://github.com/pizn
+* https://twitter.com/piznlin
+* http://www.pizn.net
+
+#### Donate
+
+如果你认为我做的这些对你来说是有价值的, 并鼓励我进行更多开源和免费的开发. 那你可以资助我, 就算是一杯咖啡...If you find my work useful and you want to encourage the development of more free resources, you can do it by donating.
+
+PIZn 的支付宝二维码:
+
+<img src='./images/alipay_qr.jpg' width=128 height=128 />
+
+PIZn 的微信支付二维码:
+
+<img src='./images/weixin-qr.jpg' width=128 height=128 />
+
+## License
+
+Copyright (c) 2016 PIZn.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
