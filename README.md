@@ -24,7 +24,7 @@
 ### 演示及 Jekyll 主题结合
 
 * 直接访问 [Eevee Online](http://pizn.github.io/eevee), 用 GitHub 账号登录, 可以编辑你的 `username.github.io` 上 `_posts` 目录下的文章
-* Fork 我的 Jekyll 主题 -- [leafeon](http://pizn.github.com/leafeon) 到你的 `username.github.io` 上, 即可完成编辑
+* Fork 我的 Jekyll 主题 -- [leafeon](http://github.com/pizn/leafeon) 到你的 `username.github.io` 上, 即可完成编辑
 
 ### 如何使用
 
