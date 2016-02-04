@@ -2,6 +2,7 @@ import _ from "lodash";
 import webpack from "webpack";
 import strategies from "./strategies";
 import yargs from "yargs";
+import pkg from '../package.json';
 
 const argv = yargs
   .alias("p", "optimize-minimize")
@@ -39,7 +40,7 @@ export default (options) => {
       app: './src/entry/App.jsx'
     },
     output: {
-      path: "./build/public",
+      path: "./public/" + pkg.version,
       filename: "[name].js",
       chunkFilename: chunkFilename,
       publicPath: options.publicPath,

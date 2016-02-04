@@ -22,7 +22,7 @@ module.exports = function(app, config) {
   app.use(errorHandler());
 
   if (config.app.env === "production") {
-    app.use(serve(path.join(config.app.root, "build", "public"), SERVE_OPTIONS, STATIC_FILES_MAP));
+    app.use(serve(path.join(config.app.root, "public"), SERVE_OPTIONS, STATIC_FILES_MAP));
   } else {
     app.use(require("koa-proxy")({
       host: "http://localhost:2992",
