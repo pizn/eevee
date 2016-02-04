@@ -194,7 +194,17 @@ class Post extends Component {
     this.setState({
       editMeta: false,
     });
-    this.handleSaveMeta(data.meta);
+    let tmpData = '---\n' +
+      'layout: ' + data.layout + '\n' +
+      'title: ' + data.title + '\n' +
+      'description: ' + data.description + '\n';
+    if (data.categories) {
+      tmpData += 'categories: ' + data.categories + '\n';
+    }
+    if (data.tags) {
+      tmpData += 'tags: ' + data.tags + '\n';
+    }
+    this.handleSaveMeta(tmpData);
   }
 
   handleEditMetaCancel() {
@@ -264,7 +274,7 @@ class Post extends Component {
             handleSave={this.handleSaveCnt.bind(this)}
           />
           <MetaForm
-            metaData={this.state.head}
+            metaData={this.state.meta}
             modalVisible={this.state.editMeta}
             modalHandleOk={this.handleEditMetaSubmit.bind(this)}
             modalHandleCancel={this.handleEditMetaCancel.bind(this)}

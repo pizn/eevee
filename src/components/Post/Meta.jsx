@@ -13,7 +13,7 @@ class MetaForm extends Component {
     modalVisible: PropTypes.bool,
     modalHandleOk: PropTypes.func,
     modalHandleCancel: PropTypes.func,
-    metaData: PropTypes.string,
+    metaData: PropTypes.object,
     form: PropTypes.object,
   }
 
@@ -45,23 +45,107 @@ class MetaForm extends Component {
         ]}
       >
         <Form horizontal>
-          <FormItem
-            wrapperCol={{ span: 24 }}
-            validateStatus={getFieldError('meta') ? 'error' : 'success'}
-          >
-            <Input type="textarea" name="meta" rows="8" autoComplete="off"
-              {...getFieldProps('meta', {
-                initialValue: metaData,
+            <FormItem
+              label="Title："
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 14 }}
+              validateStatus={getFieldError('title') ? 'error' : 'success'}
+            >
+            <Input type="text" name="title" autoComplete="off" placeholder="title"
+              {...getFieldProps('title', {
+                initialValue: metaData.title,
                 rules: [{
                   type: 'string',
                   required: true,
-                  message: 'Please input the meta info',
+                  message: 'Please input the title',
                 },
                 ] })
               }
             />
             <Col span="24">
-              <p className="ant-form-explain">{getFieldError('meta') ? getFieldError('meta').join('') : ''}</p>
+              <p className="ant-form-explain">{getFieldError('title') ? getFieldError('title').join('') : ''}</p>
+            </Col>
+          </FormItem>
+            <FormItem
+              label="Layout："
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 14 }}
+              validateStatus={getFieldError('layout') ? 'error' : 'success'}
+            >
+            <Input type="text" name="layout" autoComplete="off" placeholder="post"
+              {...getFieldProps('layout', {
+                initialValue: metaData.layout,
+                rules: [{
+                  type: 'string',
+                  required: true,
+                  message: 'Please input the layout',
+                },
+                ] })
+              }
+            />
+            <Col span="24">
+              <p className="ant-form-explain">{getFieldError('layout') ? getFieldError('layout').join('') : ''}</p>
+            </Col>
+          </FormItem>
+            <FormItem
+              label="Description："
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 14 }}
+              validateStatus={getFieldError('description') ? 'error' : 'success'}
+            >
+            <Input type="textarea" name="description" autoComplete="off" rows="3"
+              {...getFieldProps('description', {
+                initialValue: metaData.description,
+                rules: [{
+                  type: 'string',
+                  required: true,
+                  message: 'Please input the description',
+                },
+                ] })
+              }
+            />
+            <Col span="24">
+              <p className="ant-form-explain">{getFieldError('description') ? getFieldError('description').join('') : ''}</p>
+            </Col>
+          </FormItem>
+          <FormItem
+            label="Categories："
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 14 }}
+            validateStatus={getFieldError('categories') ? 'error' : 'success'}
+          >
+            <Input type="textarea" name="categories" autoComplete="off" rows="2"
+              {...getFieldProps('categories', {
+                initialValue: metaData.categories,
+                rules: [{
+                  type: 'string',
+                  message: 'Please input the categories',
+                },
+                ] })
+              }
+            />
+            <Col span="24">
+              <p className="ant-form-explain">{getFieldError('categories') ? getFieldError('categories').join('') : ''}</p>
+            </Col>
+          </FormItem>
+          <FormItem
+            label="Tags："
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 14 }}
+            validateStatus={getFieldError('tags') ? 'error' : 'success'}
+          >
+            <Input type="textarea" name="tags" autoComplete="off" rows="2"
+              {...getFieldProps('tags', {
+                initialValue: metaData.tags,
+                rules: [{
+                  type: 'string',
+                  message: 'Please input the tags',
+                },
+                ] })
+              }
+            />
+            <Col span="24">
+              <p className="ant-form-explain">{getFieldError('tags') ? getFieldError('tags').join('') : ''}</p>
             </Col>
           </FormItem>
         </Form>
