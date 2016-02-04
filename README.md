@@ -1,6 +1,10 @@
-# Eevee - 伊布 [![Build Status](https://travis-ci.org/pizn/eevee.svg?branch=master)](https://travis-ci.org/pizn/eevee)
+<p align="center">
+  <a href="http://ant.design">
+    <img width="320" src="https://t.alipayobjects.com/images/rmsweb/T11DdkXc8hXXXXXXXX.png">
+  </a>
+</p>
 
-<img src="https://t.alipayobjects.com/images/rmsweb/T11DdkXc8hXXXXXXXX.png" align="center" />
+# Eevee - 伊布 [![Build Status](https://travis-ci.org/pizn/eevee.svg?branch=master)](https://travis-ci.org/pizn/eevee)
 
 <p align="center" >基于 Github Pages 的在线编辑平台，让你更加专注于内容的编写.</p>
 
@@ -16,6 +20,10 @@
 
 * GitHub 账号（只在浏览器中记录）
 * 基于 Jekyll 创建好的 Pages 项目, 文章存放在 `_posts` 目录下
+
+### DEMO
+
+可以访问 [Eevee](http://pizn.github.io/eevee)
 
 ### 如何使用
 
