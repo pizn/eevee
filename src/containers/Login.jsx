@@ -31,6 +31,10 @@ class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    document.title = 'Connect | Eevee';
+  }
+
   handleSubmit(data) {
     const { dispatch, history } = this.props;
     const that = this;

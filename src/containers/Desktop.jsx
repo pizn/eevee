@@ -37,6 +37,7 @@ class Desktop extends Component {
 
   componentDidMount() {
     const { dispatch, user, repoInfo } = this.props;
+    document.title = 'Desktop | Eevee';
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())
       .then(() => {

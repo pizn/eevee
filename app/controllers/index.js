@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === "production") {
 
 exports.index = function *() {
   this.body = yield this.render("basic", {
-    title: "Hello Leaf!",
+    title: "Eevee",
     STYLE_URL: STYLE_URL,
     SCRIPT_URL: SCRIPT_URL_APP,
   });

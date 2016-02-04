@@ -44,6 +44,8 @@ class Post extends Component {
   componentDidMount() {
     const { params, dispatch, user, repoInfo } = this.props;
 
+    document.title = 'Edit post | Eevee';
+
     const that = this;
     if (!user.loaded) {
       dispatch(actions.updateUserInfo())

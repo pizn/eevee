@@ -37,6 +37,7 @@ class Dir extends Component {
   }
 
   componentDidMount() {
+    document.title = 'Directory | Eevee';
     this.getData();
   }
 

@@ -34,7 +34,7 @@ class MetaForm extends Component {
     return (
       <Modal ref="modal"
         visible={modalVisible}
-        title="Edit"
+        title="Edit post meta"
         onOk={modalHandleOk}
         onCancel={modalHandleCancel}
         footer={[
