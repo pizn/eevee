@@ -1,10 +1,8 @@
 # Eevee - 伊布 [![Build Status](https://travis-ci.org/pizn/eevee.svg?branch=master)](https://travis-ci.org/pizn/eevee)
 
-<p style="text-align:center">
-<img src="https://t.alipayobjects.com/images/rmsweb/T11DdkXc8hXXXXXXXX.png" />
-</p>
+<img src="https://t.alipayobjects.com/images/rmsweb/T11DdkXc8hXXXXXXXX.png" align="center" />
 
-<p style="text-align:center">基于 Github Pages 的在线编辑平台，让你更加专注于内容的编写.</p>
+<p align="center" >基于 Github Pages 的在线编辑平台，让你更加专注于内容的编写.</p>
 
 <img src="./images/eevee.jpg" />
 
