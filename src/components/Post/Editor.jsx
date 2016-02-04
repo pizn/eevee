@@ -383,7 +383,7 @@ class Editor extends Component {
             }
           </div>
           <div className="leaf-editor-footer clearfix">
-            <p>Write with <span className="love">Love</span> in <a href="https://github.com/pizn/eevee" target="_blank">Eevee</a>.</p>
+            <p>Build with <span className="love">Love</span> in <a href="https://github.com/pizn/eevee" target="_blank">Eevee</a>.</p>
           </div>
         </div>
       </div>

@@ -37,7 +37,7 @@ class CreateFileForm extends Component {
     return (
       <Modal ref="modal"
         visible={modalVisible}
-        title="Add"
+        title="Create a post"
         onOk={modalHandleOk}
         onCancel={modalHandleCancel}
         footer={[

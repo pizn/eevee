@@ -87,6 +87,11 @@ class Login extends Component {
               <div className="leaf-login-contain-head">
                 <div className={logoCls}></div>
               </div>
+              <div className="leaf-login-link">
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
+              </div>
               <div className="leaf-login-contain-form">
                 <LoginForm
                   onSubmit={this.handleSubmit.bind(this)}
@@ -104,15 +109,16 @@ class Login extends Component {
                 </div>
               </div>
               <div className="leaf-login-contain-contain">
-                <p>Hi, 你还没创建 <code>{user.data.login}.github.io</code> 的项目, 请移步 <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> 创建.</p>
+                <p>Hi, <strong>{user.data.name || user.data.login}</strong>,</p>
+                <p>You may have the repo <code>{user.data.login}.github.io</code> in your GitHub. Get the guide form <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.</p>
               </div>
               <div className="leaf-login-contain-foot">
-                <Button type="ghost" size="large" style={{ 'width': '100%' }} onClick={this.logout.bind(this)}>登 出 <Icon type="github" /></Button>
+                <Button type="ghost" size="large" style={{ 'width': '100%' }} onClick={this.logout.bind(this)}>Disconnect <Icon type="github" /></Button>
               </div>
             </div>
           }
           <div className="leaf-login-foot">
-            <p>Write with <span className="love">Love</span> in <a href="https://github.com/pizn/eevee" target="_blank">Eevee</a>.</p>
+            <p>Build with <span className="love">Love</span> in <a href="https://github.com/pizn/eevee" target="_blank">Eevee</a>.</p>
           </div>
         </div>
       </div>

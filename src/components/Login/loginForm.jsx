@@ -77,7 +77,7 @@ class loginForm extends Component {
         <Row>
           <Col span="24">
             <Button type="primary" size="large" htmlType="submit" onClick={this.onSubmit.bind(this)}>
-              Login <Icon type="github" />
+              Connect to GitHub <Icon type="github" />
             </Button>
           </Col>
         </Row>

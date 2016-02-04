@@ -82,13 +82,13 @@ class Aside extends Component {
             </Col>
             <ul className="foot-user-actions">
               <li className="item">
-                <a onClick={this.logout.bind(this)} ><Icon type="poweroff" />Logout</a>
+                <a onClick={this.logout.bind(this)} ><Icon type="poweroff" />Disconnect</a>
               </li>
             </ul>
           </Row>
           }
           <Row className="foot-copyright">
-            <p>Write with <span className="love">Love</span> in <a href="https://github.com/pizn/eevee" target="_blank">Eevee</a>.</p>
+            <p>Build with <span className="love">Love</span> in <a href="https://github.com/pizn/eevee" target="_blank">Eevee</a>.</p>
           </Row>
         </div>
       </div>
